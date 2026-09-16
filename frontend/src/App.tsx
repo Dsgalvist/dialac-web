@@ -1,54 +1,60 @@
-import { useEffect, useState } from "react";
-import { getApiHealth } from "./services/api";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./components/layout/Layout";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import PlaceholderPage from "./pages/PlaceholderPage";
 
 function App() {
-  const [connectionStatus, setConnectionStatus] =
-    useState("Conectando con Python...");
-
-  const [isConnected, setIsConnected] = useState(false);
-
-  useEffect(() => {
-    getApiHealth()
-      .then((data) => {
-        if (data.status === "ok") {
-          setConnectionStatus("Backend conectado");
-          setIsConnected(true);
-        }
-      })
-      .catch(() => {
-        setConnectionStatus("No fue posible conectar con el backend");
-        setIsConnected(false);
-      });
-  }, []);
-
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-950">
-      <div className="text-center">
-        <h1 className="text-6xl font-bold tracking-tight text-white">
-          DIALAC
-        </h1>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
 
-        <p className="mt-4 text-xl text-slate-300">
-          Catálogo y solicitud de productos
-        </p>
+          <Route path="/nosotros" element={<AboutPage />} />
 
-        <div
-          className={`mt-8 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold ${
-            isConnected
-              ? "bg-green-500/15 text-green-400"
-              : "bg-yellow-500/15 text-yellow-400"
-          }`}
-        >
-          <span
-            className={`h-2.5 w-2.5 rounded-full ${
-              isConnected ? "bg-green-400" : "bg-yellow-400"
-            }`}
+          <Route
+            path="/productos"
+            element={
+              <PlaceholderPage
+                title="Productos"
+                description="Explora el catálogo y agrega productos a tu solicitud."
+              />
+            }
           />
 
-          {connectionStatus}
-        </div>
-      </div>
-    </main>
+          <Route
+            path="/servicios"
+            element={
+              <PlaceholderPage
+                title="Servicios"
+                description="Conoce los servicios y soluciones personalizadas que ofrece DIALAC."
+              />
+            }
+          />
+
+          <Route
+            path="/contacto"
+            element={
+              <PlaceholderPage
+                title="Contacto"
+                description="Comunícate con DIALAC y resuelve tus inquietudes."
+              />
+            }
+          />
+
+          <Route
+            path="/solicitud"
+            element={
+              <PlaceholderPage
+                title="Mi solicitud"
+                description="Revisa tus productos y genera el pedido en PDF."
+              />
+            }
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

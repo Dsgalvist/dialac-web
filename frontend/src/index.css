@@ -1,1 +1,61 @@
 @import "tailwindcss";
+
+@theme {
+  --font-display: "Montserrat", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --color-dialac-cream: #fff8ee;
+  --color-dialac-charcoal: #26282a;
+  --color-dialac-brown: #8b4e2f;
+  --color-dialac-brown-dark: #713c24;
+  --color-dialac-green: #4e5c32;
+  --color-dialac-green-dark: #3d4827;
+  --color-dialac-surface: #ffffff;
+  --color-dialac-border: #c9b9a7;
+  --color-dialac-error: #a51d1d;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--color-dialac-cream);
+    color: var(--color-dialac-charcoal);
+    font-family: var(--font-body);
+    line-height: 1.5;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-dialac-brown);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background-color: var(--color-dialac-green);
+    color: #ffffff;
+  }
+}

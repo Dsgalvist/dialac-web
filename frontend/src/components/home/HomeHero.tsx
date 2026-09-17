@@ -416,7 +416,10 @@ function HomeHero() {
         className="mx-auto mt-14 hidden w-fit flex-col items-center gap-2 text-dialac-charcoal lg:flex"
         initial={reduceMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.3, duration: 0.5 }}
+        transition={{
+          delay: 1.3,
+          duration: 0.5,
+        }}
       >
         <span className="text-xs font-semibold uppercase tracking-[0.18em]">
           Descubre más

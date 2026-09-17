@@ -21,7 +21,7 @@ function Footer() {
             className="inline-block rounded-lg bg-white p-2"
           >
             <img
-              src="/images/LOGO/LOGO.jpg"
+              src="/images/LOGO/logotransparente.png"
               alt="DIALAC - Cuídate, aliméntate y disfruta"
               className="h-16 w-40 object-contain"
             />

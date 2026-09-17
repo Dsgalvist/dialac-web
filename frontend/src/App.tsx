@@ -3,6 +3,7 @@ import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import PlaceholderPage from "./pages/PlaceholderPage";
+import ContactPage from "./pages/ContactPage";
 
 function App() {
   return (
@@ -33,15 +34,7 @@ function App() {
             }
           />
 
-          <Route
-            path="/contacto"
-            element={
-              <PlaceholderPage
-                title="Contacto"
-                description="Comunícate con DIALAC y resuelve tus inquietudes."
-              />
-            }
-          />
+          <Route path="/contacto" element={<ContactPage />} />
 
           <Route
             path="/solicitud"

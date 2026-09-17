@@ -35,7 +35,7 @@ function Navbar() {
       >
         <NavLink to="/" aria-label="Ir al inicio de DIALAC">
           <img
-            src="/images/LOGO/LOGO.jpg"
+            src="/images/LOGO/logotransparente.png"
             alt="DIALAC - Cuídate, aliméntate y disfruta"
             className="h-14 w-36 object-contain"
           />

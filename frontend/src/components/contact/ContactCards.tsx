@@ -10,6 +10,23 @@ const linkStyles =
   "mt-2 text-sm leading-5 text-dialac-charcoal transition hover:text-dialac-brown xl:mt-3 xl:text-base";
 
 function ContactCards() {
+  const emailSubject = "Solicitud de información desde el sitio web - DIALAC";
+
+  const emailBody = `Hola, equipo de DIALAC:
+
+Me comunico desde su sitio web y quisiera recibir información sobre sus productos y servicios.
+
+Nombre:
+Número de contacto:
+Producto o servicio de interés:
+Mensaje:
+
+Gracias.`;
+
+  const emailUrl = `mailto:Acosdie@gmail.com?subject=${encodeURIComponent(
+    emailSubject,
+  )}&body=${encodeURIComponent(emailBody)}`;
+
   const handleWhatsApp = () => {
     contactWhatsApp(
       "Hola, me comunico desde la página web de DIALAC y me gustaría recibir información sobre sus productos y servicios.",
@@ -71,10 +88,7 @@ function ContactCards() {
           Correo
         </h2>
 
-        <a
-          href="mailto:Acosdie@gmail.com?subject=Solicitud%20de%20información%20-%20DIALAC"
-          className={`${linkStyles} break-all`}
-        >
+        <a href={emailUrl} className={`${linkStyles} break-all`}>
           Acosdie@gmail.com
         </a>
       </article>

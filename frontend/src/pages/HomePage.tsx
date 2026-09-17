@@ -10,9 +10,9 @@ function HomePage() {
     <>
       <HomeHero />
       <HomeAbout />
-      <HomeWhyUs />
       <HomeCategories />
       <HomeProcess />
+      <HomeWhyUs />
       <HomeCta />
     </>
   );

@@ -21,8 +21,9 @@ function BusinessHours() {
           </h2>
 
           <p className="mt-3 max-w-2xl leading-7 text-dialac-charcoal">
-            Comunícate con nuestro equipo dentro de los siguientes horarios de
-            atención.
+            Puedes realizar tu solicitud en cualquier momento desde nuestra
+            página web. Nuestro equipo la revisará y se comunicará contigo
+            dentro de los siguientes horarios de atención.
           </p>
 
           <dl className="mt-8 divide-y divide-dialac-border">
@@ -70,15 +71,21 @@ function BusinessHours() {
             </h3>
 
             <p className="mt-4 leading-7 text-white">
-              Todos los pedidos deben realizarse con un mínimo de{" "}
-              <strong>3 días de anticipación</strong> a la fecha en la que se
-              requieren.
+              Puedes enviar tu solicitud a cualquier hora, todos los días.
+              Nuestro equipo se comunicará contigo dentro del horario de
+              atención para confirmar los detalles.
             </p>
 
-            <p className="mt-4 text-sm leading-6 text-white">
-              Esto nos permite preparar cada pedido con la calidad y dedicación
-              que caracteriza a DIALAC.
-            </p>
+            <div className="mt-6 rounded-xl border border-white/40 bg-white p-5 text-dialac-charcoal">
+              <p className="font-display font-bold text-dialac-charcoal">
+                Mínimo 3 días de anticipación
+              </p>
+
+              <p className="mt-2 text-sm leading-6 text-dialac-charcoal">
+                El pedido debe solicitarse al menos 3 días antes de la fecha en
+                la que se requiere.
+              </p>
+            </div>
           </div>
         </aside>
       </div>

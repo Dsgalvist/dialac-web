@@ -2,10 +2,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
-import PlaceholderPage from "./pages/PlaceholderPage";
 import ContactPage from "./pages/ContactPage";
 import ServicesPage from "./pages/ServicesPage";
 import ProductsPage from "./pages/ProductsPage";
+import CartPage from "./pages/CartPage";
 
 function App() {
   return (
@@ -22,15 +22,7 @@ function App() {
 
           <Route path="/contacto" element={<ContactPage />} />
 
-          <Route
-            path="/solicitud"
-            element={
-              <PlaceholderPage
-                title="Mi solicitud"
-                description="Revisa tus productos y genera el pedido en PDF."
-              />
-            }
-          />
+          <Route path="/solicitud" element={<CartPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

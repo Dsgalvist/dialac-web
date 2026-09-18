@@ -47,6 +47,7 @@ function ProductsPage() {
       name: product.name,
       price: product.price,
       image: product.image || undefined,
+      code: product.code,
     });
 
     setAddedProductName(product.name);
@@ -61,22 +62,63 @@ function ProductsPage() {
   };
 
   return (
-    <main className="overflow-hidden bg-white">
-      <ProductFilters
-        searchTerm={searchTerm}
-        activeCategory={activeCategory}
-        activeBrand={activeBrand}
-        onSearchChange={setSearchTerm}
-        onCategoryChange={handleCategoryChange}
-        onBrandChange={setActiveBrand}
-      />
+    <main className="min-h-screen overflow-x-clip bg-[#f7f5f1]">
+      {/* PRODUCTOS: ENCABEZADO, FILTROS Y CATÁLOGO */}
+      <section className="relative px-3 py-10 sm:px-8 sm:py-14 lg:py-16">
+        {/* DECORACIÓN */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-24 -top-20 h-72 w-72 rounded-full border-[48px] border-dialac-brown/5"
+        />
 
-      <ProductsCatalog
-        searchTerm={searchTerm}
-        activeCategory={activeCategory}
-        activeBrand={activeBrand}
-        onAddToCart={handleAddToCart}
-      />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-28 bottom-24 h-72 w-72 rounded-[40%_60%_35%_65%] bg-dialac-green/5"
+        />
+
+        <div className="relative mx-auto max-w-[1480px]">
+          {/* ENCABEZADO INTEGRADO */}
+          <header className="mb-10 max-w-3xl sm:mb-12">
+            <div className="flex items-center gap-3">
+              <span
+                aria-hidden="true"
+                className="h-3 w-3 rounded-full bg-dialac-brown"
+              />
+
+              <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-dialac-brown-dark">
+                Productos DIALAC
+              </p>
+            </div>
+
+            <h1 className="mt-4 font-display text-4xl font-bold leading-tight text-dialac-charcoal sm:text-5xl">
+              Encuentra lo que necesitas
+            </h1>
+
+            <p className="mt-4 max-w-2xl text-base leading-7 text-dialac-charcoal sm:text-lg">
+              Explora nuestros productos por categoría y marca, y agrega al
+              carrito las opciones que prefieras.
+            </p>
+          </header>
+
+          {/* FILTROS Y CATÁLOGO */}
+          <div className="grid gap-6 lg:grid-cols-[270px_minmax(0,1fr)] xl:gap-8">
+            <ProductFilters
+              activeCategory={activeCategory}
+              activeBrand={activeBrand}
+              onCategoryChange={handleCategoryChange}
+              onBrandChange={setActiveBrand}
+            />
+
+            <ProductsCatalog
+              searchTerm={searchTerm}
+              activeCategory={activeCategory}
+              activeBrand={activeBrand}
+              onSearchChange={setSearchTerm}
+              onAddToCart={handleAddToCart}
+            />
+          </div>
+        </div>
+      </section>
 
       {/* CONFIRMACIÓN AL AGREGAR UN PRODUCTO */}
       <div

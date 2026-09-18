@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { Product } from "../../data/products";
+import { useCart } from "../../hooks/useCart";
 
 type ProductCardProps = {
   product: Product;
@@ -40,12 +41,13 @@ const brandStyles: Record<
   },
 };
 
-function ProductCard({
-  product,
-  onAddToCart,
-}: ProductCardProps) {
+function ProductCard({ product, onAddToCart }: ProductCardProps) {
   const reduceMotion = useReducedMotion();
   const [imageError, setImageError] = useState(false);
+  const { items, updateQuantity } = useCart();
+
+  const cartItem = items.find((item) => item.id === product.id);
+  const quantity = cartItem?.quantity ?? 0;
 
   const formattedPrice = new Intl.NumberFormat("es-CO", {
     style: "currency",
@@ -56,31 +58,22 @@ function ProductCard({
   const styles = brandStyles[product.brand];
   const showImage = Boolean(product.image) && !imageError;
 
+  const decreaseQuantity = () => {
+    if (quantity > 0) {
+      updateQuantity(product.id, quantity - 1);
+    }
+  };
+
   return (
     <motion.article
       layout
       initial={
         reduceMotion
           ? false
-          : {
-              opacity: 0,
-              y: 24,
-              scale: 0.98,
-            }
+          : { opacity: 0, y: 24, scale: 0.98 }
       }
-      animate={{
-        opacity: 1,
-        y: 0,
-        scale: 1,
-      }}
-      exit={
-        reduceMotion
-          ? undefined
-          : {
-              opacity: 0,
-              scale: 0.96,
-            }
-      }
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={reduceMotion ? undefined : { opacity: 0, scale: 0.96 }}
       whileHover={
         reduceMotion
           ? undefined
@@ -89,14 +82,10 @@ function ProductCard({
               boxShadow: "0 20px 45px rgba(38, 40, 42, 0.11)",
             }
       }
-      transition={{
-        duration: 0.45,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      className="group flex min-h-[390px] min-w-0 flex-col overflow-hidden rounded-2xl border border-dialac-border bg-white shadow-[0_12px_32px_rgba(38,40,42,0.07)] sm:min-h-[490px] sm:rounded-[1.75rem]"
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      className="group flex min-h-[390px] min-w-0 flex-col overflow-hidden rounded-2xl border border-dialac-border bg-[#f4f0e9] shadow-[0_12px_32px_rgba(38,40,42,0.07)] sm:min-h-[490px] sm:rounded-[1.75rem]"
     >
-      {/* IMAGEN */}
-      <div className="relative h-44 overflow-hidden bg-[#f4f0e9] sm:h-64">
+      <div className="relative h-44 overflow-hidden border-b border-dialac-border bg-white sm:h-64">
         {showImage ? (
           <img
             src={product.image}
@@ -106,7 +95,7 @@ function ProductCard({
             className="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-105 sm:p-6"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center bg-white">
             <div
               aria-hidden="true"
               className={`absolute -right-10 -top-10 h-32 w-32 rounded-full sm:h-44 sm:w-44 ${styles.decoration}`}
@@ -144,8 +133,7 @@ function ProductCard({
         </span>
       </div>
 
-      {/* INFORMACIÓN */}
-      <div className="flex flex-1 flex-col p-3.5 sm:p-7">
+      <div className="flex flex-1 flex-col bg-[#f4f0e9] p-3.5 sm:p-7">
         <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-dialac-green-dark sm:text-sm">
           {product.categoryName}
         </p>
@@ -163,42 +151,79 @@ function ProductCard({
             {formattedPrice}
           </p>
 
-          <motion.button
-            type="button"
-            onClick={() => onAddToCart(product)}
-            aria-label={`Agregar ${product.name} al carrito por ${formattedPrice}`}
-            whileTap={
-              reduceMotion
-                ? undefined
-                : {
-                    scale: 0.96,
-                  }
-            }
-            className={`mt-4 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-semibold text-white outline-none transition focus-visible:ring-4 sm:gap-3 sm:px-5 sm:text-base ${styles.button} ${styles.focus}`}
-          >
-            <span className="sm:hidden">Agregar</span>
+          <AnimatePresence mode="wait" initial={false}>
+            {quantity === 0 ? (
+              <motion.button
+                key="add-button"
+                type="button"
+                onClick={() => onAddToCart(product)}
+                aria-label={`Agregar ${product.name} al carrito por ${formattedPrice}`}
+                initial={reduceMotion ? false : { opacity: 0, rotateX: -12 }}
+                animate={{ opacity: 1, rotateX: 0 }}
+                exit={reduceMotion ? undefined : { opacity: 0, rotateX: 12 }}
+                whileTap={reduceMotion ? undefined : { scale: 0.96 }}
+                className={`mt-4 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-semibold text-white outline-none transition focus-visible:ring-4 sm:gap-3 sm:px-5 sm:text-base ${styles.button} ${styles.focus}`}
+              >
+                <span className="sm:hidden">Agregar</span>
+                <span className="hidden sm:inline">Agregar al carrito</span>
 
-            <span className="hidden sm:inline">
-              Agregar al carrito
-            </span>
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-5 w-5 shrink-0"
+                >
+                  <path d="M3 3h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 7H6" />
+                  <path d="M12 9v4" />
+                  <path d="M10 11h4" />
+                  <circle cx="10" cy="20" r="1" />
+                  <circle cx="18" cy="20" r="1" />
+                </svg>
+              </motion.button>
+            ) : (
+              <motion.div
+                key="quantity-control"
+                initial={reduceMotion ? false : { opacity: 0, rotateX: -12 }}
+                animate={{ opacity: 1, rotateX: 0 }}
+                exit={reduceMotion ? undefined : { opacity: 0, rotateX: 12 }}
+                className="mt-4 flex h-12 items-center justify-between rounded-xl border-2 border-dialac-charcoal bg-white p-1"
+              >
+                <button
+                  type="button"
+                  onClick={decreaseQuantity}
+                  aria-label={`Reducir cantidad de ${product.name}`}
+                  className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-xl font-bold text-dialac-charcoal transition hover:bg-[#f4f0e9] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-dialac-brown/25"
+                >
+                  −
+                </button>
 
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-5 w-5 shrink-0"
-            >
-              <path d="M3 3h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 7H6" />
-              <path d="M12 9v4" />
-              <path d="M10 11h4" />
-              <circle cx="10" cy="20" r="1" />
-              <circle cx="18" cy="20" r="1" />
-            </svg>
-          </motion.button>
+                <div className="min-w-0 text-center">
+                  <span className="block text-[10px] font-semibold uppercase tracking-[0.1em] text-dialac-green-dark sm:text-xs">
+                    En el carrito
+                  </span>
+                  <output
+                    aria-live="polite"
+                    className="block font-display text-lg font-bold leading-none text-dialac-charcoal"
+                  >
+                    {quantity}
+                  </output>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => onAddToCart(product)}
+                  aria-label={`Aumentar cantidad de ${product.name}`}
+                  className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-xl font-bold text-white outline-none transition focus-visible:ring-4 ${styles.button} ${styles.focus}`}
+                >
+                  +
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </motion.article>

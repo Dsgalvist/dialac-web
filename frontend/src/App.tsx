@@ -4,6 +4,8 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import ContactPage from "./pages/ContactPage";
+import ServicesPage from "./pages/ServicesPage";
+import ProductsPage from "./pages/ProductsPage";
 
 function App() {
   return (
@@ -14,25 +16,9 @@ function App() {
 
           <Route path="/nosotros" element={<AboutPage />} />
 
-          <Route
-            path="/productos"
-            element={
-              <PlaceholderPage
-                title="Productos"
-                description="Explora el catálogo y agrega productos a tu solicitud."
-              />
-            }
-          />
+          <Route path="/productos" element={<ProductsPage />} />
 
-          <Route
-            path="/servicios"
-            element={
-              <PlaceholderPage
-                title="Servicios"
-                description="Conoce los servicios y soluciones personalizadas que ofrece DIALAC."
-              />
-            }
-          />
+          <Route path="/servicios" element={<ServicesPage />} />
 
           <Route path="/contacto" element={<ContactPage />} />
 

@@ -68,12 +68,13 @@ function Navbar() {
     >
       <nav
         aria-label="Navegación principal"
-        className={`mx-auto flex max-w-7xl items-center justify-between px-5 transition-all duration-300 ${
+        className={`mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 transition-all duration-300 sm:px-5 ${
           hasScrolled ? "py-2" : "py-3"
         }`}
       >
         {/* LOGO */}
         <motion.div
+          className="min-w-0 shrink"
           whileHover={
             reduceMotion
               ? undefined
@@ -94,7 +95,7 @@ function Navbar() {
             <img
               src="/images/LOGO/logotransparente.png"
               alt="DIALAC - Cuídate, aliméntate y disfruta"
-              className={`w-36 object-contain transition-all duration-300 ${
+              className={`w-28 object-contain transition-all duration-300 sm:w-36 ${
                 hasScrolled ? "h-12" : "h-14"
               }`}
             />
@@ -240,71 +241,174 @@ function Navbar() {
           </motion.div>
         </div>
 
-        {/* BOTÓN DEL MENÚ MÓVIL */}
-        <motion.button
-          type="button"
-          aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
-          aria-expanded={isOpen}
-          aria-controls="mobile-menu"
-          onClick={() => setIsOpen((current) => !current)}
-          whileTap={reduceMotion ? undefined : { scale: 0.92 }}
-          className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-dialac-charcoal text-dialac-charcoal transition hover:bg-dialac-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dialac-brown md:hidden"
-        >
-          <span className="sr-only">
-            {isOpen ? "Cerrar menú" : "Abrir menú"}
-          </span>
-
-          <motion.span
-            aria-hidden="true"
-            animate={isOpen ? "open" : "closed"}
-            className="relative block h-6 w-6"
+        {/* CONTROLES MÓVILES: CARRITO Y MENÚ */}
+        <div className="flex shrink-0 items-center gap-2 md:hidden">
+          {/* CARRITO MÓVIL */}
+          <motion.div
+            whileTap={reduceMotion ? undefined : { scale: 0.95 }}
           >
-            <motion.span
-              className="absolute left-0 top-[5px] block h-0.5 w-6 rounded-full bg-current"
-              variants={{
-                closed: {
-                  rotate: 0,
-                  y: 0,
-                },
-                open: {
-                  rotate: 45,
-                  y: 6,
-                },
-              }}
-              transition={{ duration: reduceMotion ? 0 : 0.25 }}
-            />
+            <NavLink
+              to="/solicitud"
+              aria-label={`Ir al carrito. Total ${formattedTotal}. ${totalItems} productos.`}
+              onClick={() => setIsOpen(false)}
+              className="relative inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-dialac-brown px-3 font-semibold text-white shadow-sm transition hover:bg-dialac-brown-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dialac-brown"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={formattedTotal}
+                  initial={
+                    reduceMotion
+                      ? false
+                      : {
+                          opacity: 0,
+                          y: -6,
+                          scale: 0.9,
+                        }
+                  }
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                  }}
+                  exit={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          opacity: 0,
+                          y: 6,
+                          scale: 0.9,
+                        }
+                  }
+                  transition={{ duration: 0.2 }}
+                  className="max-[370px]:hidden text-xs sm:text-sm"
+                >
+                  {formattedTotal}
+                </motion.span>
+              </AnimatePresence>
+
+              <motion.svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-5 w-5 shrink-0"
+                animate={
+                  reduceMotion || totalItems === 0
+                    ? undefined
+                    : {
+                        rotate: [0, -8, 8, 0],
+                      }
+                }
+                transition={{
+                  duration: 0.45,
+                }}
+              >
+                <path d="M3 3h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 7H6" />
+                <circle cx="10" cy="20" r="1" />
+                <circle cx="18" cy="20" r="1" />
+              </motion.svg>
+
+              <AnimatePresence>
+                {totalItems > 0 && (
+                  <motion.span
+                    key={totalItems}
+                    initial={
+                      reduceMotion
+                        ? false
+                        : {
+                            opacity: 0,
+                            scale: 0,
+                          }
+                    }
+                    animate={{
+                      opacity: 1,
+                      scale: [1, 1.25, 1],
+                    }}
+                    exit={{
+                      opacity: 0,
+                      scale: 0,
+                    }}
+                    transition={{
+                      duration: reduceMotion ? 0 : 0.35,
+                    }}
+                    className="absolute -right-1.5 -top-2 flex min-h-5 min-w-5 items-center justify-center rounded-full border-2 border-white bg-dialac-green px-1 text-[10px] font-bold text-white"
+                  >
+                    {totalItems}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </NavLink>
+          </motion.div>
+
+          {/* BOTÓN DEL MENÚ MÓVIL */}
+          <motion.button
+            type="button"
+            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setIsOpen((current) => !current)}
+            whileTap={reduceMotion ? undefined : { scale: 0.92 }}
+            className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-dialac-charcoal text-dialac-charcoal transition hover:bg-dialac-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dialac-brown"
+          >
+            <span className="sr-only">
+              {isOpen ? "Cerrar menú" : "Abrir menú"}
+            </span>
 
             <motion.span
-              className="absolute left-0 top-[11px] block h-0.5 w-6 rounded-full bg-current"
-              variants={{
-                closed: {
-                  opacity: 1,
-                  scaleX: 1,
-                },
-                open: {
-                  opacity: 0,
-                  scaleX: 0,
-                },
-              }}
-              transition={{ duration: reduceMotion ? 0 : 0.2 }}
-            />
+              aria-hidden="true"
+              animate={isOpen ? "open" : "closed"}
+              className="relative block h-6 w-6"
+            >
+              <motion.span
+                className="absolute left-0 top-[5px] block h-0.5 w-6 rounded-full bg-current"
+                variants={{
+                  closed: {
+                    rotate: 0,
+                    y: 0,
+                  },
+                  open: {
+                    rotate: 45,
+                    y: 6,
+                  },
+                }}
+                transition={{ duration: reduceMotion ? 0 : 0.25 }}
+              />
 
-            <motion.span
-              className="absolute left-0 top-[17px] block h-0.5 w-6 rounded-full bg-current"
-              variants={{
-                closed: {
-                  rotate: 0,
-                  y: 0,
-                },
-                open: {
-                  rotate: -45,
-                  y: -6,
-                },
-              }}
-              transition={{ duration: reduceMotion ? 0 : 0.25 }}
-            />
-          </motion.span>
-        </motion.button>
+              <motion.span
+                className="absolute left-0 top-[11px] block h-0.5 w-6 rounded-full bg-current"
+                variants={{
+                  closed: {
+                    opacity: 1,
+                    scaleX: 1,
+                  },
+                  open: {
+                    opacity: 0,
+                    scaleX: 0,
+                  },
+                }}
+                transition={{ duration: reduceMotion ? 0 : 0.2 }}
+              />
+
+              <motion.span
+                className="absolute left-0 top-[17px] block h-0.5 w-6 rounded-full bg-current"
+                variants={{
+                  closed: {
+                    rotate: 0,
+                    y: 0,
+                  },
+                  open: {
+                    rotate: -45,
+                    y: -6,
+                  },
+                }}
+                transition={{ duration: reduceMotion ? 0 : 0.25 }}
+              />
+            </motion.span>
+          </motion.button>
+        </div>
       </nav>
 
       {/* MENÚ MÓVIL */}
@@ -375,93 +479,6 @@ function Navbar() {
                   </NavLink>
                 </motion.div>
               ))}
-
-              <motion.div
-                variants={{
-                  hidden: {
-                    opacity: 0,
-                    y: 14,
-                  },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                  },
-                }}
-                transition={{ duration: 0.25 }}
-              >
-                <NavLink
-                  to="/solicitud"
-                  aria-label={`Ir al carrito. Total ${formattedTotal}. ${totalItems} productos.`}
-                  onClick={() => setIsOpen(false)}
-                  className="relative mt-2 flex items-center justify-center gap-3 rounded-xl bg-dialac-brown px-5 py-3 font-semibold text-white transition hover:bg-dialac-brown-dark"
-                >
-                  <AnimatePresence mode="wait" initial={false}>
-                    <motion.span
-                      key={formattedTotal}
-                      initial={
-                        reduceMotion
-                          ? false
-                          : {
-                              opacity: 0,
-                              scale: 0.9,
-                            }
-                      }
-                      animate={{
-                        opacity: 1,
-                        scale: 1,
-                      }}
-                      exit={{
-                        opacity: 0,
-                        scale: 0.9,
-                      }}
-                    >
-                      {formattedTotal}
-                    </motion.span>
-                  </AnimatePresence>
-
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-6 w-6"
-                  >
-                    <path d="M3 3h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 7H6" />
-                    <circle cx="10" cy="20" r="1" />
-                    <circle cx="18" cy="20" r="1" />
-                  </svg>
-
-                  <AnimatePresence>
-                    {totalItems > 0 && (
-                      <motion.span
-                        key={totalItems}
-                        initial={
-                          reduceMotion
-                            ? false
-                            : {
-                                scale: 0,
-                                opacity: 0,
-                              }
-                        }
-                        animate={{
-                          scale: [1, 1.25, 1],
-                          opacity: 1,
-                        }}
-                        exit={{
-                          scale: 0,
-                          opacity: 0,
-                        }}
-                        className="absolute -right-2 -top-2 flex min-h-6 min-w-6 items-center justify-center rounded-full border-2 border-white bg-dialac-green px-1.5 text-xs font-bold text-white"
-                      >
-                        {totalItems}
-                      </motion.span>
-                    )}
-                  </AnimatePresence>
-                </NavLink>
-              </motion.div>
             </motion.div>
           </motion.div>
         )}

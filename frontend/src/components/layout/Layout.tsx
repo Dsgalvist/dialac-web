@@ -1,11 +1,12 @@
 import { AnimatePresence } from "motion/react";
-import { Outlet, useLocation } from "react-router-dom";
+import { useLocation, useOutlet } from "react-router-dom";
 import PageTransition from "../animations/PageTransition";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 
 function Layout() {
   const location = useLocation();
+  const outlet = useOutlet();
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -18,10 +19,14 @@ function Layout() {
 
       <Navbar />
 
-      <main id="main-content" className="flex-1" tabIndex={-1}>
-        <AnimatePresence mode="wait">
+      <main
+        id="main-content"
+        className="flex-1"
+        tabIndex={-1}
+      >
+        <AnimatePresence mode="wait" initial={false}>
           <PageTransition key={location.pathname}>
-            <Outlet />
+            {outlet}
           </PageTransition>
         </AnimatePresence>
       </main>

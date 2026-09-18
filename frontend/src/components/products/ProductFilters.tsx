@@ -12,6 +12,7 @@ type ProductFiltersProps = {
   activeBrand: ProductBrand;
   onCategoryChange: (category: ProductCategory) => void;
   onBrandChange: (brand: ProductBrand) => void;
+  mode: "mobile" | "desktop";
 };
 
 const categoryColors: Record<ProductCategory, string> = {
@@ -42,6 +43,7 @@ function ProductFilters({
   activeBrand,
   onCategoryChange,
   onBrandChange,
+  mode,
 }: ProductFiltersProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -57,7 +59,13 @@ function ProductFilters({
           Categorías
         </legend>
 
-        <div className="mt-4 space-y-1">
+        <div
+          className={
+            mode === "mobile"
+              ? "mt-4 grid grid-cols-2 gap-1.5"
+              : "mt-4 space-y-1"
+          }
+        >
           {productCategories.map((category) => {
             const isActive = activeCategory === category.id;
 
@@ -67,13 +75,13 @@ function ProductFilters({
                 type="button"
                 aria-pressed={isActive}
                 onClick={() => onCategoryChange(category.id)}
-                className={`group flex w-full items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-semibold outline-none transition ${
+                className={`group flex w-full items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-left text-sm font-semibold outline-none transition ${
                   isActive
                     ? "bg-[#f4f0e9] text-dialac-charcoal"
                     : "text-dialac-charcoal hover:bg-[#faf8f4]"
                 }`}
               >
-                <span className="flex min-w-0 items-center gap-3">
+                <span className="flex min-w-0 items-center gap-2.5">
                   <span
                     aria-hidden="true"
                     className={`h-2.5 w-2.5 shrink-0 rounded-full ${
@@ -112,7 +120,13 @@ function ProductFilters({
           Marcas
         </legend>
 
-        <div className="mt-4 space-y-1">
+        <div
+          className={
+            mode === "mobile"
+              ? "mt-4 grid grid-cols-2 gap-1.5"
+              : "mt-4 space-y-1"
+          }
+        >
           {productBrands.map((brand) => {
             const isActive = activeBrand === brand.id;
 
@@ -122,13 +136,13 @@ function ProductFilters({
                 type="button"
                 aria-pressed={isActive}
                 onClick={() => onBrandChange(brand.id)}
-                className={`group flex w-full items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-semibold outline-none transition ${
+                className={`group flex w-full items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-left text-sm font-semibold outline-none transition ${
                   isActive
                     ? "bg-[#f4f0e9] text-dialac-charcoal"
                     : "text-dialac-charcoal hover:bg-[#faf8f4]"
                 }`}
               >
-                <span className="flex min-w-0 items-center gap-3">
+                <span className="flex min-w-0 items-center gap-2.5">
                   <span
                     aria-hidden="true"
                     className={`h-2.5 w-2.5 shrink-0 rounded-full ${
@@ -175,17 +189,15 @@ function ProductFilters({
     </>
   );
 
-  return (
-    <aside className="sticky top-20 z-40 self-start lg:relative lg:top-auto lg:z-20 lg:self-stretch">
-      {/* FILTROS RESPONSIVE */}
-      <div className="rounded-b-2xl bg-[#f7f5f1] pb-3 lg:hidden">
-        {/* BOTÓN MÓVIL */}
+  if (mode === "mobile") {
+    return (
+      <div className="sticky top-16 z-40 bg-white shadow-sm lg:hidden">
         <button
           type="button"
           aria-expanded={isOpen}
-          aria-controls="product-filter-panel"
+          aria-controls="product-filter-panel-mobile"
           onClick={() => setIsOpen((current) => !current)}
-          className="flex w-full items-center justify-between rounded-xl border border-dialac-border bg-white px-4 py-3 font-semibold text-dialac-charcoal shadow-[0_8px_25px_rgba(38,40,42,0.10)]"
+          className="flex w-full items-center justify-between border-y border-dialac-border bg-white px-5 py-4 font-semibold text-dialac-charcoal"
         >
           <span className="flex items-center gap-3">
             <svg
@@ -195,7 +207,7 @@ function ProductFilters({
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
-              className="h-5 w-5"
+              className="h-5 w-5 text-dialac-brown"
             >
               <path d="M4 6h16" />
               <path d="M7 12h10" />
@@ -218,7 +230,9 @@ function ProductFilters({
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
-              className={`h-5 w-5 transition-transform ${
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={`h-5 w-5 transition-transform duration-300 ${
                 isOpen ? "rotate-180" : ""
               }`}
             >
@@ -227,11 +241,10 @@ function ProductFilters({
           </span>
         </button>
 
-        {/* PANEL MÓVIL */}
         <AnimatePresence initial={false}>
           {isOpen && (
             <motion.div
-              id="product-filter-panel"
+              id="product-filter-panel-mobile"
               initial={{
                 opacity: 0,
                 height: 0,
@@ -246,19 +259,23 @@ function ProductFilters({
               }}
               transition={{
                 duration: 0.3,
+                ease: [0.22, 1, 0.36, 1],
               }}
-              className="overflow-hidden"
+              className="overflow-hidden border-b border-dialac-border bg-white"
             >
-              <div className="mt-3 max-h-[calc(100dvh-10rem)] overflow-y-auto overscroll-contain rounded-2xl border border-dialac-border bg-white p-5 shadow-[0_12px_35px_rgba(38,40,42,0.12)] [scrollbar-color:#cdb9a8_transparent] [scrollbar-width:thin]">
+              <div className="max-h-[calc(100dvh-8rem)] overflow-y-auto overscroll-contain px-5 py-6 [scrollbar-color:#cdb9a8_transparent] [scrollbar-width:thin]">
                 {filterContent}
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
+    );
+  }
 
-      {/* PANEL ESCRITORIO */}
-      <div className="sticky top-24 hidden max-h-[calc(100vh-7rem)] overflow-y-auto overscroll-contain rounded-2xl border border-dialac-border bg-white p-5 shadow-[0_10px_30px_rgba(38,40,42,0.05)] [scrollbar-color:#cdb9a8_transparent] [scrollbar-width:thin] lg:block">
+  return (
+    <aside className="relative hidden self-stretch lg:block">
+      <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto overscroll-contain rounded-2xl border border-dialac-border bg-white p-5 shadow-[0_10px_30px_rgba(38,40,42,0.05)] [scrollbar-color:#cdb9a8_transparent] [scrollbar-width:thin]">
         <div className="mb-6 flex items-center gap-3">
           <span
             aria-hidden="true"

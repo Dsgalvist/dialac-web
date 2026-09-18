@@ -23,27 +23,22 @@ function EmptyCart() {
         ease: [0.22, 1, 0.36, 1],
       }}
       aria-labelledby="empty-cart-title"
-      className="relative flex min-h-[460px] flex-col items-center justify-center overflow-hidden rounded-[2rem] border border-dialac-border bg-white px-6 py-14 text-center shadow-[0_14px_40px_rgba(38,40,42,0.06)] sm:px-10 sm:py-16"
+      className="relative flex min-h-[420px] flex-col items-center justify-center overflow-hidden rounded-[2rem] border border-dialac-border bg-white px-6 py-12 text-center shadow-[0_12px_35px_rgba(38,40,42,0.05)] sm:px-10 sm:py-14"
     >
-      {/* DECORACIÓN */}
+      {/* DETALLE DECORATIVO SUTIL */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full border-[45px] border-dialac-brown/5"
+        className="pointer-events-none absolute right-0 top-0 h-1.5 w-full bg-dialac-brown"
       />
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-24 -left-20 h-64 w-64 rounded-[40%_60%_35%_65%] bg-dialac-green/5"
-      />
-
-      <div className="relative">
+      <div className="relative z-10 mx-auto max-w-2xl">
         {/* ICONO */}
         <motion.div
           animate={
             reduceMotion
               ? undefined
               : {
-                  y: [0, -8, 0],
+                  y: [0, -7, 0],
                 }
           }
           transition={{
@@ -51,7 +46,7 @@ function EmptyCart() {
             repeat: Number.POSITIVE_INFINITY,
             ease: "easeInOut",
           }}
-          className="relative mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-dialac-border bg-[#f7f5f1] text-dialac-brown-dark shadow-sm"
+          className="relative mx-auto flex h-20 w-20 items-center justify-center rounded-2xl border border-dialac-border bg-[#f4e8de] text-dialac-brown-dark shadow-sm sm:h-24 sm:w-24"
         >
           <svg
             aria-hidden="true"
@@ -61,7 +56,7 @@ function EmptyCart() {
             strokeWidth="1.8"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="h-11 w-11"
+            className="h-9 w-9 sm:h-11 sm:w-11"
           >
             <path d="M3 3h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 7H6" />
             <circle cx="10" cy="20" r="1" />
@@ -70,7 +65,7 @@ function EmptyCart() {
 
           <span
             aria-hidden="true"
-            className="absolute -right-1 -top-1 flex h-8 w-8 items-center justify-center rounded-full bg-dialac-green text-sm font-bold text-white"
+            className="absolute -right-2 -top-2 flex h-7 min-w-7 items-center justify-center rounded-full border-2 border-white bg-dialac-green px-1 text-xs font-bold text-white sm:h-8 sm:min-w-8 sm:text-sm"
           >
             0
           </span>
@@ -83,7 +78,7 @@ function EmptyCart() {
 
         <h2
           id="empty-cart-title"
-          className="mt-3 font-display text-3xl font-bold text-dialac-charcoal sm:text-4xl"
+          className="mt-3 font-display text-3xl font-bold leading-tight text-dialac-charcoal sm:text-4xl"
         >
           Tu carrito está vacío
         </h2>
@@ -95,7 +90,7 @@ function EmptyCart() {
 
         {/* BOTÓN PRINCIPAL */}
         <motion.div
-          className="mt-8"
+          className="mt-7"
           whileHover={
             reduceMotion
               ? undefined
@@ -134,8 +129,8 @@ function EmptyCart() {
         </motion.div>
 
         {/* INFORMACIÓN */}
-        <div className="mx-auto mt-8 flex max-w-lg flex-col gap-3 border-t border-dialac-border pt-6 text-left sm:flex-row sm:justify-center sm:gap-6">
-          <div className="flex items-center gap-2">
+        <div className="mx-auto mt-8 grid max-w-xl gap-3 border-t border-dialac-border pt-6 text-left sm:grid-cols-2 sm:gap-5">
+          <div className="flex items-center gap-3 rounded-xl bg-[#f7f5f1] px-4 py-3">
             <span
               aria-hidden="true"
               className="h-2.5 w-2.5 shrink-0 rounded-full bg-dialac-green"
@@ -146,7 +141,7 @@ function EmptyCart() {
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3 rounded-xl bg-[#f7f5f1] px-4 py-3">
             <span
               aria-hidden="true"
               className="h-2.5 w-2.5 shrink-0 rounded-full bg-dialac-brown"

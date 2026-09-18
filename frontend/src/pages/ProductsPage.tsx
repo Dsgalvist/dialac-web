@@ -63,6 +63,15 @@ function ProductsPage() {
 
   return (
     <main className="min-h-screen overflow-x-clip bg-[#f7f5f1]">
+      {/* FILTRO RESPONSIVE DEBAJO DEL NAVBAR */}
+      <ProductFilters
+        mode="mobile"
+        activeCategory={activeCategory}
+        activeBrand={activeBrand}
+        onCategoryChange={handleCategoryChange}
+        onBrandChange={setActiveBrand}
+      />
+
       {/* PRODUCTOS: ENCABEZADO, FILTROS Y CATÁLOGO */}
       <section className="relative px-3 py-10 sm:px-8 sm:py-14 lg:py-16">
         {/* DECORACIÓN */}
@@ -100,9 +109,10 @@ function ProductsPage() {
             </p>
           </header>
 
-          {/* FILTROS Y CATÁLOGO */}
+          {/* FILTROS DE ESCRITORIO Y CATÁLOGO */}
           <div className="grid gap-6 lg:grid-cols-[270px_minmax(0,1fr)] xl:gap-8">
             <ProductFilters
+              mode="desktop"
               activeCategory={activeCategory}
               activeBrand={activeBrand}
               onCategoryChange={handleCategoryChange}

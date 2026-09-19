@@ -95,7 +95,8 @@ function Footer() {
   const currentYear = new Date().getFullYear();
   const reduceMotion = useReducedMotion();
 
-  const emailSubject = "Solicitud de información desde el sitio web - DIALAC";
+  const emailSubject =
+    "Solicitud de información desde el sitio web - DIALAC";
 
   const emailBody = `Hola, equipo de DIALAC:
 
@@ -185,10 +186,13 @@ Gracias.`;
           once: true,
           amount: 0.12,
         }}
-        className="relative z-10 mx-auto grid max-w-7xl gap-10 px-6 py-14 sm:grid-cols-2 xl:grid-cols-[1.25fr_0.7fr_1fr_1.15fr]"
+        className="relative z-10 mx-auto grid max-w-7xl grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] gap-x-5 gap-y-7 px-4 py-9 sm:grid-cols-2 sm:gap-10 sm:px-6 sm:py-14 xl:grid-cols-[1.25fr_0.7fr_1fr_1.15fr]"
       >
         {/* MARCA Y REDES */}
-        <motion.div variants={columnVariants}>
+        <motion.div
+          variants={columnVariants}
+          className="col-span-2 min-w-0 sm:col-span-1"
+        >
           <motion.div
             whileHover={
               reduceMotion
@@ -211,17 +215,17 @@ Gracias.`;
               <img
                 src="/images/LOGO/logocompleto.png"
                 alt="DIALAC - Cuídate, aliméntate y disfruta"
-                className="h-14 w-auto object-contain"
+                className="h-12 w-auto object-contain sm:h-14"
               />
             </Link>
           </motion.div>
 
-          <p className="mt-5 max-w-sm leading-7 text-[#F8F3EA]">
+          <p className="mt-4 max-w-sm leading-6 text-[#F8F3EA] sm:mt-5 sm:leading-7">
             Alimentos, refrigerios y soluciones personalizadas para cuidarte,
             alimentarte y disfrutar cada momento.
           </p>
 
-          <div className="mt-6">
+          <div className="mt-4 sm:mt-6">
             <p className="font-display text-sm font-semibold uppercase tracking-[0.15em] text-[#F2C9AB]">
               Síguenos
             </p>
@@ -259,9 +263,15 @@ Gracias.`;
                           y: -5,
                           rotate: index % 2 === 0 ? -6 : 6,
                           scale: 1.08,
-                      }
+                        }
                   }
-                  whileTap={reduceMotion ? undefined : { scale: 0.92 }}
+                  whileTap={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          scale: 0.92,
+                        }
+                  }
                   className="flex h-11 w-11 items-center justify-center rounded-full border border-[#D6C2B0] text-[#F8F3EA] transition-colors hover:border-dialac-brown hover:bg-dialac-brown hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                 >
                   {social.icon}
@@ -273,16 +283,19 @@ Gracias.`;
         </motion.div>
 
         {/* NAVEGACIÓN */}
-        <motion.div variants={columnVariants}>
+        <motion.div
+          variants={columnVariants}
+          className="min-w-0"
+        >
           <h2 className="font-display text-lg font-bold text-white">
             Navegación
           </h2>
 
           <nav
             aria-label="Navegación del pie de página"
-            className="mt-5"
+            className="mt-3 sm:mt-5"
           >
-            <ul className="space-y-3">
+            <ul className="space-y-2 sm:space-y-3">
               {footerNavigation.map((item, index) => (
                 <motion.li
                   key={item.path}
@@ -326,12 +339,15 @@ Gracias.`;
         </motion.div>
 
         {/* CONTACTO */}
-        <motion.div variants={columnVariants}>
+        <motion.div
+          variants={columnVariants}
+          className="min-w-0"
+        >
           <h2 className="font-display text-lg font-bold text-white">
             Contacto
           </h2>
 
-          <address className="mt-5 space-y-5 not-italic">
+          <address className="mt-3 space-y-3 not-italic sm:mt-5 sm:space-y-5">
             <motion.div
               whileHover={reduceMotion ? undefined : { x: 4 }}
               transition={{ duration: 0.2 }}
@@ -374,7 +390,7 @@ Gracias.`;
                   strokeWidth="1.8"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-4 w-4"
+                  className="h-4 w-4 shrink-0"
                 >
                   <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
                   <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1" />
@@ -394,7 +410,7 @@ Gracias.`;
 
               <a
                 href={emailUrl}
-                className="mt-1 inline-flex items-center gap-2 break-all text-[#F8F3EA] transition hover:text-[#F2C9AB] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                className="mt-1 inline-flex max-w-full items-center gap-2 text-[#F8F3EA] transition hover:text-[#F2C9AB] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               >
                 <svg
                   aria-hidden="true"
@@ -410,19 +426,24 @@ Gracias.`;
                   <path d="m3 7 9 6 9-6" />
                 </svg>
 
-                Acosdie@gmail.com
+                <span className="min-w-0 break-all">
+                  Acosdie@gmail.com
+                </span>
               </a>
             </motion.div>
           </address>
         </motion.div>
 
         {/* HORARIOS Y SOLICITUD */}
-        <motion.div variants={columnVariants}>
+        <motion.div
+          variants={columnVariants}
+          className="col-span-2 min-w-0 sm:col-span-1"
+        >
           <h2 className="font-display text-lg font-bold text-white">
             Horarios de atención
           </h2>
 
-          <div className="mt-5 space-y-3">
+          <div className="mt-3 space-y-2 sm:mt-5 sm:space-y-3">
             <div className="flex justify-between gap-4">
               <span className="font-semibold text-[#F8F3EA]">
                 Lunes a viernes
@@ -454,7 +475,7 @@ Gracias.`;
                   }
             }
             transition={{ duration: 0.25 }}
-            className="relative mt-6 overflow-hidden rounded-xl border border-white/25 bg-white/5 p-4"
+            className="relative mt-4 overflow-hidden rounded-xl border border-white/25 bg-white/5 p-3 sm:mt-6 sm:p-4"
           >
             <motion.div
               aria-hidden="true"
@@ -516,7 +537,7 @@ Gracias.`;
           >
             <Link
               to="/productos"
-              className="group mt-5 inline-flex items-center gap-3 rounded-lg bg-dialac-brown px-5 py-3 font-semibold text-white transition hover:bg-dialac-brown-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className="group mt-4 inline-flex items-center gap-3 rounded-lg bg-dialac-brown px-5 py-3 font-semibold text-white transition hover:bg-dialac-brown-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:mt-5"
             >
               Explorar productos
 
@@ -550,7 +571,7 @@ Gracias.`;
           transition={{
             duration: reduceMotion ? 0 : 0.45,
           }}
-          className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-5 text-center text-sm text-white sm:flex-row sm:text-left"
+          className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-4 text-center text-sm text-white sm:flex-row sm:px-6 sm:py-5 sm:text-left"
         >
           <p>© {currentYear} DIALAC. Todos los derechos reservados.</p>
 

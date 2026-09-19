@@ -4,7 +4,10 @@ import {
   motion,
   useReducedMotion,
 } from "motion/react";
-import { Link } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import CartItemCard from "../components/cart/CartItemCard";
 import CartSummary from "../components/cart/CartSummary";
 import EmptyCart from "../components/cart/EmptyCart";
@@ -12,6 +15,7 @@ import { useCart } from "../hooks/useCart";
 
 function CartPage() {
   const reduceMotion = useReducedMotion();
+  const navigate = useNavigate();
 
   const {
     items,
@@ -34,11 +38,8 @@ function CartPage() {
   }, [isEmpty]);
 
   const handleContinue = () => {
-    /*
-     * Aquí agregaremos posteriormente la navegación
-     * hacia la página para completar la solicitud.
-     */
-  };
+  navigate("/solicitud/datos");
+};
 
   const handleClearCart = () => {
     clearCart();

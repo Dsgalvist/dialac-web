@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.routers.requests import router as requests_router
+
 
 app = FastAPI(
     title="DIALAC API",
@@ -14,7 +16,14 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=[
+        "Content-Disposition",
+        "X-DIALAC-Request-Number",
+        "X-DIALAC-Email-Status",
+    ],
 )
+
+app.include_router(requests_router)
 
 
 @app.get("/")

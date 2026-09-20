@@ -73,7 +73,7 @@ function ProductsPage() {
       />
 
       {/* PRODUCTOS: ENCABEZADO, FILTROS Y CATÁLOGO */}
-      <section className="relative px-3 py-10 sm:px-8 sm:py-14 lg:py-16">
+      <section className="relative px-3 pb-10 pt-3 sm:px-8 sm:pb-14 sm:pt-4 lg:pb-16 lg:pt-5">
         {/* DECORACIÓN */}
         <div
           aria-hidden="true"
@@ -87,26 +87,150 @@ function ProductsPage() {
 
         <div className="relative mx-auto max-w-[1480px]">
           {/* ENCABEZADO INTEGRADO */}
-          <header className="mb-10 max-w-3xl sm:mb-12">
-            <div className="flex items-center gap-3">
-              <span
-                aria-hidden="true"
-                className="h-3 w-3 rounded-full bg-dialac-brown"
-              />
+          <header className="mb-6 grid gap-5 sm:mb-7 lg:grid-cols-[minmax(0,0.85fr)_minmax(600px,1.15fr)] lg:items-center">
+            <div className="max-w-3xl">
+              <div className="flex items-center gap-3">
+                <span
+                  aria-hidden="true"
+                  className="h-3 w-3 rounded-full bg-dialac-brown"
+                />
 
-              <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-dialac-brown-dark">
-                Productos DIALAC
+                <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-dialac-brown-dark">
+                  Productos DIALAC
+                </p>
+              </div>
+
+              <h1 className="mt-3 font-display text-4xl font-bold leading-tight text-dialac-charcoal sm:text-5xl">
+                Encuentra lo que necesitas
+              </h1>
+
+              <p className="mt-3 max-w-2xl text-base leading-7 text-dialac-charcoal sm:text-lg">
+                Explora nuestros productos por categoría y marca, y agrega al
+                carrito las opciones que prefieras.
               </p>
             </div>
 
-            <h1 className="mt-4 font-display text-4xl font-bold leading-tight text-dialac-charcoal sm:text-5xl">
-              Encuentra lo que necesitas
-            </h1>
+            {/* INFORMACIÓN IMPORTANTE */}
+            <div className="grid gap-3 sm:grid-cols-2">
+              {/* DOMICILIO */}
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 18,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.55,
+                  delay: 0.1,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="relative overflow-hidden rounded-2xl border border-dialac-border bg-white p-4 shadow-[0_12px_35px_rgba(38,40,42,0.07)]"
+              >
+                <div
+                  aria-hidden="true"
+                  className="absolute -right-12 -top-12 h-32 w-32 rounded-full border-[22px] border-dialac-brown/[0.045]"
+                />
 
-            <p className="mt-4 max-w-2xl text-base leading-7 text-dialac-charcoal sm:text-lg">
-              Explora nuestros productos por categoría y marca, y agrega al
-              carrito las opciones que prefieras.
-            </p>
+                <div className="relative flex items-start gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#ead8c5] text-dialac-brown-dark"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-5 w-5"
+                    >
+                      <path d="M3 7h11v10H3Z" />
+                      <path d="M14 10h4l3 3v4h-7Z" />
+                      <circle cx="7" cy="18" r="2" />
+                      <circle cx="18" cy="18" r="2" />
+                    </svg>
+                  </span>
+
+                  <div className="min-w-0">
+                    <p className="font-display font-bold text-dialac-charcoal">
+                      Información de domicilio
+                    </p>
+
+                    <p className="mt-1 text-sm leading-5 text-dialac-charcoal">
+                      El domicilio está sujeto a disponibilidad y posible costo
+                      adicional.
+                    </p>
+
+                    <p className="mt-2 text-xs font-semibold leading-5 text-dialac-brown-dark">
+                      DIALAC confirmará las condiciones antes de confirmar el
+                      pedido.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* COBERTURA */}
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 18,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.55,
+                  delay: 0.18,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="relative overflow-hidden rounded-2xl border border-dialac-border bg-[#f7f2eb] p-4 shadow-[0_12px_35px_rgba(38,40,42,0.07)]"
+              >
+                <div
+                  aria-hidden="true"
+                  className="absolute -right-12 -top-12 h-32 w-32 rounded-full border-[22px] border-white/45"
+                />
+
+                <div className="relative flex items-start gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#ead8c5] text-dialac-brown-dark"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-5 w-5"
+                    >
+                      <path d="M12 21s6-5.3 6-12a6 6 0 1 0-12 0c0 6.7 6 12 6 12Z" />
+                      <circle cx="12" cy="9" r="2" />
+                    </svg>
+                  </span>
+
+                  <div className="min-w-0">
+                    <p className="font-display font-bold text-dialac-charcoal">
+                      Cobertura actual
+                    </p>
+
+                    <p className="mt-1 text-sm leading-5 text-dialac-charcoal">
+                      Actualmente realizamos entregas únicamente en Bogotá, Chía
+                      y Cajicá.
+                    </p>
+
+                    <p className="mt-2 text-xs font-semibold leading-5 text-dialac-brown-dark">
+                      La dirección será verificada antes de confirmar el pedido.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </header>
 
           {/* FILTROS DE ESCRITORIO Y CATÁLOGO */}

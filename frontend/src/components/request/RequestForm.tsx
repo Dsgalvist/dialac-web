@@ -309,7 +309,7 @@ function RequestForm({
           </div>
 
           {/* DATOS PERSONALES */}
-          <fieldset className="mt-8">
+          <fieldset data-tour="request-contact" className="mt-8">
             <legend className="font-display text-base font-bold text-dialac-charcoal">
               Información personal
             </legend>
@@ -650,7 +650,7 @@ function RequestForm({
           <div className="my-8 h-px bg-dialac-border" />
 
           {/* ENTREGA */}
-          <fieldset>
+          <fieldset data-tour="request-delivery">
             <legend className="font-display text-base font-bold text-dialac-charcoal">
               Entrega y fecha
             </legend>
@@ -748,9 +748,198 @@ function RequestForm({
                   {errors.deliveryMethod.message}
                 </p>
               )}
+
+              {/* INFORMACIÓN DEL MÉTODO DE ENTREGA */}
+              <AnimatePresence mode="wait" initial={false}>
+                {deliveryMethod === "domicilio" && (
+                  <motion.div
+                    key="domicilio-information"
+                    initial={
+                      reduceMotion
+                        ? false
+                        : {
+                            opacity: 0,
+                            height: 0,
+                            y: -8,
+                          }
+                    }
+                    animate={{
+                      opacity: 1,
+                      height: "auto",
+                      y: 0,
+                    }}
+                    exit={
+                      reduceMotion
+                        ? undefined
+                        : {
+                            opacity: 0,
+                            height: 0,
+                            y: -8,
+                          }
+                    }
+                    transition={{
+                      duration: 0.3,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-4 overflow-hidden rounded-2xl border border-dialac-border bg-[#f7f2eb]">
+                      <div className="flex flex-col sm:flex-row sm:items-stretch">
+                        <div className="relative flex items-center gap-3 overflow-hidden bg-dialac-brown px-5 py-4 text-white sm:min-w-[190px]">
+                          <div
+                            aria-hidden="true"
+                            className="absolute -bottom-12 -right-12 h-28 w-28 rounded-full border-[20px] border-white/10"
+                          />
+
+                          <span
+                            aria-hidden="true"
+                            className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/15"
+                          >
+                            <svg
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="h-5 w-5"
+                            >
+                              <path d="M3 7h11v10H3Z" />
+                              <path d="M14 10h4l3 3v4h-7Z" />
+                              <circle cx="7" cy="18" r="2" />
+                              <circle cx="18" cy="18" r="2" />
+                            </svg>
+                          </span>
+
+                          <p className="relative font-display text-sm font-bold uppercase tracking-[0.16em]">
+                            Domicilio
+                          </p>
+                        </div>
+
+                        <div className="relative flex-1 overflow-hidden px-5 py-4">
+                          <div
+                            aria-hidden="true"
+                            className="absolute -right-12 -top-12 h-32 w-32 rounded-full border-[22px] border-white/60"
+                          />
+
+                          <div className="relative">
+                            <p className="font-display font-bold text-dialac-charcoal">
+                              Entregas en Bogotá, Chía y Cajicá
+                            </p>
+
+                            <p className="mt-1 text-sm leading-6 text-dialac-charcoal">
+                              El domicilio está sujeto a cobertura,
+                              disponibilidad y posible costo adicional.
+                            </p>
+
+                            <p className="mt-1 text-xs font-semibold leading-5 text-dialac-brown-dark">
+                              DIALAC confirmará las condiciones antes de
+                              confirmar el pedido.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {deliveryMethod === "recogida" && (
+  <motion.div
+    key="recogida-information"
+    initial={
+      reduceMotion
+        ? false
+        : {
+            opacity: 0,
+            height: 0,
+            y: -8,
+          }
+    }
+    animate={{
+      opacity: 1,
+      height: "auto",
+      y: 0,
+    }}
+    exit={
+      reduceMotion
+        ? undefined
+        : {
+            opacity: 0,
+            height: 0,
+            y: -8,
+          }
+    }
+    transition={{
+      duration: 0.3,
+      ease: [0.22, 1, 0.36, 1],
+    }}
+    className="overflow-hidden"
+  >
+    <div className="mt-4 overflow-hidden rounded-2xl border border-dialac-green/40 bg-[#eef2e5]">
+      <div className="flex flex-col sm:flex-row sm:items-stretch">
+        <div className="relative flex items-center gap-3 overflow-hidden bg-dialac-green-dark px-5 py-4 text-white sm:min-w-[190px]">
+          <div
+            aria-hidden="true"
+            className="absolute -bottom-12 -right-12 h-28 w-28 rounded-full border-[20px] border-white/10"
+          />
+
+          <span
+            aria-hidden="true"
+            className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/15"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-5 w-5"
+            >
+              <path d="M4 10h16" />
+              <path d="M5 10V6h14v4" />
+              <path d="M6 10v10h12V10" />
+              <path d="M9 14h6" />
+            </svg>
+          </span>
+
+          <p className="relative font-display text-sm font-bold uppercase tracking-[0.16em]">
+            Recogida
+          </p>
+        </div>
+
+        <div className="relative flex-1 overflow-hidden px-5 py-4">
+          <div
+            aria-hidden="true"
+            className="absolute -right-12 -top-12 h-32 w-32 rounded-full border-[22px] border-white/60"
+          />
+
+          <div className="relative">
+            <p className="font-display font-bold text-dialac-charcoal">
+              Recoge tu pedido en nuestra sede
+            </p>
+
+            <p className="mt-1 text-sm leading-6 text-dialac-charcoal">
+              Calle 6 #2B-45, Chía, Cundinamarca.
+            </p>
+
+            <p className="mt-1 text-xs font-semibold leading-5 text-dialac-green-dark">
+              DIALAC confirmará la disponibilidad y el horario de
+              recogida antes de confirmar el pedido.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </motion.div>
+)}
+              </AnimatePresence>
             </div>
 
-            <div className="mt-5 grid gap-5 sm:grid-cols-2">
+            <div
+              data-tour="request-date-address"
+              className="mt-5 grid gap-5 sm:grid-cols-2"
+            >
               {/* CIUDAD */}
               <div>
                 <label
@@ -1044,6 +1233,7 @@ function RequestForm({
 
           {/* ENVÍO */}
           <button
+            data-tour="request-submit"
             type="submit"
             disabled={isSubmitting || isConfirming}
             className="group mt-8 inline-flex w-full items-center justify-center gap-3 rounded-xl bg-dialac-brown px-5 py-3.5 font-semibold text-white outline-none transition hover:bg-dialac-brown-dark focus-visible:ring-4 focus-visible:ring-dialac-brown/30 disabled:cursor-not-allowed disabled:bg-[#6f6f6f]"

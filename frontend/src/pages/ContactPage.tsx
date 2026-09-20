@@ -8,7 +8,7 @@ import LocationMap from "../components/contact/LocationMap";
 function ContactPage() {
   return (
     <main className="overflow-hidden bg-white">
-      {/* HERO A PANTALLA COMPLETA */}
+      {/* HERO */}
       <ContactHero />
 
       {/* DATOS DE CONTACTO */}
@@ -18,45 +18,62 @@ function ContactPage() {
       <BusinessHours />
 
       {/* INFORMACIÓN Y FORMULARIO */}
-      <section className="relative w-full border-y border-dialac-border bg-white px-5 py-20 sm:px-8 sm:py-24">
+      <section className="relative isolate w-full overflow-hidden border-y border-dialac-border bg-white px-4 py-12 sm:px-6 sm:py-14 lg:py-16">
+        {/* TEXTURA */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute right-[8%] top-10 h-24 w-24 rounded-full border-[18px] border-dialac-brown/5"
+          className="pointer-events-none absolute inset-0 -z-20 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, #7a3f25 1px, transparent 1px)",
+            backgroundSize: "23px 23px",
+          }}
+        />
+
+        {/* ELEMENTOS DECORATIVOS */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-20 top-10 -z-10 h-48 w-48 rounded-full border-[34px] border-dialac-brown/[0.045]"
         />
 
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute bottom-8 left-[5%] h-20 w-20 rounded-[35%_65%_40%_60%] bg-dialac-green/5"
+          className="pointer-events-none absolute -bottom-20 left-[3%] -z-10 h-52 w-52 rounded-[38%_62%_46%_54%] bg-dialac-brown/[0.035]"
         />
 
-        <div className="relative mx-auto max-w-[1480px]">
-          <div className="mb-10 max-w-3xl">
-            <div className="flex items-center gap-3">
-              <span
-                aria-hidden="true"
-                className="h-3 w-3 rounded-full bg-dialac-brown"
-              />
+        <div className="relative mx-auto max-w-7xl">
+          {/* ENCABEZADO */}
+          <div className="mb-7 grid items-end gap-5 border-b border-dialac-border pb-6 sm:mb-8 lg:grid-cols-[0.72fr_1.28fr]">
+            <div>
+              <div className="flex items-center gap-3">
+                <span
+                  aria-hidden="true"
+                  className="h-2.5 w-2.5 rounded-full bg-dialac-brown"
+                />
 
-              <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-dialac-brown-dark">
-                Estamos para ayudarte
-              </p>
+                <p className="font-display text-[10px] font-bold uppercase tracking-[0.22em] text-dialac-brown-dark sm:text-xs">
+                  Estamos para ayudarte
+                </p>
+              </div>
+
+              <div className="mt-4 h-px w-16 bg-dialac-brown/45" />
             </div>
 
-            <h2 className="mt-5 font-display text-3xl font-bold leading-tight text-dialac-charcoal sm:text-4xl">
+            <h2 className="max-w-3xl font-display text-3xl font-bold leading-tight tracking-[-0.03em] text-dialac-charcoal sm:text-4xl lg:text-[2.75rem]">
               Cuéntanos cómo podemos acompañarte
             </h2>
           </div>
 
-          <div className="grid items-stretch gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+          {/* INFORMACIÓN Y FORMULARIO */}
+          <div className="grid items-stretch gap-5 lg:grid-cols-[0.85fr_1.15fr] lg:gap-6">
             <ContactInfo />
             <ContactForm />
           </div>
         </div>
       </section>
 
-    {/* UBICACIÓN */}
-    <LocationMap />
-    
+      {/* UBICACIÓN */}
+      <LocationMap />
     </main>
   );
 }

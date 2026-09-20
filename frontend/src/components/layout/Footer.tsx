@@ -1,6 +1,7 @@
 import type { Variants } from "motion/react";
 import { motion, useReducedMotion } from "motion/react";
 import { Link } from "react-router-dom";
+import { useGuidedTour } from "../tour/GuidedTourContext";
 
 const footerNavigation = [
   { name: "Inicio", path: "/" },
@@ -92,6 +93,7 @@ const columnVariants: Variants = {
 };
 
 function Footer() {
+  const { startTour } = useGuidedTour();
   const currentYear = new Date().getFullYear();
   const reduceMotion = useReducedMotion();
 
@@ -386,6 +388,29 @@ Gracias.`;
               ))}
             </ul>
           </nav>
+
+          <button
+            type="button"
+            onClick={startTour}
+            className="mt-5 inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/[0.04] px-3 py-2 text-sm font-semibold text-[#eee4da] transition hover:border-dialac-brown hover:bg-dialac-brown hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path d="M9.5 9a2.5 2.5 0 0 1 4.8 1c0 1.7-2.3 2-2.3 3.5" />
+              <path d="M12 17h.01" />
+            </svg>
+
+            Ver guía de solicitud
+          </button>
         </motion.div>
 
         {/* CONTACTO */}

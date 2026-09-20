@@ -252,7 +252,6 @@ function RequestPage() {
 
   /*
    * La pantalla de confirmación debe mostrarse antes de revisar
-
    * si el carrito está vacío, porque el carrito se limpia después
    * de que la solicitud es enviada correctamente.
    */
@@ -293,7 +292,7 @@ function RequestPage() {
 
   return (
     <main className="min-h-screen overflow-x-clip bg-[#f7f5f1]">
-      <section className="relative px-3 py-10 sm:px-8 sm:py-14 lg:py-16">
+      <section className="relative px-3 pb-10 pt-3 sm:px-8 sm:pb-14 sm:pt-4 lg:pb-16 lg:pt-5">
         {/* DECORACIÓN */}
         <div
           aria-hidden="true"
@@ -307,7 +306,7 @@ function RequestPage() {
 
         <div className="relative mx-auto max-w-[1480px]">
           {/* ENCABEZADO */}
-          <header className="mb-10 flex flex-col gap-6 sm:mb-12 lg:flex-row lg:items-end lg:justify-between">
+          <header className="mb-6 flex flex-col gap-5 sm:mb-7 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               <div className="flex items-center gap-3">
                 <span
@@ -320,11 +319,11 @@ function RequestPage() {
                 </p>
               </div>
 
-              <h1 className="mt-4 font-display text-4xl font-bold leading-tight text-dialac-charcoal sm:text-5xl">
+              <h1 className="mt-3 font-display text-4xl font-bold leading-tight text-dialac-charcoal sm:text-5xl">
                 Completa los datos de tu pedido
               </h1>
 
-              <p className="mt-4 max-w-2xl text-base leading-7 text-dialac-charcoal sm:text-lg">
+              <p className="mt-3 max-w-2xl text-base leading-7 text-dialac-charcoal sm:text-lg">
                 Ingresa la información necesaria para que DIALAC
                 revise los productos, la fecha y la entrega de tu
                 solicitud.
@@ -402,7 +401,10 @@ function RequestPage() {
             </div>
 
             {/* RESUMEN: PRIMERO EN RESPONSIVE */}
-            <div className="order-1 lg:order-2 lg:sticky lg:top-28">
+            <div
+              data-tour="request-summary"
+              className="order-1 lg:order-2 lg:sticky lg:top-28"
+            >
               <RequestOrderSummary
                 items={items}
                 totalItems={totalItems}

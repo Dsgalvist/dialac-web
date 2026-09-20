@@ -3,7 +3,11 @@ import {
   type ClipboardEvent,
   type FormEvent,
 } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+} from "motion/react";
 import { useForm } from "react-hook-form";
 
 type ContactFormValues = {
@@ -17,7 +21,7 @@ type ContactFormValues = {
 type FilteredField = "name" | "phone" | "interest" | "message";
 
 const inputStyles =
-  "w-full rounded-xl border border-dialac-border bg-[#fcfaf7] px-4 py-3.5 text-dialac-charcoal outline-none transition placeholder:text-[#64748b] hover:border-dialac-brown/60 focus:border-dialac-brown focus:bg-white focus:ring-4 focus:ring-dialac-brown/10 aria-[invalid=true]:border-dialac-error aria-[invalid=true]:focus:ring-dialac-error/10";
+  "w-full rounded-xl border border-dialac-border bg-white/80 px-4 py-3.5 text-dialac-charcoal shadow-sm outline-none transition placeholder:text-dialac-charcoal/45 hover:border-dialac-brown/60 hover:bg-white focus:border-dialac-brown focus:bg-white focus:ring-4 focus:ring-dialac-brown/10 aria-[invalid=true]:border-dialac-error aria-[invalid=true]:focus:ring-dialac-error/10";
 
 const errorStyles = "mt-2 text-sm font-semibold text-dialac-error";
 
@@ -172,7 +176,7 @@ Gracias.`,
           delay: 0.1,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="relative h-full overflow-hidden rounded-[2rem] border border-dialac-border bg-white p-7 shadow-[0_18px_50px_rgba(38,40,42,0.07)] sm:p-9 lg:p-10"
+        className="relative h-full overflow-hidden rounded-[1.75rem] border border-dialac-border bg-[#f7f2eb] p-6 shadow-[0_20px_50px_rgba(75,52,39,0.1)] sm:p-8 lg:p-9"
       >
         {/* ELEMENTOS DECORATIVOS */}
         <div
@@ -182,20 +186,27 @@ Gracias.`,
 
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-dialac-brown/5"
+          className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full border-[38px] border-dialac-brown/[0.055]"
         />
 
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute bottom-[15%] left-[-4rem] h-40 w-40 rounded-full border-[28px] border-dialac-green/5"
+          className="pointer-events-none absolute bottom-[12%] left-[-4rem] h-40 w-40 rounded-full border-[28px] border-dialac-brown/[0.04]"
         />
+
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute right-6 top-5 font-display text-[7rem] font-bold leading-none text-dialac-brown/[0.035] sm:text-[9rem]"
+        >
+          02
+        </span>
 
         <div className="relative">
           {/* ENCABEZADO */}
           <div className="flex items-center gap-3">
             <motion.span
               aria-hidden="true"
-              className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f4e8de] text-dialac-brown-dark"
+              className="flex h-12 w-12 items-center justify-center rounded-xl bg-dialac-brown text-white shadow-[0_10px_25px_rgba(122,63,37,0.22)]"
               animate={
                 reduceMotion
                   ? undefined
@@ -218,7 +229,13 @@ Gracias.`,
                 strokeLinejoin="round"
                 className="h-6 w-6"
               >
-                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <rect
+                  x="3"
+                  y="5"
+                  width="18"
+                  height="14"
+                  rx="2"
+                />
                 <path d="m3 7 9 6 9-6" />
               </svg>
             </motion.span>
@@ -237,7 +254,7 @@ Gracias.`,
             información.
           </p>
 
-          <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-dialac-border bg-[#fcfaf7] px-4 py-2 text-sm text-dialac-charcoal">
+          <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-dialac-brown/20 bg-white/70 px-4 py-2 text-sm text-dialac-charcoal shadow-sm">
             <span
               aria-hidden="true"
               className="h-2.5 w-2.5 rounded-full bg-dialac-brown"
@@ -247,7 +264,7 @@ Gracias.`,
           </div>
 
           <form
-            className="mt-9 space-y-6"
+            className="mt-8 space-y-5"
             onSubmit={handleSubmit(onSubmit)}
             noValidate
           >
@@ -683,7 +700,7 @@ Gracias.`,
                       scale: 0.98,
                     }
               }
-              className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-dialac-brown px-6 py-4 font-semibold text-white shadow-[0_12px_30px_rgba(139,78,47,0.22)] transition hover:bg-dialac-brown-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-dialac-brown/30 sm:w-auto"
+              className="group inline-flex w-full items-center justify-center gap-3 rounded-xl bg-dialac-brown px-6 py-3.5 font-semibold text-white shadow-[0_12px_28px_rgba(122,63,37,0.22)] outline-none transition hover:bg-dialac-brown-dark focus-visible:ring-4 focus-visible:ring-dialac-brown/30 sm:w-auto"
             >
               Revisar y preparar correo
 
@@ -730,7 +747,7 @@ Gracias.`,
               role="dialog"
               aria-modal="true"
               aria-labelledby="email-confirmation-title"
-              className="relative max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-[2rem] border border-dialac-border bg-white p-6 shadow-2xl sm:p-8"
+              className="relative max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-[1.75rem] border border-dialac-border bg-[#f7f2eb] p-6 shadow-[0_28px_80px_rgba(30,20,15,0.28)] sm:p-8"
               onMouseDown={(event) => event.stopPropagation()}
               initial={
                 reduceMotion
@@ -762,7 +779,7 @@ Gracias.`,
               />
 
               <div className="flex items-start justify-between gap-5">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#e9eddf] text-dialac-green-dark">
+                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-dialac-brown text-white shadow-[0_10px_25px_rgba(122,63,37,0.2)]">
                   <svg
                     aria-hidden="true"
                     viewBox="0 0 24 24"
@@ -773,7 +790,13 @@ Gracias.`,
                     strokeLinejoin="round"
                     className="h-7 w-7"
                   >
-                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <rect
+                      x="3"
+                      y="5"
+                      width="18"
+                      height="14"
+                      rx="2"
+                    />
                     <path d="m3 7 9 6 9-6" />
                   </svg>
                 </div>
@@ -816,7 +839,7 @@ Gracias.`,
                 Acosdie@gmail.com
               </p>
 
-              <dl className="mt-6 space-y-4 rounded-2xl border border-dialac-border bg-[#fcfaf7] p-5 text-sm">
+              <dl className="mt-6 space-y-4 rounded-2xl border border-dialac-border bg-white/80 p-5 text-sm shadow-sm">
                 <div>
                   <dt className="font-semibold text-dialac-charcoal">
                     Nombre

@@ -14,7 +14,7 @@ const socialLinks = [
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="h-6 w-6"
+        className="h-5 w-5"
       >
         <rect x="3" y="3" width="18" height="18" rx="5" />
         <circle cx="12" cy="12" r="4" />
@@ -36,7 +36,7 @@ const socialLinks = [
         aria-hidden="true"
         viewBox="0 0 24 24"
         fill="currentColor"
-        className="h-6 w-6"
+        className="h-5 w-5"
       >
         <path d="M13.5 22v-8h2.8l.42-3.27H13.5V8.64c0-.95.26-1.59 1.62-1.59h1.73V4.13A23 23 0 0 0 14.33 4C11.84 4 10.14 5.52 10.14 8.31v2.42H7.33V14h2.81v8h3.36Z" />
       </svg>
@@ -50,7 +50,7 @@ const socialLinks = [
         aria-hidden="true"
         viewBox="0 0 24 24"
         fill="currentColor"
-        className="h-6 w-6"
+        className="h-5 w-5"
       >
         <path d="M6.94 8.5H3.56V19h3.38V8.5ZM5.25 3A1.96 1.96 0 1 0 5.25 6.92 1.96 1.96 0 0 0 5.25 3ZM20.44 12.97c0-3.17-1.69-4.64-3.95-4.64a3.42 3.42 0 0 0-3.1 1.71V8.5H10V19h3.39v-5.2c0-1.37.26-2.69 1.96-2.69 1.68 0 1.7 1.57 1.7 2.78V19h3.39v-6.03Z" />
       </svg>
@@ -74,7 +74,7 @@ function ContactInfo() {
           ? false
           : {
               opacity: 0,
-              x: -35,
+              x: -30,
             }
       }
       whileInView={{
@@ -89,23 +89,49 @@ function ContactInfo() {
         duration: 0.65,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-dialac-border bg-gradient-to-br from-[#fffaf4] via-white to-[#eef1e8] p-7 shadow-[0_18px_50px_rgba(38,40,42,0.07)] sm:p-9 lg:p-10"
+      className="relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-dialac-border bg-[#ead8c5] p-6 shadow-[0_20px_50px_rgba(75,52,39,0.1)] sm:p-8 lg:p-9"
     >
-      {/* ACENTOS DECORATIVOS */}
+      {/* TEXTURA */}
       <div
         aria-hidden="true"
-        className="absolute left-0 top-0 h-1.5 w-full bg-dialac-green"
+        className="pointer-events-none absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, #7a3f25 1px, transparent 1px)",
+          backgroundSize: "20px 20px",
+        }}
       />
 
+      {/* DECORACIÓN */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full border-[38px] border-dialac-green/5"
+        className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full border-[36px] border-white/20"
       />
 
-      <div
+      <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-20 -left-20 h-60 w-60 rounded-[35%_65%_45%_55%] bg-dialac-brown/5"
+        className="pointer-events-none absolute -bottom-20 -left-20 h-60 w-60 rounded-[38%_62%_46%_54%] bg-white/15"
+        animate={
+          reduceMotion
+            ? undefined
+            : {
+                rotate: [0, 10, 0],
+                scale: [1, 1.06, 1],
+              }
+        }
+        transition={{
+          duration: 14,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        }}
       />
+
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute right-5 top-3 font-display text-[7rem] font-bold leading-none text-white/20 sm:text-[9rem]"
+      >
+        01
+      </span>
 
       <div className="relative flex h-full flex-col">
         {/* ENCABEZADO */}
@@ -113,7 +139,7 @@ function ContactInfo() {
           <div className="flex items-center gap-3">
             <motion.span
               aria-hidden="true"
-              className="flex h-12 w-12 items-center justify-center rounded-2xl bg-dialac-green text-white"
+              className="flex h-12 w-12 items-center justify-center rounded-xl bg-dialac-brown text-white shadow-[0_10px_25px_rgba(122,63,37,0.22)]"
               animate={
                 reduceMotion
                   ? undefined
@@ -142,12 +168,12 @@ function ContactInfo() {
               </svg>
             </motion.span>
 
-            <p className="font-display text-sm font-semibold uppercase tracking-[0.2em] text-dialac-green-dark">
+            <p className="font-display text-[10px] font-bold uppercase tracking-[0.2em] text-dialac-brown-dark sm:text-xs">
               Atención personalizada
             </p>
           </div>
 
-          <h2 className="mt-6 font-display text-3xl font-bold leading-tight text-dialac-charcoal sm:text-4xl">
+          <h2 className="mt-6 max-w-xl font-display text-3xl font-bold leading-tight tracking-[-0.025em] text-dialac-charcoal sm:text-4xl">
             ¿Cómo podemos ayudarte?
           </h2>
 
@@ -158,24 +184,48 @@ function ContactInfo() {
         </div>
 
         {/* OPCIONES DE ATENCIÓN */}
-        <div className="mt-8 space-y-4">
-          <motion.article
-            whileHover={
-              reduceMotion
-                ? undefined
-                : {
-                    x: 5,
-                  }
-            }
-            transition={{
-              duration: 0.25,
-            }}
-            className="group rounded-2xl border border-dialac-border bg-white p-5 shadow-[0_8px_24px_rgba(38,40,42,0.05)]"
-          >
-            <div className="flex items-start gap-4">
+        <div className="relative mt-7">
+          <div
+            aria-hidden="true"
+            className="absolute bottom-5 left-[21px] top-5 w-px bg-dialac-brown/25"
+          />
+
+          <div className="space-y-3">
+            {/* PEDIDOS Y COTIZACIONES */}
+            <motion.article
+              initial={
+                reduceMotion
+                  ? false
+                  : {
+                      opacity: 0,
+                      x: -18,
+                    }
+              }
+              whileInView={{
+                opacity: 1,
+                x: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.4,
+              }}
+              transition={{
+                duration: 0.45,
+                delay: 0.05,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              whileHover={
+                reduceMotion
+                  ? undefined
+                  : {
+                      x: 5,
+                    }
+              }
+              className="group relative grid grid-cols-[44px_1fr] items-start gap-3 rounded-2xl border border-white/65 bg-white/70 p-4 shadow-[0_8px_22px_rgba(75,52,39,0.06)] backdrop-blur-sm"
+            >
               <div
                 aria-hidden="true"
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#f4e8de] text-dialac-brown-dark transition-transform duration-300 group-hover:rotate-3 group-hover:scale-105"
+                className="relative z-10 flex h-11 w-11 items-center justify-center rounded-xl bg-dialac-brown text-white transition-transform duration-300 group-hover:rotate-3 group-hover:scale-105"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -184,14 +234,14 @@ function ContactInfo() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-6 w-6"
+                  className="h-5 w-5"
                 >
                   <path d="M3 6h18v12H3z" />
                   <path d="m3 8 9 6 9-6" />
                 </svg>
               </div>
 
-              <div>
+              <div className="pt-0.5">
                 <h3 className="font-display text-lg font-semibold text-dialac-charcoal">
                   Pedidos y cotizaciones
                 </h3>
@@ -200,26 +250,43 @@ function ContactInfo() {
                   Solicita información sobre productos, cantidades y precios.
                 </p>
               </div>
-            </div>
-          </motion.article>
+            </motion.article>
 
-          <motion.article
-            whileHover={
-              reduceMotion
-                ? undefined
-                : {
-                    x: 5,
-                  }
-            }
-            transition={{
-              duration: 0.25,
-            }}
-            className="group rounded-2xl border border-dialac-border bg-white p-5 shadow-[0_8px_24px_rgba(38,40,42,0.05)]"
-          >
-            <div className="flex items-start gap-4">
+            {/* EMPRESAS Y EVENTOS */}
+            <motion.article
+              initial={
+                reduceMotion
+                  ? false
+                  : {
+                      opacity: 0,
+                      x: -18,
+                    }
+              }
+              whileInView={{
+                opacity: 1,
+                x: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.4,
+              }}
+              transition={{
+                duration: 0.45,
+                delay: 0.12,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              whileHover={
+                reduceMotion
+                  ? undefined
+                  : {
+                      x: 5,
+                    }
+              }
+              className="group relative grid grid-cols-[44px_1fr] items-start gap-3 rounded-2xl border border-white/65 bg-white/70 p-4 shadow-[0_8px_22px_rgba(75,52,39,0.06)] backdrop-blur-sm"
+            >
               <div
                 aria-hidden="true"
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#e9eddf] text-dialac-green-dark transition-transform duration-300 group-hover:rotate-3 group-hover:scale-105"
+                className="relative z-10 flex h-11 w-11 items-center justify-center rounded-xl bg-[#bd8968] text-white transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -228,7 +295,7 @@ function ContactInfo() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-6 w-6"
+                  className="h-5 w-5"
                 >
                   <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
                   <circle cx="9" cy="7" r="4" />
@@ -237,7 +304,7 @@ function ContactInfo() {
                 </svg>
               </div>
 
-              <div>
+              <div className="pt-0.5">
                 <h3 className="font-display text-lg font-semibold text-dialac-charcoal">
                   Empresas y eventos
                 </h3>
@@ -247,26 +314,43 @@ function ContactInfo() {
                   reuniones y eventos.
                 </p>
               </div>
-            </div>
-          </motion.article>
+            </motion.article>
 
-          <motion.article
-            whileHover={
-              reduceMotion
-                ? undefined
-                : {
-                    x: 5,
-                  }
-            }
-            transition={{
-              duration: 0.25,
-            }}
-            className="group rounded-2xl border border-dialac-border bg-white p-5 shadow-[0_8px_24px_rgba(38,40,42,0.05)]"
-          >
-            <div className="flex items-start gap-4">
+            {/* ATENCIÓN CERCANA */}
+            <motion.article
+              initial={
+                reduceMotion
+                  ? false
+                  : {
+                      opacity: 0,
+                      x: -18,
+                    }
+              }
+              whileInView={{
+                opacity: 1,
+                x: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.4,
+              }}
+              transition={{
+                duration: 0.45,
+                delay: 0.19,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              whileHover={
+                reduceMotion
+                  ? undefined
+                  : {
+                      x: 5,
+                    }
+              }
+              className="group relative grid grid-cols-[44px_1fr] items-start gap-3 rounded-2xl border border-white/65 bg-white/70 p-4 shadow-[0_8px_22px_rgba(75,52,39,0.06)] backdrop-blur-sm"
+            >
               <div
                 aria-hidden="true"
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#f4e8de] text-dialac-brown-dark transition-transform duration-300 group-hover:rotate-3 group-hover:scale-105"
+                className="relative z-10 flex h-11 w-11 items-center justify-center rounded-xl bg-dialac-brown-dark text-white transition-transform duration-300 group-hover:rotate-3 group-hover:scale-105"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -275,13 +359,13 @@ function ContactInfo() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-6 w-6"
+                  className="h-5 w-5"
                 >
                   <path d="M12 21s-7-4.4-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.6-7 11-7 11Z" />
                 </svg>
               </div>
 
-              <div>
+              <div className="pt-0.5">
                 <h3 className="font-display text-lg font-semibold text-dialac-charcoal">
                   Atención cercana
                 </h3>
@@ -290,8 +374,8 @@ function ContactInfo() {
                   Recibe orientación de acuerdo con tus gustos y necesidades.
                 </p>
               </div>
-            </div>
-          </motion.article>
+            </motion.article>
+          </div>
         </div>
 
         {/* WHATSAPP */}
@@ -313,7 +397,7 @@ function ContactInfo() {
                   scale: 0.98,
                 }
           }
-          className="mt-8 inline-flex w-full items-center justify-center gap-3 rounded-xl bg-dialac-brown px-6 py-4 font-semibold text-white shadow-[0_12px_30px_rgba(139,78,47,0.22)] transition hover:bg-dialac-brown-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-dialac-brown/30"
+          className="mt-7 inline-flex w-full items-center justify-center gap-3 rounded-xl bg-dialac-brown px-6 py-3.5 font-semibold text-white shadow-[0_12px_28px_rgba(122,63,37,0.22)] outline-none transition hover:bg-dialac-brown-dark focus-visible:ring-4 focus-visible:ring-dialac-brown/30"
         >
           <svg
             aria-hidden="true"
@@ -333,14 +417,14 @@ function ContactInfo() {
         </motion.button>
 
         {/* REDES SOCIALES */}
-        <div className="mt-auto pt-10">
-          <div className="border-t border-dialac-border pt-7">
-            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between lg:flex-col lg:items-start xl:flex-row xl:items-center">
+        <div className="mt-auto pt-8">
+          <div className="border-t border-dialac-brown/20 pt-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between lg:flex-col lg:items-start xl:flex-row xl:items-center">
               <h3 className="font-display text-lg font-semibold text-dialac-charcoal">
                 Encuéntranos en redes
               </h3>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2.5">
                 {socialLinks.map((social, index) => (
                   <motion.a
                     key={social.name}
@@ -376,7 +460,14 @@ function ContactInfo() {
                             rotate: 4,
                           }
                     }
-                    className="flex h-12 w-12 items-center justify-center rounded-2xl border border-dialac-green bg-white text-dialac-green-dark transition hover:bg-dialac-green hover:text-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-dialac-green/30"
+                    whileTap={
+                      reduceMotion
+                        ? undefined
+                        : {
+                            scale: 0.92,
+                          }
+                    }
+                    className="flex h-11 w-11 items-center justify-center rounded-xl border border-dialac-brown/30 bg-white/75 text-dialac-brown-dark shadow-sm outline-none transition hover:border-dialac-brown hover:bg-dialac-brown hover:text-white focus-visible:ring-4 focus-visible:ring-dialac-brown/25"
                   >
                     {social.icon}
                     <span className="sr-only">{social.name}</span>

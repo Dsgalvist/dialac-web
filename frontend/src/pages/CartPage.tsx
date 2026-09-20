@@ -38,8 +38,8 @@ function CartPage() {
   }, [isEmpty]);
 
   const handleContinue = () => {
-  navigate("/solicitud/datos");
-};
+    navigate("/solicitud/datos");
+  };
 
   const handleClearCart = () => {
     clearCart();
@@ -52,7 +52,7 @@ function CartPage() {
         isEmpty ? "" : "pb-24 lg:pb-0"
       }`}
     >
-      <section className="relative px-3 py-10 sm:px-8 sm:py-14 lg:py-16">
+      <section className="relative px-3 pb-10 pt-3 sm:px-8 sm:pb-14 sm:pt-4 lg:pb-16 lg:pt-5">
         {/* DECORACIÓN */}
         <div
           aria-hidden="true"
@@ -66,7 +66,10 @@ function CartPage() {
 
         <div className="relative mx-auto max-w-[1480px]">
           {/* ENCABEZADO */}
-          <header className="mb-10 flex flex-col gap-6 sm:mb-12 lg:flex-row lg:items-end lg:justify-between">
+          <header
+            data-tour="cart-header"
+            className="mb-6 flex flex-col gap-5 sm:mb-7 lg:flex-row lg:items-end lg:justify-between"
+          >
             <div className="max-w-3xl">
               <div className="flex items-center gap-3">
                 <span
@@ -79,13 +82,13 @@ function CartPage() {
                 </p>
               </div>
 
-              <h1 className="mt-4 font-display text-4xl font-bold leading-tight text-dialac-charcoal sm:text-5xl">
+              <h1 className="mt-3 font-display text-4xl font-bold leading-tight text-dialac-charcoal sm:text-5xl">
                 Revisa tus productos
               </h1>
 
-              <p className="mt-4 max-w-2xl text-base leading-7 text-dialac-charcoal sm:text-lg">
-                Verifica las cantidades y el valor total antes de continuar
-                con los datos de tu solicitud.
+              <p className="mt-3 max-w-2xl text-base leading-7 text-dialac-charcoal sm:text-lg">
+                Verifica las cantidades y el valor total antes de continuar con
+                los datos de tu solicitud.
               </p>
             </div>
 
@@ -111,6 +114,88 @@ function CartPage() {
             </Link>
           </header>
 
+          {/* INFORMACIÓN DE DOMICILIO Y COBERTURA */}
+          {!isEmpty && (
+            <motion.div
+              initial={
+                reduceMotion
+                  ? false
+                  : {
+                      opacity: 0,
+                      y: 18,
+                    }
+              }
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.5,
+                delay: 0.08,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="mb-7 overflow-hidden rounded-2xl border border-dialac-border bg-white shadow-[0_12px_35px_rgba(38,40,42,0.06)]"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-stretch">
+                {/* ETIQUETA DESTACADA */}
+                <div className="relative flex items-center gap-3 overflow-hidden bg-dialac-brown px-5 py-4 text-white sm:min-w-[210px]">
+                  <div
+                    aria-hidden="true"
+                    className="absolute -bottom-12 -right-12 h-28 w-28 rounded-full border-[20px] border-white/10"
+                  />
+
+                  <span
+                    aria-hidden="true"
+                    className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/15"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-6 w-6"
+                    >
+                      <path d="M3 7h11v10H3Z" />
+                      <path d="M14 10h4l3 3v4h-7Z" />
+                      <circle cx="7" cy="18" r="2" />
+                      <circle cx="18" cy="18" r="2" />
+                    </svg>
+                  </span>
+
+                  <p className="relative font-display text-sm font-bold uppercase tracking-[0.16em]">
+                    Domicilio
+                  </p>
+                </div>
+
+                {/* INFORMACIÓN */}
+                <div className="relative flex-1 overflow-hidden bg-[#f7f2eb] px-5 py-4">
+                  <div
+                    aria-hidden="true"
+                    className="absolute -right-12 -top-12 h-32 w-32 rounded-full border-[22px] border-white/60"
+                  />
+
+                  <div className="relative">
+                    <p className="font-display font-bold text-dialac-charcoal">
+                      Entregas en Bogotá, Chía y Cajicá
+                    </p>
+
+                    <p className="mt-1 text-sm leading-6 text-dialac-charcoal">
+                      El domicilio está sujeto a cobertura, disponibilidad y
+                      posible costo adicional.
+                    </p>
+
+                    <p className="mt-1 text-xs font-semibold leading-5 text-dialac-brown-dark">
+                      DIALAC confirmará las condiciones antes de confirmar el
+                      pedido.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
           {isEmpty ? (
             <EmptyCart />
           ) : (
@@ -118,6 +203,7 @@ function CartPage() {
               {/* PRODUCTOS: SEGUNDO EN RESPONSIVE */}
               <section
                 aria-labelledby="cart-products-title"
+                data-tour="cart-items"
                 className="order-2 lg:order-1"
               >
                 <div className="mb-5 flex items-center justify-between gap-4">
@@ -134,7 +220,10 @@ function CartPage() {
                     </h2>
                   </div>
 
-                  <AnimatePresence mode="wait" initial={false}>
+                  <AnimatePresence
+                    mode="wait"
+                    initial={false}
+                  >
                     <motion.span
                       key={totalItems}
                       initial={
@@ -183,7 +272,10 @@ function CartPage() {
               </section>
 
               {/* RESUMEN: PRIMERO EN RESPONSIVE */}
-              <div className="order-1 lg:order-2 lg:sticky lg:top-28">
+              <div
+                data-tour="cart-summary"
+                className="order-1 lg:order-2 lg:sticky lg:top-28"
+              >
                 <CartSummary
                   totalItems={totalItems}
                   totalPrice={totalPrice}
@@ -264,8 +356,8 @@ function CartPage() {
             </h2>
 
             <p className="mt-3 leading-7 text-dialac-charcoal">
-              Se eliminarán todos los productos y cantidades seleccionadas.
-              Esta acción no se puede deshacer.
+              Se eliminarán todos los productos y cantidades seleccionadas. Esta
+              acción no se puede deshacer.
             </p>
 
             <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">

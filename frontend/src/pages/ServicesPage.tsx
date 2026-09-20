@@ -13,7 +13,7 @@ function ServicesPage() {
   return (
     <main className="min-h-screen overflow-x-clip bg-[#f7f5f1]">
       {/* SERVICIOS: ENCABEZADO, CATEGORÍAS Y CATÁLOGO */}
-      <section className="relative px-3 py-10 sm:px-8 sm:py-14 lg:py-16">
+      <section className="relative px-3 pb-10 pt-3 sm:px-8 sm:pb-14 sm:pt-4 lg:pb-16 lg:pt-5">
         {/* DECORACIÓN */}
         <div
           aria-hidden="true"
@@ -44,7 +44,7 @@ function ServicesPage() {
               duration: 0.6,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="mb-10 grid gap-7 sm:mb-12 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-end"
+            className="mb-6 grid gap-5 sm:mb-7 lg:grid-cols-[minmax(0,0.85fr)_minmax(600px,1.15fr)] lg:items-center"
           >
             <div className="max-w-3xl">
               <div className="flex items-center gap-3">
@@ -58,47 +58,84 @@ function ServicesPage() {
                 </p>
               </div>
 
-              <h1 className="mt-4 font-display text-4xl font-bold leading-tight text-dialac-charcoal sm:text-5xl">
+              <h1 className="mt-3 font-display text-4xl font-bold leading-tight text-dialac-charcoal sm:text-5xl">
                 Soluciones para cada ocasión
               </h1>
 
-              <p className="mt-4 max-w-2xl text-base leading-7 text-dialac-charcoal sm:text-lg sm:leading-8">
+              <p className="mt-3 max-w-2xl text-base leading-7 text-dialac-charcoal sm:text-lg sm:leading-8">
                 Explora nuestros servicios para celebraciones, empresas,
-                reuniones y eventos. Cada alternativa puede personalizarse
-                de acuerdo con tus necesidades.
+                reuniones y eventos. Cada alternativa puede personalizarse de
+                acuerdo con tus necesidades.
               </p>
             </div>
 
-            {/* INFORMACIÓN DE ANTICIPACIÓN */}
-            <div className="rounded-2xl border border-dialac-border bg-white p-5 shadow-[0_12px_35px_rgba(38,40,42,0.06)]">
-              <div className="flex items-start gap-4">
-                <span
-                  aria-hidden="true"
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#e9eddf] text-dialac-green-dark"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-6 w-6"
+            {/* INFORMACIÓN IMPORTANTE */}
+            <div className="grid gap-3 sm:grid-cols-2">
+              {/* ANTICIPACIÓN */}
+              <div className="rounded-2xl border border-dialac-border bg-white p-4 shadow-[0_12px_35px_rgba(38,40,42,0.06)]">
+                <div className="flex items-start gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#e9eddf] text-dialac-green-dark"
                   >
-                    <circle cx="12" cy="12" r="9" />
-                    <path d="M12 7v5l3 2" />
-                  </svg>
-                </span>
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-5 w-5"
+                    >
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M12 7v5l3 2" />
+                    </svg>
+                  </span>
 
-                <div className="min-w-0">
-                  <p className="font-display font-bold text-dialac-charcoal">
-                    Solicita con anticipación
-                  </p>
+                  <div className="min-w-0">
+                    <p className="font-display font-bold text-dialac-charcoal">
+                      Solicita con anticipación
+                    </p>
 
-                  <p className="mt-1 text-sm leading-6 text-dialac-charcoal">
-                    Los servicios deben solicitarse con mínimo 3 días de
-                    anticipación.
-                  </p>
+                    <p className="mt-1 text-sm leading-5 text-dialac-charcoal">
+                      Los servicios deben solicitarse con mínimo 3 días de
+                      anticipación.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* COBERTURA */}
+              <div className="rounded-2xl border border-dialac-border bg-[#f7f2eb] p-4 shadow-[0_12px_35px_rgba(38,40,42,0.06)]">
+                <div className="flex items-start gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#ead8c5] text-dialac-brown-dark"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-5 w-5"
+                    >
+                      <path d="M12 21s6-5.3 6-12a6 6 0 1 0-12 0c0 6.7 6 12 6 12Z" />
+                      <circle cx="12" cy="9" r="2" />
+                    </svg>
+                  </span>
+
+                  <div className="min-w-0">
+                    <p className="font-display font-bold text-dialac-charcoal">
+                      Cobertura actual
+                    </p>
+
+                    <p className="mt-1 text-sm leading-5 text-dialac-charcoal">
+                      Prestamos nuestros servicios únicamente en Bogotá, Chía y
+                      Cajicá.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

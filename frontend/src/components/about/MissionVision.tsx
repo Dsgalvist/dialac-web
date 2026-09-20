@@ -9,7 +9,8 @@ const cards = [
     title: "Misión",
     accent: "bg-dialac-brown",
     accentText: "text-dialac-brown-dark",
-    iconBackground: "bg-[#f4e8de]",
+    iconBackground: "bg-[#f1dfd1]",
+    cardBackground: "bg-[#fffdf9]",
     icon: (
       <svg
         aria-hidden="true"
@@ -19,7 +20,7 @@ const cards = [
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="h-7 w-7"
+        className="h-6 w-6"
       >
         <circle cx="12" cy="12" r="8" />
         <circle cx="12" cy="12" r="3" />
@@ -38,9 +39,10 @@ const cards = [
     number: "02",
     eyebrow: "Hacia dónde vamos",
     title: "Visión",
-    accent: "bg-dialac-green",
-    accentText: "text-dialac-green-dark",
-    iconBackground: "bg-[#e9eddf]",
+    accent: "bg-[#b48262]",
+    accentText: "text-[#81462d]",
+    iconBackground: "bg-[#eadac9]",
+    cardBackground: "bg-[#f5efe6]",
     icon: (
       <svg
         aria-hidden="true"
@@ -50,7 +52,7 @@ const cards = [
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="h-7 w-7"
+        className="h-6 w-6"
       >
         <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" />
         <circle cx="12" cy="12" r="3" />
@@ -69,85 +71,116 @@ function MissionVision() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="relative isolate overflow-hidden bg-[#f7f5f1] px-6 py-20 sm:py-24 lg:py-28">
-      {/* DECORACIÓN SUTIL */}
+    <section className="relative isolate overflow-hidden bg-[#f5efe6] px-4 py-12 sm:px-6 sm:py-14 lg:py-16">
+      {/* TEXTURA DEL FONDO */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-20 opacity-[0.03]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, #7a3f25 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-52 bg-gradient-to-b from-white/70 to-transparent"
+      />
+
+      {/* DECORACIÓN */}
       <FloatingShape
-        duration={8}
+        duration={9}
         distance={12}
-        className="pointer-events-none absolute -left-32 top-20 -z-10"
+        className="pointer-events-none absolute -left-32 top-16 -z-10"
       >
-        <div className="h-72 w-72 rounded-full border-[48px] border-dialac-brown/5" />
+        <div className="h-72 w-72 rounded-full border-[48px] border-dialac-brown/[0.045]" />
       </FloatingShape>
 
       <FloatingShape
-        duration={9}
+        duration={10}
         delay={0.5}
         distance={14}
         className="pointer-events-none absolute -bottom-40 right-[3%] -z-10"
       >
-        <div className="h-80 w-80 rounded-full bg-dialac-green/5" />
+        <div className="h-80 w-80 rounded-[42%_58%_54%_46%] bg-dialac-brown/[0.04]" />
       </FloatingShape>
 
       <div className="mx-auto max-w-7xl">
-        {/* ENCABEZADO */}
-        <Reveal>
-          <div className="mx-auto max-w-3xl text-center">
-            <div className="flex items-center justify-center gap-3">
+        {/* ENCABEZADO EDITORIAL */}
+        <div className="grid gap-5 border-b border-dialac-border pb-7 lg:grid-cols-[0.38fr_1fr] lg:items-end lg:gap-12">
+          <Reveal direction="right">
+            <div>
+              <div className="flex items-center gap-3">
+                <motion.span
+                  aria-hidden="true"
+                  className="h-2.5 w-2.5 rounded-full bg-dialac-brown"
+                  animate={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          scale: [1, 1.4, 1],
+                          opacity: [1, 0.6, 1],
+                        }
+                  }
+                  transition={{
+                    duration: 2.2,
+                    repeat: Number.POSITIVE_INFINITY,
+                    ease: "easeInOut",
+                  }}
+                />
+
+                <p className="font-display text-xs font-bold uppercase tracking-[0.2em] text-dialac-brown-dark sm:text-sm">
+                  Lo que nos guía
+                </p>
+              </div>
+
               <motion.span
                 aria-hidden="true"
-                className="h-3 w-3 rounded-full bg-dialac-brown"
-                animate={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        scale: [1, 1.35, 1],
-                        opacity: [1, 0.65, 1],
-                      }
-                }
+                initial={reduceMotion ? false : { scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
                 transition={{
-                  duration: 2.2,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
+                  duration: 0.8,
+                  delay: 0.25,
+                  ease: [0.22, 1, 0.36, 1],
                 }}
+                className="mt-4 block h-px w-20 origin-left bg-dialac-brown"
               />
+            </div>
+          </Reveal>
 
-              <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-dialac-brown-dark">
-                Lo que nos guía
+          <Reveal direction="left" delay={0.08}>
+            <div>
+              <h2 className="max-w-4xl font-display text-[2.5rem] font-bold leading-[0.96] tracking-[-0.035em] text-dialac-charcoal sm:text-5xl lg:text-[3.75rem]">
+                Nuestro presente y nuestro futuro
+              </h2>
+
+              <p className="mt-4 max-w-2xl text-base leading-7 text-dialac-charcoal sm:text-lg">
+                Trabajamos con un propósito claro y una visión que orienta cada
+                paso de DIALAC.
               </p>
             </div>
-
-            <h2 className="mt-5 font-display text-4xl font-bold leading-tight text-dialac-charcoal sm:text-5xl">
-              Nuestro presente y nuestro futuro
-            </h2>
-
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-dialac-charcoal">
-              Trabajamos con un propósito claro y una visión que orienta cada
-              paso de DIALAC.
-            </p>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
 
         {/* TARJETAS */}
-        <div className="relative mt-14 grid gap-7 lg:grid-cols-2">
-          <div
-            aria-hidden="true"
-            className="absolute left-1/2 top-12 hidden h-[calc(100%-6rem)] w-px -translate-x-1/2 bg-dialac-border lg:block"
-          />
-
+        <div className="relative mt-8 grid gap-5 lg:grid-cols-2">
           {cards.map((card, index) => (
             <Reveal
               key={card.title}
               direction={index === 0 ? "right" : "left"}
-              delay={index * 0.12}
+              delay={index * 0.1}
             >
               <motion.article
-                className="group relative h-full overflow-hidden rounded-[2rem] border border-dialac-border bg-white p-7 shadow-[0_12px_35px_rgba(38,40,42,0.06)] sm:p-9 lg:p-10"
+                className={`group relative h-full overflow-hidden rounded-[2rem] border border-dialac-border p-6 shadow-[0_14px_38px_rgba(90,60,42,0.08)] sm:p-7 lg:p-8 ${card.cardBackground}`}
                 whileHover={
                   reduceMotion
                     ? undefined
                     : {
-                        y: -8,
-                        boxShadow: "0 24px 60px rgba(38, 40, 42, 0.12)",
+                        y: -6,
+                        boxShadow:
+                          "0 24px 55px rgba(90, 60, 42, 0.14)",
                       }
                 }
                 transition={{
@@ -155,32 +188,38 @@ function MissionVision() {
                   ease: [0.22, 1, 0.36, 1],
                 }}
               >
-                {/* ACENTO SUPERIOR */}
+                {/* ACENTO LATERAL */}
                 <motion.div
                   aria-hidden="true"
-                  className={`absolute left-0 top-0 h-1.5 w-full origin-left ${card.accent}`}
-                  initial={reduceMotion ? false : { scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
+                  className={`absolute bottom-0 left-0 top-0 w-1.5 origin-top ${card.accent}`}
+                  initial={reduceMotion ? false : { scaleY: 0 }}
+                  whileInView={{ scaleY: 1 }}
                   viewport={{ once: true }}
                   transition={{
                     duration: 0.8,
-                    delay: 0.25 + index * 0.1,
+                    delay: 0.2 + index * 0.1,
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 />
 
-                {/* NÚMERO DECORATIVO */}
+                {/* FORMAS DECORATIVAS */}
+                <div
+                  aria-hidden="true"
+                  className="absolute -right-16 -top-16 h-48 w-48 rounded-full border-[34px] border-dialac-brown/[0.035] transition-transform duration-700 group-hover:scale-110"
+                />
+
                 <span
                   aria-hidden="true"
-                  className="absolute -right-3 top-4 font-display text-8xl font-bold text-dialac-charcoal/[0.035] sm:text-9xl"
+                  className="absolute -right-2 top-3 font-display text-[7rem] font-bold leading-none text-dialac-brown/[0.045] sm:text-[8rem]"
                 >
                   {card.number}
                 </span>
 
                 <div className="relative">
+                  {/* CABECERA DE LA TARJETA */}
                   <div className="flex items-center justify-between gap-5">
                     <motion.div
-                      className={`flex h-16 w-16 items-center justify-center rounded-2xl ${card.iconBackground} ${card.accentText}`}
+                      className={`flex h-14 w-14 items-center justify-center rounded-2xl shadow-sm ${card.iconBackground} ${card.accentText}`}
                       whileHover={
                         reduceMotion
                           ? undefined
@@ -197,35 +236,52 @@ function MissionVision() {
                     </motion.div>
 
                     <span
-                      className={`font-display text-sm font-bold ${card.accentText}`}
+                      className={`font-display text-xs font-bold tracking-[0.12em] ${card.accentText}`}
                     >
                       {card.number}
                     </span>
                   </div>
 
-                  <p
-                    className={`mt-7 font-display text-sm font-semibold uppercase tracking-[0.16em] ${card.accentText}`}
-                  >
-                    {card.eyebrow}
-                  </p>
+                  <div className="mt-5 flex items-end justify-between gap-4">
+                    <div>
+                      <p
+                        className={`font-display text-xs font-bold uppercase tracking-[0.17em] ${card.accentText}`}
+                      >
+                        {card.eyebrow}
+                      </p>
 
-                  <h3 className="mt-3 font-display text-4xl font-bold text-dialac-charcoal">
-                    {card.title}
-                  </h3>
+                      <h3 className="mt-2 font-display text-3xl font-bold leading-none text-dialac-charcoal sm:text-4xl">
+                        {card.title}
+                      </h3>
+                    </div>
 
-                  <div className="mt-6 h-px bg-dialac-border" />
+                    <motion.span
+                      aria-hidden="true"
+                      initial={reduceMotion ? false : { scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.7,
+                        delay: 0.35 + index * 0.1,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className={`mb-1 hidden h-1 w-14 origin-right rounded-full sm:block ${card.accent}`}
+                    />
+                  </div>
 
-                  <div className="mt-6 space-y-5">
+                  <div className="my-5 h-px bg-dialac-border" />
+
+                  {/* TEXTO */}
+                  <div className="space-y-4">
                     {card.paragraphs.map((paragraph, paragraphIndex) => (
                       <motion.p
                         key={paragraph}
-                        className="leading-8 text-dialac-charcoal"
                         initial={
                           reduceMotion
                             ? false
                             : {
                                 opacity: 0,
-                                y: 15,
+                                y: 12,
                               }
                         }
                         whileInView={{
@@ -234,34 +290,42 @@ function MissionVision() {
                         }}
                         viewport={{
                           once: true,
-                          amount: 0.5,
+                          amount: 0.4,
                         }}
                         transition={{
-                          duration: 0.5,
+                          duration: 0.45,
                           delay:
-                            0.2 +
+                            0.18 +
                             index * 0.1 +
                             paragraphIndex * 0.08,
                           ease: [0.22, 1, 0.36, 1],
                         }}
+                        className="text-sm leading-6 text-dialac-charcoal sm:text-base sm:leading-7"
                       >
                         {paragraph}
                       </motion.p>
                     ))}
                   </div>
 
-                  <motion.div
-                    aria-hidden="true"
-                    className={`mt-8 h-2 w-16 rounded-full ${card.accent}`}
-                    initial={reduceMotion ? false : { width: 0 }}
-                    whileInView={{ width: 64 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.7,
-                      delay: 0.5 + index * 0.1,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                  />
+                  {/* FIRMA VISUAL */}
+                  <div className="mt-6 flex items-center gap-3">
+                    <motion.span
+                      aria-hidden="true"
+                      initial={reduceMotion ? false : { width: 0 }}
+                      whileInView={{ width: 48 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.7,
+                        delay: 0.5 + index * 0.1,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className={`h-1.5 rounded-full ${card.accent}`}
+                    />
+
+                    <span className="h-1.5 w-1.5 rounded-full bg-dialac-brown/25" />
+
+                    <span className="h-1.5 w-1.5 rounded-full bg-dialac-brown/15" />
+                  </div>
                 </div>
               </motion.article>
             </Reveal>

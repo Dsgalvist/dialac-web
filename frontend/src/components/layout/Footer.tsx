@@ -71,7 +71,7 @@ const containerVariants: Variants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.13,
+      staggerChildren: 0.1,
     },
   },
 };
@@ -79,14 +79,14 @@ const containerVariants: Variants = {
 const columnVariants: Variants = {
   hidden: {
     opacity: 0,
-    y: 32,
+    y: 26,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.55,
-      ease: "easeOut",
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1],
     },
   },
 };
@@ -126,57 +126,64 @@ Gracias.`;
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.05 }}
       transition={{ duration: reduceMotion ? 0 : 0.5 }}
-      className="relative overflow-hidden border-t border-white/10 bg-[#343832] text-[#F8F3EA]"
+      className="relative overflow-hidden border-t border-[#4a3b32] bg-[#2f2b28] text-[#f8f3ea]"
     >
-      {/* Línea superior animada */}
+      {/* ACENTO SUPERIOR */}
       <motion.div
         aria-hidden="true"
         initial={reduceMotion ? false : { scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true }}
         transition={{
-          duration: reduceMotion ? 0 : 1.1,
-          ease: "easeOut",
+          duration: reduceMotion ? 0 : 1,
+          ease: [0.22, 1, 0.36, 1],
         }}
-        className="absolute left-0 top-0 h-1 w-full origin-left bg-dialac-brown"
+        className="absolute left-0 top-0 h-1 w-full origin-left bg-gradient-to-r from-dialac-brown via-[#d5b99f] to-dialac-brown"
       />
 
-      {/* Formas decorativas */}
+      {/* DECORACIÓN */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-24 top-16 h-64 w-64 rounded-full border-[35px] border-white/5"
+        className="pointer-events-none absolute -left-28 top-10 h-64 w-64 rounded-full border-[38px] border-[#f5efe6]/[0.035]"
         animate={
           reduceMotion
             ? undefined
             : {
-                y: [0, -15, 0],
                 rotate: [0, 10, 0],
+                y: [0, -12, 0],
               }
         }
         transition={{
-          duration: 10,
-          repeat: Infinity,
+          duration: 11,
+          repeat: Number.POSITIVE_INFINITY,
           ease: "easeInOut",
         }}
       />
 
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-32 bottom-20 h-80 w-80 rounded-[42%] bg-dialac-green opacity-20"
+        className="pointer-events-none absolute -right-28 bottom-10 h-72 w-72 rounded-[42%_58%_55%_45%] bg-dialac-brown/[0.08]"
         animate={
           reduceMotion
             ? undefined
             : {
-                rotate: [0, -12, 0],
-                scale: [1, 1.08, 1],
+                rotate: [0, -10, 0],
+                scale: [1, 1.06, 1],
               }
         }
         transition={{
-          duration: 12,
-          repeat: Infinity,
+          duration: 13,
+          repeat: Number.POSITIVE_INFINITY,
           ease: "easeInOut",
         }}
       />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[20%] top-0 hidden font-display text-[15rem] font-bold leading-none text-white/[0.018] lg:block"
+      >
+        D
+      </div>
 
       <motion.div
         variants={containerVariants}
@@ -184,53 +191,91 @@ Gracias.`;
         whileInView="visible"
         viewport={{
           once: true,
-          amount: 0.12,
+          amount: 0.1,
         }}
-        className="relative z-10 mx-auto grid max-w-7xl grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] gap-x-5 gap-y-7 px-4 py-9 sm:grid-cols-2 sm:gap-10 sm:px-6 sm:py-14 xl:grid-cols-[1.25fr_0.7fr_1fr_1.15fr]"
+        className="relative z-10 mx-auto grid max-w-7xl grid-cols-2 gap-x-5 gap-y-8 px-4 py-9 sm:gap-x-10 sm:gap-y-10 sm:px-6 sm:py-12 lg:grid-cols-[1.2fr_0.65fr_0.95fr_1.2fr] lg:gap-10 lg:py-14"
       >
         {/* MARCA Y REDES */}
         <motion.div
           variants={columnVariants}
-          className="col-span-2 min-w-0 sm:col-span-1"
+          className="col-span-2 min-w-0 lg:col-span-1"
         >
-          <motion.div
-            whileHover={
-              reduceMotion
-                ? undefined
-                : {
-                    y: -4,
-                    rotate: -1,
-                    scale: 1.02,
-                  }
-            }
-            whileTap={reduceMotion ? undefined : { scale: 0.98 }}
-            transition={{ duration: 0.25 }}
-            className="inline-flex"
-          >
-            <Link
-              to="/"
-              aria-label="Ir al inicio de DIALAC"
-              className="inline-flex rounded-xl bg-[#F3EBE0] px-4 py-3 shadow-md transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          <div className="flex items-start justify-between gap-5 lg:block">
+            <motion.div
+              whileHover={
+                reduceMotion
+                  ? undefined
+                  : {
+                      y: -3,
+                      rotate: -0.5,
+                      scale: 1.015,
+                    }
+              }
+              whileTap={
+                reduceMotion
+                  ? undefined
+                  : {
+                      scale: 0.98,
+                    }
+              }
+              transition={{
+                duration: 0.25,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="inline-flex shrink-0"
             >
-              <img
-                src="/images/LOGO/logocompleto.png"
-                alt="DIALAC - Cuídate, aliméntate y disfruta"
-                className="h-12 w-auto object-contain sm:h-14"
-              />
-            </Link>
-          </motion.div>
+              <Link
+                to="/"
+                aria-label="Ir al inicio de DIALAC"
+                className="inline-flex rounded-2xl border border-white/10 bg-[#f5efe6] px-4 py-3 shadow-[0_12px_30px_rgba(0,0,0,0.18)] transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f5efe6]"
+              >
+                <img
+                  src="/images/LOGO/logocompleto.png"
+                  alt="DIALAC - Cuídate, aliméntate y disfruta"
+                  className="h-11 w-auto object-contain sm:h-13"
+                />
+              </Link>
+            </motion.div>
 
-          <p className="mt-4 max-w-sm leading-6 text-[#F8F3EA] sm:mt-5 sm:leading-7">
+            <div className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-semibold text-[#dbc4b1] sm:flex lg:mt-5 lg:inline-flex">
+              <motion.span
+                aria-hidden="true"
+                className="h-2 w-2 rounded-full bg-[#d5b99f]"
+                animate={
+                  reduceMotion
+                    ? undefined
+                    : {
+                        scale: [1, 1.4, 1],
+                        opacity: [1, 0.6, 1],
+                      }
+                }
+                transition={{
+                  duration: 2,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "easeInOut",
+                }}
+              />
+
+              Empresa familiar desde 2009
+            </div>
+          </div>
+
+          <p className="mt-4 max-w-sm text-sm leading-6 text-[#eee4da] sm:text-base sm:leading-7">
             Alimentos, refrigerios y soluciones personalizadas para cuidarte,
             alimentarte y disfrutar cada momento.
           </p>
 
-          <div className="mt-4 sm:mt-6">
-            <p className="font-display text-sm font-semibold uppercase tracking-[0.15em] text-[#F2C9AB]">
+          <div className="mt-5 flex items-center gap-4">
+            <p className="font-display text-xs font-bold uppercase tracking-[0.18em] text-[#d5b99f]">
               Síguenos
             </p>
 
-            <div className="mt-3 flex flex-wrap gap-3">
+            <span
+              aria-hidden="true"
+              className="h-px w-8 bg-[#d5b99f]/50"
+            />
+
+            <div className="flex gap-2">
               {socialLinks.map((social, index) => (
                 <motion.a
                   key={social.name}
@@ -244,7 +289,7 @@ Gracias.`;
                       ? false
                       : {
                           opacity: 0,
-                          scale: 0.5,
+                          scale: 0.6,
                         }
                   }
                   whileInView={{
@@ -254,14 +299,14 @@ Gracias.`;
                   viewport={{ once: true }}
                   transition={{
                     duration: 0.35,
-                    delay: reduceMotion ? 0 : 0.3 + index * 0.1,
+                    delay: reduceMotion ? 0 : 0.25 + index * 0.08,
                   }}
                   whileHover={
                     reduceMotion
                       ? undefined
                       : {
-                          y: -5,
-                          rotate: index % 2 === 0 ? -6 : 6,
+                          y: -4,
+                          rotate: index % 2 === 0 ? -5 : 5,
                           scale: 1.08,
                         }
                   }
@@ -272,7 +317,7 @@ Gracias.`;
                           scale: 0.92,
                         }
                   }
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[#D6C2B0] text-[#F8F3EA] transition-colors hover:border-dialac-brown hover:bg-dialac-brown hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/[0.04] text-[#f8f3ea] transition-colors duration-300 hover:border-dialac-brown hover:bg-dialac-brown hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                 >
                   {social.icon}
                   <span className="sr-only">{social.name}</span>
@@ -287,15 +332,22 @@ Gracias.`;
           variants={columnVariants}
           className="min-w-0"
         >
-          <h2 className="font-display text-lg font-bold text-white">
-            Navegación
-          </h2>
+          <div className="flex items-center gap-3">
+            <span
+              aria-hidden="true"
+              className="h-2 w-2 rounded-full bg-dialac-brown"
+            />
+
+            <h2 className="font-display text-lg font-bold text-white">
+              Navegación
+            </h2>
+          </div>
 
           <nav
             aria-label="Navegación del pie de página"
-            className="mt-3 sm:mt-5"
+            className="mt-4"
           >
-            <ul className="space-y-2 sm:space-y-3">
+            <ul className="space-y-2.5">
               {footerNavigation.map((item, index) => (
                 <motion.li
                   key={item.path}
@@ -304,7 +356,7 @@ Gracias.`;
                       ? false
                       : {
                           opacity: 0,
-                          x: -15,
+                          x: -12,
                         }
                   }
                   whileInView={{
@@ -314,21 +366,19 @@ Gracias.`;
                   viewport={{ once: true }}
                   transition={{
                     duration: 0.3,
-                    delay: reduceMotion ? 0 : 0.25 + index * 0.07,
+                    delay: reduceMotion ? 0 : 0.2 + index * 0.06,
                   }}
                 >
                   <Link
                     to={item.path}
-                    className="group inline-flex items-center gap-2 rounded text-[#F8F3EA] transition hover:text-[#F2C9AB] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                    className="group inline-flex items-center gap-2 rounded text-sm text-[#eee4da] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:text-base"
                   >
                     <span
                       aria-hidden="true"
-                      className="inline-block w-0 overflow-hidden text-[#F2C9AB] opacity-0 transition-all duration-300 group-hover:w-3 group-hover:opacity-100"
-                    >
-                      →
-                    </span>
+                      className="h-px w-0 bg-[#d5b99f] transition-all duration-300 group-hover:w-4"
+                    />
 
-                    <span className="underline-offset-4 group-hover:underline">
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">
                       {item.name}
                     </span>
                   </Link>
@@ -343,16 +393,23 @@ Gracias.`;
           variants={columnVariants}
           className="min-w-0"
         >
-          <h2 className="font-display text-lg font-bold text-white">
-            Contacto
-          </h2>
+          <div className="flex items-center gap-3">
+            <span
+              aria-hidden="true"
+              className="h-2 w-2 rounded-full bg-dialac-brown"
+            />
 
-          <address className="mt-3 space-y-3 not-italic sm:mt-5 sm:space-y-5">
+            <h2 className="font-display text-lg font-bold text-white">
+              Contacto
+            </h2>
+          </div>
+
+          <address className="mt-4 space-y-4 not-italic">
             <motion.div
-              whileHover={reduceMotion ? undefined : { x: 4 }}
+              whileHover={reduceMotion ? undefined : { x: 3 }}
               transition={{ duration: 0.2 }}
             >
-              <p className="text-sm font-semibold text-[#F2C9AB]">
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#d5b99f]">
                 Dirección
               </p>
 
@@ -360,7 +417,7 @@ Gracias.`;
                 href="https://www.google.com/maps/search/?api=1&query=Calle+6+%232B-45+Chia+Cundinamarca"
                 target="_blank"
                 rel="noreferrer"
-                className="mt-1 block leading-6 text-[#F8F3EA] transition hover:text-[#F2C9AB] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                className="mt-1 block text-sm leading-6 text-[#eee4da] transition hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:text-base"
               >
                 Calle 6 #2B-45
                 <br />
@@ -369,10 +426,10 @@ Gracias.`;
             </motion.div>
 
             <motion.div
-              whileHover={reduceMotion ? undefined : { x: 4 }}
+              whileHover={reduceMotion ? undefined : { x: 3 }}
               transition={{ duration: 0.2 }}
             >
-              <p className="text-sm font-semibold text-[#F2C9AB]">
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#d5b99f]">
                 WhatsApp
               </p>
 
@@ -380,7 +437,7 @@ Gracias.`;
                 href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-1 inline-flex items-center gap-2 text-[#F8F3EA] transition hover:text-[#F2C9AB] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                className="mt-1 inline-flex items-center gap-2 text-sm text-[#eee4da] transition hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:text-base"
               >
                 <svg
                   aria-hidden="true"
@@ -390,7 +447,7 @@ Gracias.`;
                   strokeWidth="1.8"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-4 w-4 shrink-0"
+                  className="h-4 w-4 shrink-0 text-[#d5b99f]"
                 >
                   <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
                   <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1" />
@@ -401,16 +458,16 @@ Gracias.`;
             </motion.div>
 
             <motion.div
-              whileHover={reduceMotion ? undefined : { x: 4 }}
+              whileHover={reduceMotion ? undefined : { x: 3 }}
               transition={{ duration: 0.2 }}
             >
-              <p className="text-sm font-semibold text-[#F2C9AB]">
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#d5b99f]">
                 Correo
               </p>
 
               <a
                 href={emailUrl}
-                className="mt-1 inline-flex max-w-full items-center gap-2 text-[#F8F3EA] transition hover:text-[#F2C9AB] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                className="mt-1 inline-flex max-w-full items-center gap-2 text-sm text-[#eee4da] transition hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:text-base"
               >
                 <svg
                   aria-hidden="true"
@@ -420,7 +477,7 @@ Gracias.`;
                   strokeWidth="1.8"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-4 w-4 shrink-0"
+                  className="h-4 w-4 shrink-0 text-[#d5b99f]"
                 >
                   <rect x="3" y="5" width="18" height="14" rx="2" />
                   <path d="m3 7 9 6 9-6" />
@@ -437,29 +494,36 @@ Gracias.`;
         {/* HORARIOS Y SOLICITUD */}
         <motion.div
           variants={columnVariants}
-          className="col-span-2 min-w-0 sm:col-span-1"
+          className="col-span-2 min-w-0 lg:col-span-1"
         >
-          <h2 className="font-display text-lg font-bold text-white">
-            Horarios de atención
-          </h2>
+          <div className="flex items-center gap-3">
+            <span
+              aria-hidden="true"
+              className="h-2 w-2 rounded-full bg-dialac-brown"
+            />
 
-          <div className="mt-3 space-y-2 sm:mt-5 sm:space-y-3">
-            <div className="flex justify-between gap-4">
-              <span className="font-semibold text-[#F8F3EA]">
+            <h2 className="font-display text-lg font-bold text-white">
+              Horarios de atención
+            </h2>
+          </div>
+
+          <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
+            <div className="flex justify-between gap-3 border-b border-white/10 pb-2 text-sm">
+              <span className="font-semibold text-[#f8f3ea]">
                 Lunes a viernes
               </span>
 
-              <span className="text-right text-[#F8F3EA]">
+              <span className="text-right text-[#d9cec4]">
                 8:00 a. m. – 6:00 p. m.
               </span>
             </div>
 
-            <div className="flex justify-between gap-4">
-              <span className="font-semibold text-[#F8F3EA]">
+            <div className="flex justify-between gap-3 border-b border-white/10 pb-2 text-sm">
+              <span className="font-semibold text-[#f8f3ea]">
                 Sábado
               </span>
 
-              <span className="text-right text-[#F8F3EA]">
+              <span className="text-right text-[#d9cec4]">
                 8:00 a. m. – 1:00 p. m.
               </span>
             </div>
@@ -470,74 +534,74 @@ Gracias.`;
               reduceMotion
                 ? undefined
                 : {
-                    y: -4,
-                    borderColor: "rgba(242, 201, 171, 0.65)",
+                    y: -3,
+                    borderColor: "rgba(213, 185, 159, 0.55)",
                   }
             }
             transition={{ duration: 0.25 }}
-            className="relative mt-4 overflow-hidden rounded-xl border border-white/25 bg-white/5 p-3 sm:mt-6 sm:p-4"
+            className="relative mt-4 overflow-hidden rounded-2xl border border-white/15 bg-white/[0.045] p-4"
           >
-            <motion.div
+            <div
               aria-hidden="true"
-              className="absolute -right-8 -top-8 h-20 w-20 rounded-full bg-dialac-brown opacity-20"
-              animate={
-                reduceMotion
-                  ? undefined
-                  : {
-                      scale: [1, 1.2, 1],
-                    }
-              }
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
+              className="absolute -right-7 -top-7 h-20 w-20 rounded-full border-[15px] border-dialac-brown/10"
             />
 
             <div className="relative z-10">
               <div className="flex items-center gap-2">
                 <motion.span
                   aria-hidden="true"
-                  className="h-2.5 w-2.5 rounded-full bg-[#F2C9AB]"
+                  className="h-2.5 w-2.5 rounded-full bg-[#d5b99f]"
                   animate={
                     reduceMotion
                       ? undefined
                       : {
-                          scale: [1, 1.5, 1],
-                          opacity: [1, 0.6, 1],
+                          scale: [1, 1.45, 1],
+                          opacity: [1, 0.55, 1],
                         }
                   }
                   transition={{
                     duration: 2,
-                    repeat: Infinity,
+                    repeat: Number.POSITIVE_INFINITY,
                     ease: "easeInOut",
                   }}
                 />
 
-                <p className="font-display font-bold text-white">
+                <p className="font-display text-sm font-bold text-white">
                   Solicitudes disponibles 24/7
                 </p>
               </div>
 
-              <p className="mt-2 text-sm leading-6 text-[#F8F3EA]">
+              <p className="mt-2 text-sm leading-5 text-[#eee4da]">
                 Puedes enviar tu solicitud a cualquier hora. Te contactaremos
                 dentro de nuestros horarios de atención.
               </p>
 
-              <p className="mt-3 text-sm font-semibold leading-6 text-[#F2C9AB]">
+              <p className="mt-2 text-sm font-semibold leading-5 text-[#d5b99f]">
                 Recuerda realizar tu pedido con mínimo 3 días de anticipación.
               </p>
             </div>
           </motion.div>
 
           <motion.div
-            whileHover={reduceMotion ? undefined : { y: -3 }}
-            whileTap={reduceMotion ? undefined : { scale: 0.97 }}
+            whileHover={
+              reduceMotion
+                ? undefined
+                : {
+                    y: -3,
+                  }
+            }
+            whileTap={
+              reduceMotion
+                ? undefined
+                : {
+                    scale: 0.97,
+                  }
+            }
             className="inline-flex"
           >
             <Link
               to="/productos"
-              className="group mt-4 inline-flex items-center gap-3 rounded-lg bg-dialac-brown px-5 py-3 font-semibold text-white transition hover:bg-dialac-brown-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:mt-5"
+              className="group mt-4 inline-flex items-center gap-3 rounded-xl bg-dialac-brown px-5 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(0,0,0,0.18)] transition duration-300 hover:bg-dialac-brown-dark hover:shadow-[0_14px_30px_rgba(0,0,0,0.24)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:text-base"
             >
               Explorar productos
 
@@ -553,14 +617,14 @@ Gracias.`;
       </motion.div>
 
       {/* CRÉDITOS */}
-      <div className="relative z-10 border-t border-white/15 bg-[#292C28]">
+      <div className="relative z-10 border-t border-white/10 bg-[#252220]">
         <motion.div
           initial={
             reduceMotion
               ? false
               : {
                   opacity: 0,
-                  y: 12,
+                  y: 10,
                 }
           }
           whileInView={{
@@ -571,7 +635,7 @@ Gracias.`;
           transition={{
             duration: reduceMotion ? 0 : 0.45,
           }}
-          className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-4 text-center text-sm text-white sm:flex-row sm:px-6 sm:py-5 sm:text-left"
+          className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-4 text-center text-xs text-[#d9cec4] sm:flex-row sm:px-6 sm:text-left sm:text-sm"
         >
           <p>© {currentYear} DIALAC. Todos los derechos reservados.</p>
 
@@ -580,10 +644,10 @@ Gracias.`;
             target="_blank"
             rel="noreferrer"
             whileHover={reduceMotion ? undefined : { y: -2 }}
-            className="group rounded text-white underline-offset-4 transition hover:text-[#F2C9AB] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            className="group rounded transition hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
             Diseñado y desarrollado por{" "}
-            <span className="font-semibold group-hover:underline">
+            <span className="font-semibold text-[#f8f3ea] underline-offset-4 group-hover:underline">
               Diego Galvis
             </span>
           </motion.a>

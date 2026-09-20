@@ -1,8 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700;6..12,800&display=swap");
+
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Montserrat", sans-serif;
-  --font-body: "Inter", sans-serif;
+  --font-display: "Fredoka", sans-serif;
+  --font-body: "Nunito Sans", sans-serif;
 
   --color-dialac-cream: #fff8ee;
   --color-dialac-charcoal: #26282a;
@@ -27,14 +29,29 @@
     background-color: var(--color-dialac-cream);
     color: var(--color-dialac-charcoal);
     font-family: var(--font-body);
+    font-weight: 500;
     line-height: 1.5;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1,
   h2,
   h3,
-  h4 {
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  p,
+  span,
+  a,
+  label,
+  li {
+    font-family: var(--font-body);
   }
 
   button,

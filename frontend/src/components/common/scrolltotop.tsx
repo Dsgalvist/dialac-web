@@ -5,17 +5,37 @@ export default function ScrollToTop() {
   const [visible, setVisible] = useState(false);
   const { pathname } = useLocation();
 
+  const getScrollPosition = () => {
+    return (
+      window.scrollY ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0
+    );
+  };
+
   useEffect(() => {
+    const scrollingElement =
+      document.scrollingElement || document.documentElement;
+
+    scrollingElement.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
+
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: "auto",
     });
+
+    setVisible(false);
   }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
-      setVisible(window.scrollY > 350);
+      setVisible(getScrollPosition() > 350);
     };
 
     handleScroll();
@@ -24,14 +44,32 @@ export default function ScrollToTop() {
       passive: true,
     });
 
+    document.addEventListener("scroll", handleScroll, {
+      passive: true,
+      capture: true,
+    });
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("scroll", handleScroll, {
+        capture: true,
+      });
     };
   }, []);
 
   const scrollToTop = () => {
+    const scrollingElement =
+      document.scrollingElement || document.documentElement;
+
+    scrollingElement.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+
     window.scrollTo({
       top: 0,
+      left: 0,
       behavior: "smooth",
     });
   };
@@ -47,8 +85,8 @@ export default function ScrollToTop() {
       aria-label="Volver al inicio"
       title="Volver al inicio"
       className="
-        group fixed bottom-[84px] right-4 z-50
-        flex h-14 w-14 items-center justify-center
+        group fixed bottom-[84px] right-4 z-[60]
+        flex h-14 w-14 touch-manipulation items-center justify-center
         rounded-full
         border border-dialac-border
         bg-[#fffdf9]

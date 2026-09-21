@@ -37,7 +37,7 @@ function RequestSuccess({
         ease: [0.22, 1, 0.36, 1],
       }}
       aria-labelledby="request-success-title"
-      className="relative overflow-hidden"
+      className="relative -mt-8 overflow-hidden sm:-mt-10 lg:-mt-12"
     >
       {/* DECORACIÓN */}
       <div
@@ -204,8 +204,8 @@ function RequestSuccess({
                 </h3>
 
                 <p className="mt-2 max-w-md text-sm leading-6 text-dialac-charcoal">
-                  Puedes utilizar el botón Descargar PDF para abrir o
-                  guardar el documento.
+                  Puedes utilizar el botón Descargar PDF para abrir o guardar
+                  el documento.
                 </p>
 
                 <button
@@ -322,8 +322,8 @@ function RequestSuccess({
               </h1>
 
               <p className="mt-4 text-base leading-7 text-dialac-charcoal">
-                Gracias, {customerName}. Tu solicitud fue enviada al
-                equipo de DIALAC.
+                Gracias, {customerName}. Tu solicitud fue enviada al equipo de
+                DIALAC.
               </p>
 
               <p className="mt-3 text-sm leading-6 text-dialac-charcoal">
@@ -360,10 +360,9 @@ function RequestSuccess({
                     </p>
 
                     <p className="mt-1 text-xs leading-5 text-dialac-charcoal">
-                      El envío de este documento no confirma
-                      automáticamente el pedido. DIALAC verificará
-                      disponibilidad, fecha, dirección y condiciones de
-                      entrega.
+                      El envío de este documento no confirma automáticamente el
+                      pedido. DIALAC verificará disponibilidad, fecha, dirección
+                      y condiciones de entrega.
                     </p>
                   </div>
                 </div>

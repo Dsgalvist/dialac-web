@@ -34,7 +34,7 @@ const timelineEvents: TimelineEvent[] = [
     description:
       "Después de una década de trabajo, DIALAC alcanza una importante etapa de crecimiento, fortaleciendo sus ventas, ampliando su variedad de productos y llegando a nuevos clientes.",
     image:
-      "/images/servicios/EVENTOS Y REUNIONES 2/2.2.png",
+      "/images/servicios/EVENTOS Y REUNIONES 2/3.2.png",
     imageAlt:
       "Servicio preparado por DIALAC para eventos y reuniones",
     visualLabel: "Una oferta cada vez más amplia",
@@ -44,6 +44,10 @@ const timelineEvents: TimelineEvent[] = [
     title: "Pausa por la pandemia",
     description:
       "Con la llegada de la pandemia, DIALAC se ve obligada a cerrar temporalmente sus puertas, poniendo en pausa sus operaciones después de años de crecimiento.",
+    image:
+      "/images/imagenes finales/2020.png",
+    imageAlt:
+      "Servicio preparado por DIALAC para eventos y reuniones",
     visualLabel: "Una pausa en el camino",
   },
   {
@@ -51,7 +55,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "Un nuevo comienzo",
     description:
       "DIALAC abre nuevamente sus puertas, iniciando una nueva etapa como empresa familiar con una imagen renovada, una oferta más amplia y nuevas experiencias, manteniendo la esencia que la ha caracterizado desde 2009: calidad, cercanía y buen sabor.",
-    image: "/images/servicios/REFRIGERIOS2/2,2.png",
+    image: "/images/imagenes finales/2026.png",
     imageAlt:
       "Refrigerio preparado por DIALAC en su nueva etapa",
     visualLabel: "DIALAC vuelve renovada",

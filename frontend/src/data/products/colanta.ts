@@ -2,6 +2,9 @@ import type { Product } from "../products";
 
 const imageBasePath = "/images/productos/PRODUCTOS COLANTA";
 
+const secondImageBasePath =
+  "/images/productos/PRODUCTOS COLANTA/PRODUCTOS-COLANTA-2";
+
 export const colantaProducts: Product[] = [
   {
     id: "colanta-col-001",
@@ -222,5 +225,42 @@ export const colantaProducts: Product[] = [
     brandName: "Colanta",
     price: 7600,
     image: `${imageBasePath}/AREQUIPE-220G.png`,
+  },
+  {
+    id: "colanta-col-019",
+    code: "COL-019",
+    name: "Leche deslactosada caja 1000 ml",
+    description:
+      "Leche deslactosada Colanta en presentación de caja de 1000 ml.",
+    category: "leches",
+    categoryName: "Leches",
+    brand: "colanta",
+    brandName: "Colanta",
+    price: 6200,
+    image: `${secondImageBasePath}/LECHE-DESLACTOSADA-CAJA-1000ML.jpeg`,
+  },
+  {
+    id: "colanta-col-020",
+    code: "COL-020",
+    name: "Crema agria 400 g",
+    description: "Crema agria Colanta en presentación de 400 gramos.",
+    category: "cremas",
+    categoryName: "Cremas",
+    brand: "colanta",
+    brandName: "Colanta",
+    price: 11200,
+    image: `${secondImageBasePath}/CREMA-AGRIA-400G.jpeg`,
+  },
+  {
+    id: "colanta-col-021",
+    code: "COL-021",
+    name: "Leche entera caja 1000 ml",
+    description: "Leche entera Colanta en presentación de caja de 1000 ml.",
+    category: "leches",
+    categoryName: "Leches",
+    brand: "colanta",
+    brandName: "Colanta",
+    price: 6200,
+    image: `${secondImageBasePath}/LECHE-ENTERA-CAJA-1000ML.jpeg`,
   },
 ];

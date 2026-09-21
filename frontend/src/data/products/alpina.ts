@@ -265,7 +265,7 @@ const alpinaSeeds: AlpinaSeed[] = [
     "Frutto Naranja 100% 1 L",
     "bebidas",
     9900,
-    "FRUTTO-NARANJA-100%-1L.png",
+    "FRUTTO-NARANJA-1L.png",
   ],
   [
     "11309",

@@ -48,7 +48,7 @@ const products: CatalogItem[] = [
     description:
       "Diferentes marcas, presentaciones y alternativas para cada necesidad.",
     path: "/productos",
-    video: "",
+    video: "/VIDEOS 2/productos-lacteos.gif",
     poster: "/images/3 FOTOS/lacteo.png",
   },
   {
@@ -56,7 +56,7 @@ const products: CatalogItem[] = [
     description:
       "Productos preparados con dedicación, calidad y mucho sabor.",
     path: "/servicios?categoria=complementos",
-    video: "",
+    video: "/VIDEOS 2/productos-artesanales.gif",
     poster:
       "/images/servicios/PRODUCTOS ARTESANALES2/GALLETITAS2.png",
   },
@@ -65,7 +65,7 @@ const products: CatalogItem[] = [
     description:
       "Alternativas pensadas para disfrutar en familia, reuniones y celebraciones.",
     path: "/servicios#tabla-quesos",
-    video: "",
+    video: "/VIDEOS 2/opciones-para-compartir.gif",
     poster:
       "/images/servicios/TABLA DE QUESOS2/3.2.png",
   },

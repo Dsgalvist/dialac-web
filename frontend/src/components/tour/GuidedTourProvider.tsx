@@ -99,12 +99,23 @@ function GuidedTourProvider({
 }: GuidedTourProviderProps) {
   const location = useLocation();
   const navigate = useNavigate();
+
   const [isActive, setIsActive] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+
+  /*
+   * Guarda únicamente la ruta en la que el usuario pulsó
+   * "Omitir". No se almacena en localStorage ni sessionStorage.
+   */
+  const [skippedPath, setSkippedPath] = useState<string | null>(
+    null,
+  );
 
   const startTour = useCallback(() => {
     sessionStorage.removeItem(CART_TOUR_CLOSED_SESSION_KEY);
     sessionStorage.removeItem(FORM_TOUR_CLOSED_SESSION_KEY);
+
+    setSkippedPath(null);
     setCurrentStep(0);
     setIsActive(true);
 
@@ -113,9 +124,21 @@ function GuidedTourProvider({
     }
   }, [location.pathname, navigate]);
 
+  /*
+   * Cuando el usuario abandona la página donde omitió la guía,
+   * eliminamos el bloqueo temporal. Si después regresa, la guía
+   * podrá mostrarse nuevamente.
+   */
+  useEffect(() => {
+    if (skippedPath && location.pathname !== skippedPath) {
+      setSkippedPath(null);
+    }
+  }, [location.pathname, skippedPath]);
+
   useEffect(() => {
     const disabled =
       localStorage.getItem(TOUR_DISABLED_KEY) === "true";
+
     if (disabled || isActive) return;
 
     const isCartPage = location.pathname === "/solicitud";
@@ -124,11 +147,18 @@ function GuidedTourProvider({
 
     if (!isCartPage && !isFormPage) return;
 
-    const closedThisSession = sessionStorage.getItem(
-      isCartPage
-        ? CART_TOUR_CLOSED_SESSION_KEY
-        : FORM_TOUR_CLOSED_SESSION_KEY,
-    ) === "true";
+    /*
+     * Si el usuario acaba de omitir la guía en esta página,
+     * no la abrimos inmediatamente otra vez.
+     */
+    if (skippedPath === location.pathname) return;
+
+    const closedThisSession =
+      sessionStorage.getItem(
+        isCartPage
+          ? CART_TOUR_CLOSED_SESSION_KEY
+          : FORM_TOUR_CLOSED_SESSION_KEY,
+      ) === "true";
 
     if (closedThisSession) return;
 
@@ -144,38 +174,44 @@ function GuidedTourProvider({
     }, 450);
 
     return () => window.clearTimeout(timer);
-  }, [isActive, location.pathname]);
+  }, [isActive, location.pathname, skippedPath]);
 
-  const closeForSession = useCallback(() => {
-    sessionStorage.setItem(
-      CART_TOUR_CLOSED_SESSION_KEY,
-      "true",
-    );
-    sessionStorage.setItem(
-      FORM_TOUR_CLOSED_SESSION_KEY,
-      "true",
-    );
+  /*
+   * "Omitir" solamente cierra la guía en la ruta actual.
+   * Al salir y regresar, volverá a mostrarse.
+   */
+  const closeForCurrentVisit = useCallback(() => {
+    setSkippedPath(location.pathname);
     setIsActive(false);
-  }, []);
+  }, [location.pathname]);
 
   const finishCartPhase = useCallback(() => {
     sessionStorage.setItem(
       CART_TOUR_CLOSED_SESSION_KEY,
       "true",
     );
+
     setIsActive(false);
   }, []);
 
+  /*
+   * Esta es la única acción que desactiva permanentemente
+   * la guía en este dispositivo.
+   */
   const disableTour = useCallback(() => {
     localStorage.setItem(TOUR_DISABLED_KEY, "true");
+
     sessionStorage.setItem(
       CART_TOUR_CLOSED_SESSION_KEY,
       "true",
     );
+
     sessionStorage.setItem(
       FORM_TOUR_CLOSED_SESSION_KEY,
       "true",
     );
+
+    setSkippedPath(null);
     setIsActive(false);
   }, []);
 
@@ -184,6 +220,7 @@ function GuidedTourProvider({
       FORM_TOUR_CLOSED_SESSION_KEY,
       "true",
     );
+
     setIsActive(false);
   }, []);
 
@@ -193,6 +230,7 @@ function GuidedTourProvider({
         0,
         Math.min(stepIndex, tourSteps.length - 1),
       );
+
       const step = tourSteps[boundedStep];
 
       setCurrentStep(boundedStep);
@@ -205,7 +243,9 @@ function GuidedTourProvider({
   );
 
   const contextValue = useMemo(
-    () => ({ startTour }),
+    () => ({
+      startTour,
+    }),
     [startTour],
   );
 
@@ -218,7 +258,9 @@ function GuidedTourProvider({
         step={tourSteps[currentStep]}
         stepNumber={currentStep + 1}
         totalSteps={tourSteps.length}
-        canGoPrevious={currentStep > 0 && currentStep !== 3}
+        canGoPrevious={
+          currentStep > 0 && currentStep !== 3
+        }
         onPrevious={() => goToStep(currentStep - 1)}
         onNext={() => {
           if (currentStep === 2) {
@@ -233,7 +275,7 @@ function GuidedTourProvider({
 
           goToStep(currentStep + 1);
         }}
-        onSkip={closeForSession}
+        onSkip={closeForCurrentVisit}
         onDisable={disableTour}
       />
     </GuidedTourContext.Provider>

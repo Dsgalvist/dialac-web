@@ -350,7 +350,7 @@ function ContactHero() {
             <Reveal direction="left" delay={0.12}>
               <div className="relative min-h-[350px] overflow-hidden bg-[#dfcbb7] sm:min-h-[430px] lg:h-full lg:min-h-[440px]">
                 <motion.img
-                  src="/images/servicios/REFRIGERIOS2/1,2.png"
+                  src="/images/3 FOTOS/3.3.png"
                   alt="Servicio de eventos y reuniones de DIALAC"
                   className="absolute inset-0 h-full w-full object-cover"
                   initial={

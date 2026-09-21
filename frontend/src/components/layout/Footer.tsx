@@ -232,34 +232,12 @@ Gracias.`;
                 className="inline-flex rounded-2xl border border-white/10 bg-[#f5efe6] px-4 py-3 shadow-[0_12px_30px_rgba(0,0,0,0.18)] transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f5efe6]"
               >
                 <img
-                  src="/images/LOGO/logocompleto.png"
+                  src="/images/LOGO/logotransparente.png"
                   alt="DIALAC - Cuídate, aliméntate y disfruta"
                   className="h-11 w-auto object-contain sm:h-13"
                 />
               </Link>
             </motion.div>
-
-            <div className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-semibold text-[#dbc4b1] sm:flex lg:mt-5 lg:inline-flex">
-              <motion.span
-                aria-hidden="true"
-                className="h-2 w-2 rounded-full bg-[#d5b99f]"
-                animate={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        scale: [1, 1.4, 1],
-                        opacity: [1, 0.6, 1],
-                      }
-                }
-                transition={{
-                  duration: 2,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-              />
-
-              Empresa familiar desde 2009
-            </div>
           </div>
 
           <p className="mt-4 max-w-sm text-sm leading-6 text-[#eee4da] sm:text-base sm:leading-7">

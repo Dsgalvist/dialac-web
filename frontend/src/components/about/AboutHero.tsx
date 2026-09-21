@@ -8,21 +8,21 @@ import Reveal from "../animations/Reveal";
 
 const heroImages = [
   {
-    src: "/images/servicios/EVENTOS Y REUNIONES 2/2.2.png",
+    src: "/images/3 FOTOS/2.png",
     alt: "Experiencia preparada por DIALAC para eventos y reuniones",
     label: "Eventos y reuniones",
     number: "01",
     position: "center",
   },
   {
-    src: "/images/servicios/REFRIGERIOS2/2,2.png",
+    src: "/images/3 FOTOS/3.2.png",
     alt: "Desayuno sorpresa preparado por DIALAC",
     label: "Refrigerios",
     number: "02",
     position: "center",
   },
   {
-    src: "/images/servicios/PRODUCTOS ARTESANALES2/GALLETITAS2.png",
+    src: "/images/3 FOTOS/1.png",
     alt: "Producto artesanal elaborado por DIALAC",
     label: "Productos artesanales",
     number: "03",

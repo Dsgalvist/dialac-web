@@ -55,7 +55,7 @@ const products: CatalogItem[] = [
     title: "Productos artesanales",
     description:
       "Productos preparados con dedicación, calidad y mucho sabor.",
-    path: "/productos",
+    path: "/servicios?categoria=complementos",
     video: "",
     poster:
       "/images/servicios/PRODUCTOS ARTESANALES2/ALFAJOR2.png",
@@ -64,7 +64,7 @@ const products: CatalogItem[] = [
     title: "Opciones para compartir",
     description:
       "Alternativas pensadas para disfrutar en familia, reuniones y celebraciones.",
-    path: "/productos",
+    path: "/servicios#tabla-quesos",
     video: "",
     poster:
       "/images/servicios/TABLA DE QUESOS2/1.2.png",

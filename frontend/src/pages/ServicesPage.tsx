@@ -1,14 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  useSearchParams,
+} from "react-router-dom";
 import { motion, useReducedMotion } from "motion/react";
 import ServicesCatalog from "../components/services/ServicesCatalog";
 import ServicesCategories from "../components/services/ServicesCategories";
 import type { ServiceCategory } from "../data/services";
 
+function isServiceCategory(
+  value: string | null,
+): value is ServiceCategory {
+  return (
+    value === "todos" ||
+    value === "celebraciones" ||
+    value === "empresas" ||
+    value === "complementos"
+  );
+}
+
 function ServicesPage() {
   const reduceMotion = useReducedMotion();
+  const [searchParams] = useSearchParams();
+
+  const categoryFromUrl = searchParams.get("categoria");
 
   const [activeCategory, setActiveCategory] =
-    useState<ServiceCategory>("todos");
+    useState<ServiceCategory>(() =>
+      isServiceCategory(categoryFromUrl)
+        ? categoryFromUrl
+        : "todos",
+    );
+
+  /*
+   * Actualiza el filtro cuando se ingresa a Servicios
+   * mediante una categoría indicada en la URL.
+   */
+  useEffect(() => {
+    if (isServiceCategory(categoryFromUrl)) {
+      setActiveCategory(categoryFromUrl);
+      return;
+    }
+
+    setActiveCategory("todos");
+  }, [categoryFromUrl]);
 
   return (
     <main className="min-h-screen overflow-x-clip bg-[#f7f5f1]">

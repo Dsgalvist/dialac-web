@@ -22,6 +22,10 @@ const timelineEvents: TimelineEvent[] = [
     title: "Nacimiento de DIALAC",
     description:
       "DIALAC nace como una empresa familiar, con el propósito de ofrecer productos de calidad, buen sabor y una atención cercana y personalizada.",
+    image:
+      "/images/9 FOTOS/mascotas.png",
+    imageAlt:
+      "Servicio preparado por DIALAC para eventos y reuniones",
     visualLabel: "El comienzo de nuestra historia",
   },
   {

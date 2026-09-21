@@ -303,7 +303,7 @@ function AboutStory() {
                 }}
               >
                 <img
-                  src="/images/servicios/EVENTOS Y REUNIONES 2/1.2.png"
+                  src="/images/9 FOTOS/3.png"
                   alt="Experiencia preparada por DIALAC"
                   className="h-full w-full object-cover"
                 />
@@ -356,7 +356,7 @@ function AboutStory() {
                 }}
               >
                 <img
-                  src="/images/servicios/PRODUCTOS ARTESANALES2/GALLETITAS2.png"
+                  src="/images/9 FOTOS/4.png"
                   alt="Galletas artesanales de DIALAC"
                   className="h-full w-full object-cover"
                 />
@@ -395,7 +395,7 @@ function AboutStory() {
                 }}
               >
                 <img
-                  src="/images/servicios/REFRIGERIOS2/3,2.png"
+                  src="/images/9 FOTOS/6.png"
                   alt="Refrigerio preparado por DIALAC"
                   className="h-full w-full object-cover"
                 />

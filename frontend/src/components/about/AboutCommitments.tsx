@@ -169,7 +169,7 @@ function AboutCommitments() {
           <Reveal direction="right" className="h-full">
             <div className="relative min-h-[250px] overflow-hidden bg-[#ead8c7] sm:min-h-[300px] lg:h-full lg:min-h-[360px]">
               <motion.img
-                src="/images/servicios/ANCHETAS Y DESAYUNOS2/1.png"
+                src="/images/9 FOTOS/8.png"
                 alt="Detalle preparado por DIALAC"
                 className="absolute inset-0 h-full w-full object-cover"
                 whileHover={
@@ -222,7 +222,7 @@ function AboutCommitments() {
                 }}
               >
                 <img
-                  src="/images/servicios/PRODUCTOS ARTESANALES2/ALFAJOR2.png"
+                  src="/images/servicios/ANCHETAS Y DESAYUNOS2/1.png"
                   alt="Alfajor artesanal de DIALAC"
                   className="h-full w-full object-cover"
                 />

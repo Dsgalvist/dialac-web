@@ -18,7 +18,7 @@ const services: CatalogItem[] = [
     description:
       "Soluciones personalizadas para acompañar reuniones, celebraciones y momentos especiales.",
     path: "/servicios#eventos-reuniones",
-    video: "",
+    video: "/videos/eventos-y-reuniones.mp4",
     poster:
       "/images/servicios/EVENTOS Y REUNIONES 2/4.2.png",
     label: "Servicio destacado",
@@ -28,7 +28,7 @@ const services: CatalogItem[] = [
     description:
       "Opciones prácticas y deliciosas para empresas, instituciones y todo tipo de eventos.",
     path: "/servicios#refrigerios",
-    video: "",
+    video: "/videos/refrigerios.gif",
     poster: "/images/servicios/REFRIGERIOS2/1,2.png",
   },
   {
@@ -36,9 +36,9 @@ const services: CatalogItem[] = [
     description:
       "Experiencias preparadas especialmente para sorprender y compartir.",
     path: "/servicios#anchetas-desayunos",
-    video: "",
+    video: "/videos/anchetas-y-desayunos.gif",
     poster:
-      "/images/servicios/ANCHETAS Y DESAYUNOS2/1.png",
+      "/images/servicios/ANCHETAS Y DESAYUNOS2/4.png",
   },
 ];
 
@@ -49,7 +49,7 @@ const products: CatalogItem[] = [
       "Diferentes marcas, presentaciones y alternativas para cada necesidad.",
     path: "/productos",
     video: "",
-    poster: "/images/servicios/BREAK LACTEO/1.png",
+    poster: "/images/3 FOTOS/lacteo.png",
   },
   {
     title: "Productos artesanales",
@@ -58,7 +58,7 @@ const products: CatalogItem[] = [
     path: "/servicios?categoria=complementos",
     video: "",
     poster:
-      "/images/servicios/PRODUCTOS ARTESANALES2/ALFAJOR2.png",
+      "/images/servicios/PRODUCTOS ARTESANALES2/GALLETITAS2.png",
   },
   {
     title: "Opciones para compartir",
@@ -67,7 +67,7 @@ const products: CatalogItem[] = [
     path: "/servicios#tabla-quesos",
     video: "",
     poster:
-      "/images/servicios/TABLA DE QUESOS2/1.2.png",
+      "/images/servicios/TABLA DE QUESOS2/3.2.png",
   },
 ];
 
@@ -190,7 +190,12 @@ function CatalogMedia({
   const [imageError, setImageError] = useState(false);
 
   const hasPoster = Boolean(item.poster) && !imageError;
-  const hasVideo = Boolean(item.video);
+  const mediaPath = item.video
+    ?.toLowerCase()
+    .split("?")[0];
+  const hasGif = Boolean(mediaPath?.endsWith(".gif"));
+  const hasVideo = Boolean(item.video) && !hasGif;
+  const hasAnimatedMedia = hasVideo || hasGif;
 
   useEffect(() => {
     setImageError(false);
@@ -219,7 +224,16 @@ function CatalogMedia({
   const startVideo = async () => {
     const video = videoRef.current;
 
-    if (!video || !hasVideo || reduceMotion) {
+    if (!hasAnimatedMedia || reduceMotion) {
+      return;
+    }
+
+    if (hasGif) {
+      setIsPlaying(true);
+      return;
+    }
+
+    if (!video) {
       return;
     }
 
@@ -234,6 +248,11 @@ function CatalogMedia({
 
   const stopVideo = () => {
     const video = videoRef.current;
+
+    if (hasGif) {
+      setIsPlaying(false);
+      return;
+    }
 
     if (!video) {
       return;
@@ -267,11 +286,13 @@ function CatalogMedia({
 
   return (
     <div
-      role={hasVideo ? "group" : undefined}
+      role={hasAnimatedMedia ? "group" : undefined}
       aria-label={
-        hasVideo ? `Vista previa de ${item.title}` : undefined
+        hasAnimatedMedia
+          ? `Vista previa de ${item.title}`
+          : undefined
       }
-      tabIndex={hasVideo ? 0 : undefined}
+      tabIndex={hasAnimatedMedia ? 0 : undefined}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onFocus={() => void startVideo()}
@@ -289,6 +310,19 @@ function CatalogMedia({
             : "scale-100 opacity-100 group-hover:scale-105"
         }`}
       />
+
+      {hasGif && (
+        <img
+          src={item.video}
+          alt=""
+          aria-hidden="true"
+          className={`absolute inset-0 h-full w-full object-cover transition duration-700 ${
+            isPlaying
+              ? "scale-105 opacity-100"
+              : "scale-100 opacity-0"
+          }`}
+        />
+      )}
 
       {hasVideo && (
         <video
@@ -311,7 +345,7 @@ function CatalogMedia({
         </video>
       )}
 
-      {hasVideo && !reduceMotion && (
+      {hasAnimatedMedia && !reduceMotion && (
         <div
           aria-hidden="true"
           className={`absolute left-4 top-4 z-10 flex items-center gap-2 rounded-full px-3 py-2 text-xs font-bold shadow-md backdrop-blur-sm transition duration-300 ${

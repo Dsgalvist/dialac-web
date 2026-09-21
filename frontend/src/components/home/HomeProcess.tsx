@@ -17,7 +17,7 @@ const processSteps = [
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="h-6 w-6"
+        className="h-5 w-5 lg:h-6 lg:w-6"
       >
         <circle cx="11" cy="11" r="7" />
         <path d="m20 20-4-4" />
@@ -40,7 +40,7 @@ const processSteps = [
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="h-6 w-6"
+        className="h-5 w-5 lg:h-6 lg:w-6"
       >
         <circle cx="9" cy="20" r="1" />
         <circle cx="18" cy="20" r="1" />
@@ -64,7 +64,7 @@ const processSteps = [
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="h-6 w-6"
+        className="h-5 w-5 lg:h-6 lg:w-6"
       >
         <rect
           x="3"
@@ -93,7 +93,7 @@ const processSteps = [
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="h-6 w-6"
+        className="h-5 w-5 lg:h-6 lg:w-6"
       >
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
         <path d="M14 2v6h6" />
@@ -107,7 +107,7 @@ function HomeProcess() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="relative isolate overflow-hidden bg-[#fffdf9] px-4 py-14 text-dialac-charcoal sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+    <section className="relative isolate overflow-hidden bg-[#fffdf9] px-3 py-10 text-dialac-charcoal sm:px-6 sm:py-14 lg:px-8 lg:py-20">
       {/* TEXTURA */}
       <div
         aria-hidden="true"
@@ -159,7 +159,7 @@ function HomeProcess() {
       <div className="mx-auto max-w-[1500px]">
         {/* ENCABEZADO */}
         <Reveal>
-          <div className="grid gap-6 border-b border-dialac-brown/25 pb-7 lg:grid-cols-[0.42fr_1.58fr] lg:items-end lg:gap-12">
+          <div className="grid gap-5 border-b border-dialac-brown/25 pb-6 sm:gap-6 sm:pb-7 lg:grid-cols-[0.42fr_1.58fr] lg:items-end lg:gap-12">
             <div>
               <div className="flex items-center gap-3">
                 <motion.span
@@ -187,7 +187,7 @@ function HomeProcess() {
 
               <motion.div
                 aria-hidden="true"
-                className="mt-5 h-px w-32 origin-left bg-dialac-brown"
+                className="mt-4 h-px w-28 origin-left bg-dialac-brown sm:mt-5 sm:w-32"
                 initial={reduceMotion ? false : { scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}
@@ -200,11 +200,11 @@ function HomeProcess() {
             </div>
 
             <div>
-              <h2 className="max-w-5xl font-display text-4xl font-bold leading-[1.02] tracking-[-0.04em] text-dialac-charcoal sm:text-5xl lg:text-[clamp(3rem,4.5vw,4.8rem)]">
+              <h2 className="max-w-5xl font-display text-3xl font-bold leading-[1.05] tracking-[-0.04em] text-dialac-charcoal sm:text-4xl lg:text-[clamp(3rem,4.5vw,4.8rem)]">
                 Tu solicitud en cuatro pasos
               </h2>
 
-              <p className="mt-4 max-w-3xl text-base leading-7 text-dialac-charcoal/85 sm:text-lg sm:leading-8">
+              <p className="mt-3 max-w-3xl text-sm leading-6 text-dialac-charcoal/85 sm:mt-4 sm:text-base sm:leading-7 lg:text-lg lg:leading-8">
                 Selecciona lo que necesitas y genera una solicitud organizada
                 para que el equipo de DIALAC pueda evaluarla.
               </p>
@@ -213,7 +213,7 @@ function HomeProcess() {
         </Reveal>
 
         {/* RECORRIDO */}
-        <div className="relative mt-10 sm:mt-12">
+        <div className="relative mt-7 sm:mt-9 lg:mt-12">
           {/* Línea de escritorio */}
           <div
             aria-hidden="true"
@@ -234,7 +234,7 @@ function HomeProcess() {
             />
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
             {processSteps.map((step, index) => {
               const isBrown = step.tone === "brown";
 
@@ -269,10 +269,10 @@ function HomeProcess() {
                           y: -6,
                         }
                   }
-                  className="group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-dialac-border bg-[#f5efe6] p-5 shadow-[0_14px_38px_rgba(68,45,30,0.07)] transition-shadow duration-300 hover:shadow-[0_24px_55px_rgba(68,45,30,0.13)] sm:p-6"
+                  className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-[1.25rem] border border-dialac-border bg-[#f5efe6] p-3 shadow-[0_14px_38px_rgba(68,45,30,0.07)] transition-shadow duration-300 hover:shadow-[0_24px_55px_rgba(68,45,30,0.13)] sm:rounded-[1.5rem] sm:p-5 lg:rounded-[1.75rem] lg:p-6"
                 >
                   {/* Número superior */}
-                  <div className="relative flex items-center justify-between gap-4">
+                  <div className="relative flex items-center justify-between gap-2 sm:gap-4">
                     <motion.span
                       animate={
                         reduceMotion
@@ -287,7 +287,7 @@ function HomeProcess() {
                         ease: "easeInOut",
                         delay: index * 0.2,
                       }}
-                      className={`relative z-10 flex h-16 w-16 items-center justify-center rounded-full border-[6px] border-white font-display text-base font-bold text-white shadow-[0_10px_24px_rgba(76,48,31,0.18)] ${
+                      className={`relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-4 border-white font-display text-xs font-bold text-white shadow-[0_10px_24px_rgba(76,48,31,0.18)] sm:h-14 sm:w-14 sm:border-[5px] sm:text-sm lg:h-16 lg:w-16 lg:border-[6px] lg:text-base ${
                         isBrown
                           ? "bg-dialac-brown"
                           : "bg-dialac-green-dark"
@@ -298,15 +298,15 @@ function HomeProcess() {
 
                     <span
                       aria-hidden="true"
-                      className="font-display text-6xl font-bold leading-none text-dialac-brown/[0.06]"
+                      className="font-display text-4xl font-bold leading-none text-dialac-brown/[0.06] sm:text-5xl lg:text-6xl"
                     >
                       {step.number}
                     </span>
                   </div>
 
-                  {/* Ícono */}
+                  {/* ÍCONO */}
                   <div
-                    className={`relative mt-6 flex h-12 w-12 items-center justify-center rounded-2xl transition duration-300 group-hover:-rotate-3 group-hover:scale-110 ${
+                    className={`relative mt-4 flex h-9 w-9 items-center justify-center rounded-xl transition duration-300 group-hover:-rotate-3 group-hover:scale-110 sm:mt-5 sm:h-11 sm:w-11 sm:rounded-2xl lg:mt-6 lg:h-12 lg:w-12 ${
                       isBrown
                         ? "bg-[#ead8c8] text-dialac-brown-dark"
                         : "bg-[#e5ead8] text-dialac-green-dark"
@@ -315,18 +315,18 @@ function HomeProcess() {
                     {step.icon}
                   </div>
 
-                  <h3 className="relative mt-5 font-display text-2xl font-bold text-dialac-charcoal">
+                  <h3 className="relative mt-3 break-words font-display text-lg font-bold leading-tight text-dialac-charcoal sm:mt-4 sm:text-xl lg:mt-5 lg:text-2xl">
                     {step.title}
                   </h3>
 
-                  <p className="relative mt-3 flex-1 text-sm leading-6 text-dialac-charcoal/85 sm:text-base sm:leading-7">
+                  <p className="relative mt-2 flex-1 text-xs leading-5 text-dialac-charcoal/85 sm:mt-3 sm:text-sm sm:leading-6 lg:text-base lg:leading-7">
                     {step.description}
                   </p>
 
                   {/* Línea inferior */}
                   <motion.div
                     aria-hidden="true"
-                    className={`mt-6 h-1.5 origin-left rounded-full ${
+                    className={`mt-4 h-1 origin-left rounded-full sm:mt-5 sm:h-1.5 lg:mt-6 ${
                       isBrown
                         ? "bg-dialac-brown"
                         : "bg-dialac-green-dark"
@@ -346,45 +346,9 @@ function HomeProcess() {
                     }}
                     transition={{
                       duration: reduceMotion ? 0 : 0.6,
-                      delay: reduceMotion
-                        ? 0
-                        : 0.25 + index * 0.1,
+                      delay: reduceMotion ? 0 : 0.25 + index * 0.1,
                     }}
                   />
-
-                  {/* Flecha entre pasos */}
-                  {index < processSteps.length - 1 && (
-                    <motion.div
-                      aria-hidden="true"
-                      className="absolute -right-3 top-5 z-20 hidden h-7 w-7 items-center justify-center rounded-full bg-white text-dialac-brown shadow-md lg:flex"
-                      animate={
-                        reduceMotion
-                          ? undefined
-                          : {
-                              x: [0, 4, 0],
-                            }
-                      }
-                      transition={{
-                        duration: 2,
-                        repeat: Number.POSITIVE_INFINITY,
-                        ease: "easeInOut",
-                        delay: index * 0.2,
-                      }}
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-4 w-4"
-                      >
-                        <path d="M5 12h14" />
-                        <path d="m13 6 6 6-6 6" />
-                      </svg>
-                    </motion.div>
-                  )}
                 </motion.article>
               );
             })}
@@ -404,7 +368,7 @@ function HomeProcess() {
             transition={{
               duration: 0.25,
             }}
-            className="relative mt-8 overflow-hidden rounded-[1.75rem] bg-dialac-charcoal px-5 py-6 text-white shadow-[0_20px_50px_rgba(38,40,42,0.18)] sm:px-8 sm:py-7 lg:px-10"
+            className="relative mt-6 overflow-hidden rounded-[1.5rem] bg-dialac-charcoal px-5 py-6 text-white shadow-[0_20px_50px_rgba(38,40,42,0.18)] sm:mt-8 sm:rounded-[1.75rem] sm:px-8 sm:py-7 lg:px-10"
           >
             <div
               aria-hidden="true"
@@ -442,11 +406,7 @@ function HomeProcess() {
                   strokeLinejoin="round"
                   className="h-7 w-7 sm:h-8 sm:w-8"
                 >
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="9"
-                  />
+                  <circle cx="12" cy="12" r="9" />
                   <path d="M12 7v5l3 2" />
                 </svg>
               </motion.div>

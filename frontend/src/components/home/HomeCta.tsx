@@ -28,7 +28,7 @@ function HomeCta() {
   };
 
   return (
-    <section className="relative isolate overflow-hidden bg-[#fffdf9] px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+    <section className="relative isolate overflow-hidden bg-[#fffdf9] px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-20">
       {/* TEXTURA EXTERIOR */}
       <div
         aria-hidden="true"
@@ -120,7 +120,7 @@ function HomeCta() {
             }}
           />
 
-          <div className="relative z-10 grid items-center gap-12 px-5 py-10 sm:px-9 sm:py-12 lg:min-h-[650px] lg:grid-cols-[1.08fr_0.92fr] lg:px-12 lg:py-14 xl:px-16">
+          <div className="relative z-10 grid items-center gap-6 px-5 py-8 sm:px-9 sm:py-10 lg:min-h-[650px] lg:grid-cols-[1.08fr_0.92fr] lg:gap-12 lg:px-12 lg:py-14 xl:px-16">
             {/* CONTENIDO */}
             <Reveal direction="left">
               <div>
@@ -257,20 +257,15 @@ function HomeCta() {
                     <button
                       type="button"
                       onClick={handleWhatsAppContact}
-                      className="inline-flex w-full cursor-pointer items-center justify-center gap-3 rounded-full border border-white/70 bg-white/10 px-6 py-3.5 font-semibold text-white backdrop-blur-md transition hover:bg-white hover:text-dialac-charcoal focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto"
+                      className="inline-flex w-full cursor-pointer items-center justify-center gap-2.5 rounded-full border border-white/70 bg-white/10 px-5 py-3 font-semibold text-white backdrop-blur-md transition hover:bg-white hover:text-dialac-charcoal focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto sm:gap-3 sm:px-6 sm:py-3.5"
                     >
                       <svg
                         aria-hidden="true"
                         viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="h-5 w-5"
+                        fill="currentColor"
+                        className="h-5 w-5 shrink-0"
                       >
-                        <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.5 9.5 0 0 1-3.8-.9L3 20.5l1.5-5a8.5 8.5 0 1 1 16.5-4Z" />
-                        <path d="M8.5 8.5c.5 3 2 4.5 5 5" />
+                        <path d="M12.04 2a9.84 9.84 0 0 0-8.4 14.96L2 22l5.18-1.61A9.94 9.94 0 0 0 12.04 22 10 10 0 0 0 12.04 2Zm5.82 14.12c-.25.7-1.45 1.34-2.01 1.41-.52.07-1.18.1-1.91-.13-.44-.14-1.01-.33-1.74-.65-3.06-1.32-5.05-4.4-5.2-4.6-.15-.2-1.24-1.65-1.24-3.15 0-1.5.78-2.24 1.06-2.55.28-.3.61-.38.81-.38h.59c.19 0 .44-.07.69.53.25.6.85 2.07.92 2.22.08.15.13.33.03.53-.1.2-.15.33-.3.51-.15.18-.32.4-.46.53-.15.15-.3.31-.13.61.18.3.78 1.29 1.68 2.09 1.15 1.03 2.12 1.35 2.42 1.5.3.15.48.13.66-.08.18-.2.76-.89.96-1.19.2-.3.41-.25.69-.15.28.1 1.78.84 2.08.99.3.15.5.23.58.35.07.13.07.73-.18 1.43Z" />
                       </svg>
 
                       Hablar con DIALAC
@@ -304,10 +299,11 @@ function HomeCta() {
               </div>
             </Reveal>
 
-            {/* VISTA PREVIA */}
+            {/* VISTA PREVIA: OCULTA SOLAMENTE EN RESPONSIVE */}
             <Reveal
               direction="right"
               delay={0.15}
+              className="hidden lg:block"
             >
               <motion.div
                 animate={

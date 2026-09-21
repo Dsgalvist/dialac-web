@@ -299,91 +299,93 @@ function HomeWhyUs() {
           </Reveal>
 
           {/* RAZONES */}
-          <StaggerContainer className="overflow-hidden rounded-[2rem] border border-dialac-border bg-white shadow-[0_20px_55px_rgba(60,42,30,0.08)]">
-            {reasons.map((reason, index) => (
-              <StaggerItem
-                key={reason.number}
-                className="h-auto"
-              >
-                <motion.article
-                  className={`group relative grid gap-5 px-5 py-6 sm:grid-cols-[auto_1fr] sm:items-center sm:px-7 lg:px-8 ${
-                    index < reasons.length - 1
-                      ? "border-b border-dialac-border"
-                      : ""
-                  }`}
-                  whileHover={
-                    reduceMotion
-                      ? undefined
-                      : {
-                          x: 6,
-                          backgroundColor: "#f8f1e8",
-                        }
+          <StaggerContainer className="grid grid-cols-2 gap-3 lg:block lg:overflow-hidden lg:rounded-[2rem] lg:border lg:border-dialac-border lg:bg-white lg:shadow-[0_20px_55px_rgba(60,42,30,0.08)]">
+  {reasons.map((reason, index) => (
+    <StaggerItem
+      key={reason.number}
+      className="h-full lg:h-auto"
+    >
+      <motion.article
+        className={`group relative h-full overflow-hidden rounded-[1.5rem] border border-dialac-border bg-white px-3 py-4 sm:px-5 sm:py-5 lg:grid lg:h-auto lg:overflow-visible lg:rounded-none lg:border-0 lg:bg-transparent lg:px-8 lg:py-6 ${
+          index < reasons.length - 1
+            ? "lg:border-b lg:border-dialac-border"
+            : ""
+        }`}
+        whileHover={
+          reduceMotion
+            ? undefined
+            : {
+                x: 6,
+                backgroundColor: "#f8f1e8",
+              }
+        }
+        transition={{
+          duration: 0.3,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+      >
+        <div className="relative z-10 lg:grid lg:grid-cols-[auto_1fr] lg:items-center lg:gap-5">
+          {/* Número */}
+          <motion.span
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-dialac-brown font-display text-xs font-bold text-white shadow-[0_8px_20px_rgba(153,78,43,0.22)] sm:h-12 sm:w-12 lg:h-14 lg:w-14 lg:text-sm"
+            whileHover={
+              reduceMotion
+                ? undefined
+                : {
+                    rotate: 6,
+                    scale: 1.08,
                   }
-                  transition={{
-                    duration: 0.3,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  {/* Número */}
-                  <motion.span
-                    className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-dialac-brown font-display text-sm font-bold text-white shadow-[0_8px_20px_rgba(153,78,43,0.22)]"
-                    whileHover={
-                      reduceMotion
-                        ? undefined
-                        : {
-                            rotate: 6,
-                            scale: 1.08,
-                          }
-                    }
-                  >
-                    {reason.number}
-                  </motion.span>
+            }
+          >
+            {reason.number}
+          </motion.span>
 
-                  {/* Texto */}
-                  <div className="relative z-10">
-                    <h3 className="font-display text-xl font-bold leading-tight text-dialac-charcoal sm:text-2xl">
-                      {reason.title}
-                    </h3>
+          {/* Texto */}
+          <div className="mt-4 lg:mt-0">
+            <h3 className="font-display text-base font-bold leading-tight text-dialac-charcoal sm:text-lg lg:text-xl xl:text-2xl">
+              {reason.title}
+            </h3>
 
-                    <p className="mt-2 max-w-2xl text-sm leading-6 text-dialac-charcoal/85 sm:text-base sm:leading-7">
-                      {reason.description}
-                    </p>
-                  </div>
+            <p className="mt-2 text-xs leading-5 text-dialac-charcoal/85 sm:text-sm sm:leading-6 lg:max-w-2xl lg:text-base lg:leading-7">
+              {reason.description}
+            </p>
+          </div>
+        </div>
 
-                  {/* Número decorativo */}
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute -bottom-5 right-16 font-display text-[6rem] font-bold leading-none text-dialac-brown/[0.035] transition-transform duration-500 group-hover:-translate-x-2 group-hover:-translate-y-1"
-                  >
-                    {reason.number}
-                  </span>
+        {/* Número decorativo */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-2 right-2 font-display text-[4rem] font-bold leading-none text-dialac-brown/[0.035] transition-transform duration-500 group-hover:-translate-x-2 group-hover:-translate-y-1 lg:-bottom-5 lg:right-16 lg:text-[6rem]"
+        >
+          {reason.number}
+        </span>
 
-                  {/* Indicador lateral */}
-                  <motion.span
-                    aria-hidden="true"
-                    className="absolute bottom-0 left-0 top-0 w-1 origin-bottom bg-dialac-brown"
-                    initial={
-                      reduceMotion
-                        ? false
-                        : {
-                            scaleY: 0,
-                          }
-                    }
-                    whileInView={{
-                      scaleY: 1,
-                    }}
-                    viewport={{
-                      once: true,
-                    }}
-                    transition={{
-                      duration: reduceMotion ? 0 : 0.55,
-                      delay: reduceMotion ? 0 : index * 0.1,
-                    }}
-                  />
-                </motion.article>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+        {/* Indicador lateral */}
+        <motion.span
+          aria-hidden="true"
+          className="absolute bottom-0 left-0 top-0 w-1 origin-bottom bg-dialac-brown lg:block"
+          initial={
+            reduceMotion
+              ? false
+              : {
+                  scaleY: 0,
+                }
+          }
+          whileInView={{
+            scaleY: 1,
+          }}
+          viewport={{
+            once: true,
+          }}
+          transition={{
+            duration: reduceMotion ? 0 : 0.55,
+            delay: reduceMotion ? 0 : index * 0.1,
+          }}
+        />
+      </motion.article>
+    </StaggerItem>
+  ))}
+</StaggerContainer>
         </div>
       </div>
     </section>

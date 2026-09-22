@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { useLocation } from "react-router-dom";
 
 export default function ScrollToTop() {
@@ -15,22 +19,57 @@ export default function ScrollToTop() {
   };
 
   useEffect(() => {
-    const scrollingElement =
-      document.scrollingElement || document.documentElement;
+    const previousScrollRestoration =
+      window.history.scrollRestoration;
 
-    scrollingElement.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "auto",
+    window.history.scrollRestoration = "manual";
+
+    return () => {
+      window.history.scrollRestoration =
+        previousScrollRestoration;
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    let secondFrame = 0;
+
+    const resetScrollPosition = () => {
+      const scrollingElement =
+        document.scrollingElement ||
+        document.documentElement;
+
+      scrollingElement.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "auto",
+      });
+
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "auto",
+      });
+
+      setVisible(false);
+    };
+
+    resetScrollPosition();
+
+    const firstFrame = window.requestAnimationFrame(() => {
+      resetScrollPosition();
+
+      secondFrame = window.requestAnimationFrame(() => {
+        resetScrollPosition();
+      });
     });
 
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "auto",
-    });
-
-    setVisible(false);
+    return () => {
+      window.cancelAnimationFrame(firstFrame);
+      window.cancelAnimationFrame(secondFrame);
+    };
   }, [pathname]);
 
   useEffect(() => {
@@ -51,6 +90,7 @@ export default function ScrollToTop() {
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+
       document.removeEventListener("scroll", handleScroll, {
         capture: true,
       });
@@ -59,7 +99,8 @@ export default function ScrollToTop() {
 
   const scrollToTop = () => {
     const scrollingElement =
-      document.scrollingElement || document.documentElement;
+      document.scrollingElement ||
+      document.documentElement;
 
     scrollingElement.scrollTo({
       top: 0,

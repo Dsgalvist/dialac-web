@@ -13,7 +13,7 @@ function BusinessHours() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="relative isolate w-full overflow-hidden bg-[#f5efe6] px-4 py-12 sm:px-6 sm:py-14 lg:py-16">
+    <section className="relative isolate w-full overflow-hidden bg-[#f5efe6] px-4 py-8 sm:px-6 sm:py-10 lg:py-16">
       {/* TEXTURA */}
       <div
         aria-hidden="true"
@@ -90,7 +90,7 @@ function BusinessHours() {
             duration: 0.55,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="mb-7 grid items-end gap-5 border-b border-dialac-border pb-6 sm:mb-8 lg:grid-cols-[0.75fr_1.25fr]"
+          className="mb-5 grid items-end gap-3 border-b border-dialac-border pb-4 sm:mb-6 lg:mb-8 lg:grid-cols-[0.75fr_1.25fr] lg:gap-5 lg:pb-6"
         >
           <div>
             <div className="flex items-center gap-2.5">
@@ -112,21 +112,21 @@ function BusinessHours() {
                 }}
               />
 
-              <p className="font-display text-[10px] font-bold uppercase tracking-[0.22em] text-dialac-brown-dark sm:text-xs">
+              <p className="font-display text-[10px] font-bold uppercase tracking-[0.22em] text-dialac-brown-dark lg:text-xs">
                 Horarios de atención
               </p>
             </div>
 
-            <div className="mt-4 h-px w-16 bg-dialac-brown/45" />
+            <div className="mt-3 h-px w-16 bg-dialac-brown/45 lg:mt-4" />
           </div>
 
-          <h2 className="max-w-3xl font-display text-3xl font-bold leading-tight tracking-[-0.03em] text-dialac-charcoal sm:text-4xl lg:text-[2.75rem]">
+          <h2 className="max-w-3xl font-display text-2xl font-bold leading-tight tracking-[-0.03em] text-dialac-charcoal sm:text-3xl lg:text-[2.75rem]">
             Estamos disponibles para ayudarte
           </h2>
         </motion.div>
 
         {/* CONTENIDO */}
-        <div className="overflow-hidden rounded-[1.75rem] border border-dialac-border bg-white shadow-[0_20px_50px_rgba(75,52,39,0.1)] sm:rounded-[2rem]">
+        <div className="overflow-hidden rounded-[1.25rem] border border-dialac-border bg-white shadow-[0_20px_50px_rgba(75,52,39,0.1)] lg:rounded-[2rem]">
           <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
             {/* HORARIOS */}
             <motion.div
@@ -150,20 +150,20 @@ function BusinessHours() {
                 duration: 0.65,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="relative p-5 sm:p-7 lg:p-8"
+              className="relative p-4 sm:p-5 lg:p-8"
             >
               <span
                 aria-hidden="true"
-                className="absolute right-6 top-1 font-display text-[6rem] font-bold leading-none text-dialac-brown/[0.035] sm:text-[8rem]"
+                className="absolute right-4 top-1 font-display text-[5rem] font-bold leading-none text-dialac-brown/[0.035] lg:right-6 lg:text-[8rem]"
               >
                 01
               </span>
 
               <div className="relative">
-                <div className="flex items-start gap-4">
+                <div className="flex items-start gap-3 lg:gap-4">
                   <motion.span
                     aria-hidden="true"
-                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-dialac-brown text-white shadow-[0_10px_25px_rgba(122,63,37,0.2)]"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-dialac-brown text-white shadow-[0_10px_25px_rgba(122,63,37,0.2)] lg:h-12 lg:w-12"
                     animate={
                       reduceMotion
                         ? undefined
@@ -184,14 +184,14 @@ function BusinessHours() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="h-6 w-6"
+                      className="h-5 w-5 lg:h-6 lg:w-6"
                     >
                       <circle cx="12" cy="12" r="9" />
                       <path d="M12 7v5l3 2" />
                     </svg>
                   </motion.span>
 
-                  <p className="max-w-2xl pt-0.5 leading-7 text-dialac-charcoal">
+                  <p className="max-w-2xl pt-0.5 text-sm leading-6 text-dialac-charcoal lg:text-base lg:leading-7">
                     Puedes realizar tu solicitud en cualquier momento desde
                     nuestra página web. Nuestro equipo la revisará y se
                     comunicará contigo dentro de los siguientes horarios de
@@ -199,7 +199,7 @@ function BusinessHours() {
                   </p>
                 </div>
 
-                <dl className="mt-7 overflow-hidden rounded-2xl border border-dialac-border">
+                <dl className="mt-4 overflow-hidden rounded-xl border border-dialac-border lg:mt-7 lg:rounded-2xl">
                   {businessHours.map((schedule, index) => (
                     <motion.div
                       key={schedule.day}
@@ -232,13 +232,13 @@ function BusinessHours() {
                               backgroundColor: "#faf5ef",
                             }
                       }
-                      className={`group grid grid-cols-[1fr_auto] items-center gap-4 bg-white px-4 py-3.5 transition sm:px-5 ${
+                      className={`group grid grid-cols-[1fr_auto] items-center gap-2 bg-white px-3 py-2.5 transition lg:gap-4 lg:px-5 lg:py-3.5 ${
                         index < businessHours.length - 1
                           ? "border-b border-dialac-border"
                           : ""
                       }`}
                     >
-                      <dt className="flex items-center gap-3 font-semibold text-dialac-charcoal">
+                      <dt className="flex items-center gap-2 text-sm font-semibold text-dialac-charcoal lg:gap-3 lg:text-base">
                         <motion.span
                           aria-hidden="true"
                           className="h-2 w-2 rounded-full bg-dialac-brown"
@@ -254,7 +254,7 @@ function BusinessHours() {
                         {schedule.day}
                       </dt>
 
-                      <dd className="text-right text-sm leading-5 text-dialac-charcoal sm:text-base">
+                      <dd className="text-right text-xs leading-5 text-dialac-charcoal lg:text-base">
                         {schedule.hours}
                       </dd>
                     </motion.div>
@@ -286,7 +286,7 @@ function BusinessHours() {
                 delay: 0.1,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="relative flex overflow-hidden border-t border-dialac-border bg-[#ead8c5] p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-9"
+              className="relative flex overflow-hidden border-t border-dialac-border bg-[#ead8c5] p-4 sm:p-5 lg:border-l lg:border-t-0 lg:p-9"
             >
               <div
                 aria-hidden="true"
@@ -300,7 +300,7 @@ function BusinessHours() {
 
               <span
                 aria-hidden="true"
-                className="absolute bottom-[-1rem] right-5 font-display text-[8rem] font-bold leading-none text-white/20"
+                className="absolute bottom-[-1rem] right-5 font-display text-[5rem] font-bold leading-none text-white/20 lg:text-[8rem]"
               >
                 02
               </span>
@@ -308,7 +308,7 @@ function BusinessHours() {
               <div className="relative flex w-full flex-col">
                 <motion.div
                   aria-hidden="true"
-                  className="flex h-14 w-14 items-center justify-center rounded-2xl bg-dialac-brown text-white shadow-[0_12px_28px_rgba(122,63,37,0.22)]"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-dialac-brown text-white shadow-[0_12px_28px_rgba(122,63,37,0.22)] lg:h-14 lg:w-14 lg:rounded-2xl"
                   animate={
                     reduceMotion
                       ? undefined
@@ -329,29 +329,29 @@ function BusinessHours() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="h-7 w-7"
+                    className="h-5 w-5 lg:h-7 lg:w-7"
                   >
                     <circle cx="12" cy="12" r="9" />
                     <path d="M12 7v5l3 2" />
                   </svg>
                 </motion.div>
 
-                <p className="mt-6 font-display text-[10px] font-bold uppercase tracking-[0.2em] text-dialac-brown-dark sm:text-xs">
+                <p className="mt-3 font-display text-[10px] font-bold uppercase tracking-[0.2em] text-dialac-brown-dark lg:mt-6 lg:text-xs">
                   Información importante
                 </p>
 
-                <h3 className="mt-3 max-w-lg font-display text-2xl font-bold leading-tight text-dialac-charcoal sm:text-3xl">
+                <h3 className="mt-1.5 max-w-lg font-display text-xl font-bold leading-tight text-dialac-charcoal sm:text-2xl lg:mt-3 lg:text-3xl">
                   Solicita tu pedido con anticipación
                 </h3>
 
-                <p className="mt-4 max-w-xl leading-7 text-dialac-charcoal">
+                <p className="mt-2 max-w-xl text-sm leading-6 text-dialac-charcoal lg:mt-4 lg:text-base lg:leading-7">
                   Puedes enviar tu solicitud a cualquier hora, todos los días.
                   Nuestro equipo se comunicará contigo dentro del horario de
                   atención para confirmar los detalles.
                 </p>
 
                 <motion.div
-                  className="relative mt-7"
+                  className="relative mt-4 lg:mt-7"
                   whileHover={
                     reduceMotion
                       ? undefined
@@ -364,11 +364,11 @@ function BusinessHours() {
                     duration: 0.25,
                   }}
                 >
-                  <div className="rounded-2xl border border-white/75 bg-white/75 p-5 shadow-[0_12px_28px_rgba(75,52,39,0.08)] backdrop-blur-sm">
-                    <div className="flex items-start gap-4">
+                  <div className="rounded-xl border border-white/75 bg-white/75 p-4 shadow-[0_12px_28px_rgba(75,52,39,0.08)] backdrop-blur-sm lg:rounded-2xl lg:p-5">
+                    <div className="flex items-start gap-3 lg:gap-4">
                       <div
                         aria-hidden="true"
-                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-dialac-brown text-white"
+                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-dialac-brown text-white lg:h-11 lg:w-11"
                       >
                         <svg
                           viewBox="0 0 24 24"
@@ -386,11 +386,11 @@ function BusinessHours() {
                       </div>
 
                       <div>
-                        <p className="font-display text-lg font-bold text-dialac-charcoal sm:text-xl">
+                        <p className="font-display text-base font-bold leading-snug text-dialac-charcoal lg:text-xl">
                           Mínimo 3 días de anticipación
                         </p>
 
-                        <p className="mt-2 text-sm leading-6 text-dialac-charcoal">
+                        <p className="mt-1 text-xs leading-5 text-dialac-charcoal lg:mt-2 lg:text-sm lg:leading-6">
                           El pedido debe solicitarse al menos 3 días antes de la
                           fecha en la que se requiere.
                         </p>

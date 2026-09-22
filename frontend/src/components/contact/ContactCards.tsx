@@ -222,7 +222,7 @@ Gracias.`;
               duration: 0.65,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="relative flex min-h-[460px] overflow-hidden rounded-[1.75rem] border border-dialac-border bg-[#f7f2eb] p-4 shadow-[0_20px_50px_rgba(75,52,39,0.10)] sm:p-6 lg:min-h-full"
+            className="relative hidden min-h-[460px] overflow-hidden rounded-[1.75rem] border border-dialac-border bg-[#f7f2eb] p-4 shadow-[0_20px_50px_rgba(75,52,39,0.10)] sm:p-6 lg:flex lg:min-h-full"
           >
             <div
               aria-hidden="true"

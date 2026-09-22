@@ -47,11 +47,69 @@ function CartPage() {
   };
 
   return (
-    <main
-      className={`min-h-screen overflow-x-clip bg-[#f7f5f1] ${
-        isEmpty ? "" : "pb-24 lg:pb-0"
-      }`}
-    >
+    <main className="min-h-screen overflow-x-clip bg-[#f7f5f1]">
+      {/* ACCIONES RESPONSIVE */}
+      {!isEmpty && (
+        <div className="sticky top-[61px] z-40 border-b border-dialac-border bg-[#f7f5f1]/95 px-3 py-2 backdrop-blur-xl lg:hidden">
+          <div className="mx-auto grid max-w-xl grid-cols-[auto_minmax(0,1fr)] gap-2">
+            <Link
+              to="/productos"
+              aria-label="Seguir explorando productos"
+              className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-dialac-brown bg-white px-3 font-semibold text-dialac-brown-dark outline-none transition hover:bg-[#f4e8de] focus-visible:ring-4 focus-visible:ring-dialac-brown/25"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-5 w-5 shrink-0"
+              >
+                <path d="M19 12H5" />
+                <path d="m11 18-6-6 6-6" />
+              </svg>
+
+              <span className="hidden min-[390px]:inline">
+                Productos
+              </span>
+            </Link>
+
+            <motion.button
+              type="button"
+              onClick={handleContinue}
+              whileTap={
+                reduceMotion
+                  ? undefined
+                  : {
+                      scale: 0.98,
+                    }
+              }
+              className="group inline-flex min-h-12 min-w-0 items-center justify-center gap-2 rounded-xl bg-dialac-brown px-4 font-semibold text-white outline-none transition hover:bg-dialac-brown-dark focus-visible:ring-4 focus-visible:ring-dialac-brown/30"
+            >
+              <span className="truncate">
+                Continuar solicitud
+              </span>
+
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-5 w-5 shrink-0"
+              >
+                <path d="M5 12h14" />
+                <path d="m13 6 6 6-6 6" />
+              </svg>
+            </motion.button>
+          </div>
+        </div>
+      )}
+
       <section className="relative px-3 pb-10 pt-3 sm:px-8 sm:pb-14 sm:pt-4 lg:pb-16 lg:pt-5">
         {/* DECORACIÓN */}
         <div

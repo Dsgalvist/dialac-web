@@ -271,96 +271,96 @@ function AboutCommitments() {
           </Reveal>
 
           {/* COMPROMISOS EN CUADRÍCULA */}
-          <div className="grid sm:grid-cols-2">
-            {commitments.map((commitment, index) => (
-              <Reveal
-                key={commitment.number}
-                direction="up"
-                delay={index * 0.06}
-                className="h-full"
-              >
-                <motion.article
-                  className={`group relative h-full overflow-hidden px-5 py-5 sm:min-h-[180px] sm:px-6 ${
-                    index === 0
-                      ? "border-b border-dialac-border sm:border-r"
-                      : ""
-                  } ${
-                    index === 1
-                      ? "border-b border-dialac-border"
-                      : ""
-                  } ${
-                    index === 2
-                      ? "border-b border-dialac-border sm:border-b-0 sm:border-r"
-                      : ""
-                  }`}
-                  whileHover={
-                    reduceMotion
-                      ? undefined
-                      : {
-                          backgroundColor: "#f9f1e9",
-                      }
+<div className="grid grid-cols-2">
+  {commitments.map((commitment, index) => (
+    <Reveal
+      key={commitment.number}
+      direction="up"
+      delay={index * 0.06}
+      className="h-full"
+    >
+      <motion.article
+        className={`group relative h-full min-h-[210px] overflow-hidden px-3 py-4 sm:min-h-[180px] sm:px-6 sm:py-5 ${
+          index === 0
+            ? "border-b border-r border-dialac-border"
+            : ""
+        } ${
+          index === 1
+            ? "border-b border-dialac-border"
+            : ""
+        } ${
+          index === 2
+            ? "border-r border-dialac-border"
+            : ""
+        }`}
+        whileHover={
+          reduceMotion
+            ? undefined
+            : {
+                backgroundColor: "#f9f1e9",
+              }
+        }
+        transition={{
+          duration: 0.3,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+      >
+        <span
+          aria-hidden="true"
+          className="absolute -right-1 -top-2 font-display text-5xl font-bold text-dialac-brown/[0.05] transition-transform duration-500 group-hover:scale-110 sm:-top-3 sm:text-6xl"
+        >
+          {commitment.number}
+        </span>
+
+        <div className="relative flex items-center justify-between gap-2 sm:gap-4">
+          <motion.span
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#f1dfd0] text-dialac-brown-dark sm:h-10 sm:w-10"
+            whileHover={
+              reduceMotion
+                ? undefined
+                : {
+                    rotate: 6,
+                    scale: 1.08,
                   }
-                  transition={{
-                    duration: 0.3,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  <span
-                    aria-hidden="true"
-                    className="absolute -right-1 -top-3 font-display text-6xl font-bold text-dialac-brown/[0.05] transition-transform duration-500 group-hover:scale-110"
-                  >
-                    {commitment.number}
-                  </span>
+            }
+            transition={{
+              duration: 0.3,
+            }}
+          >
+            {commitment.icon}
+          </motion.span>
 
-                  <div className="relative flex items-center justify-between gap-4">
-                    <motion.span
-                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f1dfd0] text-dialac-brown-dark"
-                      whileHover={
-                        reduceMotion
-                          ? undefined
-                          : {
-                              rotate: 6,
-                              scale: 1.08,
-                            }
-                      }
-                      transition={{
-                        duration: 0.3,
-                      }}
-                    >
-                      {commitment.icon}
-                    </motion.span>
+          <span className="font-display text-[10px] font-bold tracking-[0.1em] text-dialac-brown sm:text-[11px] sm:tracking-[0.12em]">
+            {commitment.number}
+          </span>
+        </div>
 
-                    <span className="font-display text-[11px] font-bold tracking-[0.12em] text-dialac-brown">
-                      {commitment.number}
-                    </span>
-                  </div>
+        <h3 className="relative mt-3 font-display text-base font-bold leading-tight text-dialac-charcoal sm:mt-4 sm:text-xl">
+          {commitment.title}
+        </h3>
 
-                  <h3 className="relative mt-4 font-display text-xl font-bold leading-tight text-dialac-charcoal">
-                    {commitment.title}
-                  </h3>
+        <p className="relative mt-2 text-xs leading-5 text-dialac-charcoal sm:text-sm sm:leading-6">
+          {commitment.description}
+        </p>
 
-                  <p className="relative mt-2 text-sm leading-6 text-dialac-charcoal">
-                    {commitment.description}
-                  </p>
-
-                  <motion.div
-                    aria-hidden="true"
-                    className="relative mt-4 h-1 w-7 rounded-full bg-dialac-brown"
-                    whileHover={
-                      reduceMotion
-                        ? undefined
-                        : {
-                            width: 52,
-                          }
-                    }
-                    transition={{
-                      duration: 0.3,
-                    }}
-                  />
-                </motion.article>
-              </Reveal>
-            ))}
-          </div>
+        <motion.div
+          aria-hidden="true"
+          className="relative mt-3 h-1 w-7 rounded-full bg-dialac-brown sm:mt-4"
+          whileHover={
+            reduceMotion
+              ? undefined
+              : {
+                  width: 52,
+                }
+          }
+          transition={{
+            duration: 0.3,
+          }}
+        />
+      </motion.article>
+    </Reveal>
+  ))}
+</div>
         </div>
 
         {/* CIERRE COMPACTO */}

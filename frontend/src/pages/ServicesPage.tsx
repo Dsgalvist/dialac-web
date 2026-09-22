@@ -1,51 +1,24 @@
-import { useEffect, useState } from "react";
-import {
-  useSearchParams,
-} from "react-router-dom";
+import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import ServicesCatalog from "../components/services/ServicesCatalog";
 import ServicesCategories from "../components/services/ServicesCategories";
 import type { ServiceCategory } from "../data/services";
 
-function isServiceCategory(
-  value: string | null,
-): value is ServiceCategory {
-  return (
-    value === "todos" ||
-    value === "celebraciones" ||
-    value === "empresas" ||
-    value === "complementos"
-  );
-}
-
 function ServicesPage() {
   const reduceMotion = useReducedMotion();
-  const [searchParams] = useSearchParams();
-
-  const categoryFromUrl = searchParams.get("categoria");
 
   const [activeCategory, setActiveCategory] =
-    useState<ServiceCategory>(() =>
-      isServiceCategory(categoryFromUrl)
-        ? categoryFromUrl
-        : "todos",
-    );
-
-  /*
-   * Actualiza el filtro cuando se ingresa a Servicios
-   * mediante una categoría indicada en la URL.
-   */
-  useEffect(() => {
-    if (isServiceCategory(categoryFromUrl)) {
-      setActiveCategory(categoryFromUrl);
-      return;
-    }
-
-    setActiveCategory("todos");
-  }, [categoryFromUrl]);
+    useState<ServiceCategory>("todos");
 
   return (
     <main className="min-h-screen overflow-x-clip bg-[#f7f5f1]">
+      {/* FILTRO RESPONSIVE DEBAJO DEL NAVBAR */}
+      <ServicesCategories
+        mode="mobile"
+        activeCategory={activeCategory}
+        onCategoryChange={setActiveCategory}
+      />
+
       {/* SERVICIOS: ENCABEZADO, CATEGORÍAS Y CATÁLOGO */}
       <section className="relative px-3 pb-10 pt-3 sm:px-8 sm:pb-14 sm:pt-4 lg:pb-16 lg:pt-5">
         {/* DECORACIÓN */}
@@ -177,14 +150,14 @@ function ServicesPage() {
 
           {/* CATEGORÍAS Y CATÁLOGO INTEGRADOS */}
           <div className="grid items-start gap-6 lg:grid-cols-[270px_minmax(0,1fr)] xl:gap-8">
+            {/* FILTRO EXCLUSIVO DE ESCRITORIO */}
             <ServicesCategories
+              mode="desktop"
               activeCategory={activeCategory}
               onCategoryChange={setActiveCategory}
             />
 
-            <ServicesCatalog
-              activeCategory={activeCategory}
-            />
+            <ServicesCatalog activeCategory={activeCategory} />
           </div>
         </div>
       </section>

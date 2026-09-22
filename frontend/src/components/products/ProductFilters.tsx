@@ -191,13 +191,13 @@ function ProductFilters({
 
   if (mode === "mobile") {
     return (
-      <div className="sticky top-16 z-40 bg-white shadow-sm lg:hidden">
+      <div className="sticky top-[61px] z-40 w-full border-b border-dialac-border bg-[#fffdf9]/95 backdrop-blur-xl lg:hidden">
         <button
           type="button"
           aria-expanded={isOpen}
           aria-controls="product-filter-panel-mobile"
           onClick={() => setIsOpen((current) => !current)}
-          className="flex w-full items-center justify-between border-y border-dialac-border bg-white px-5 py-4 font-semibold text-dialac-charcoal"
+          className="flex w-full items-center justify-between bg-[#fffdf9] px-5 py-3.5 font-semibold text-dialac-charcoal outline-none transition hover:bg-[#faf8f4] focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-dialac-brown/20"
         >
           <span className="flex items-center gap-3">
             <svg
@@ -261,7 +261,7 @@ function ProductFilters({
                 duration: 0.3,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="overflow-hidden border-b border-dialac-border bg-white"
+              className="overflow-hidden border-t border-dialac-border bg-white"
             >
               <div className="max-h-[calc(100dvh-8rem)] overflow-y-auto overscroll-contain px-5 py-6 [scrollbar-color:#cdb9a8_transparent] [scrollbar-width:thin]">
                 {filterContent}

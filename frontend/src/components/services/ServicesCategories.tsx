@@ -9,6 +9,7 @@ import type { ServiceCategory } from "../../data/services";
 export type { ServiceCategory } from "../../data/services";
 
 type ServicesCategoriesProps = {
+  mode: "mobile" | "desktop";
   activeCategory: ServiceCategory;
   onCategoryChange: (category: ServiceCategory) => void;
 };
@@ -59,6 +60,7 @@ const categories: {
 ];
 
 function ServicesCategories({
+  mode,
   activeCategory,
   onCategoryChange,
 }: ServicesCategoriesProps) {
@@ -143,15 +145,16 @@ function ServicesCategories({
     </div>
   );
 
+  if (mode === "mobile") {
   return (
-    <aside className="sticky top-[72px] z-30 self-start lg:top-28">
-      {/* BOTÓN RESPONSIVE */}
+    <aside className="sticky top-[61px] z-40 w-full border-b border-dialac-border bg-[#fffdf9]/95 backdrop-blur-xl lg:hidden">
+      {/* BOTÓN RESPONSIVE RECTANGULAR */}
       <button
         type="button"
         aria-expanded={isOpen}
         aria-controls="service-category-panel"
         onClick={() => setIsOpen((current) => !current)}
-        className="flex w-full items-center justify-between rounded-xl border border-dialac-border bg-white px-4 py-3 font-semibold text-dialac-charcoal shadow-sm outline-none transition focus-visible:ring-4 focus-visible:ring-dialac-brown/20 lg:hidden"
+        className="flex w-full items-center justify-between bg-[#fffdf9] px-5 py-3.5 font-semibold text-dialac-charcoal outline-none transition hover:bg-[#faf8f4] focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-dialac-brown/20"
       >
         <span className="flex min-w-0 items-center gap-3">
           <svg
@@ -219,17 +222,22 @@ function ServicesCategories({
               duration: reduceMotion ? 0 : 0.3,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="overflow-hidden lg:hidden"
+            className="overflow-hidden border-t border-dialac-border bg-white"
           >
-            <div className="mt-3 rounded-2xl border border-dialac-border bg-white p-4 shadow-[0_10px_30px_rgba(38,40,42,0.06)]">
+            <div className="p-3">
               {categoryButtons}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+    </aside>
+  );
+}
 
+  return (
+    <aside className="sticky top-28 hidden self-start lg:block">
       {/* PANEL ESCRITORIO */}
-      <div className="hidden rounded-2xl border border-dialac-border bg-white p-5 shadow-[0_10px_30px_rgba(38,40,42,0.05)] lg:block">
+      <div className="rounded-2xl border border-dialac-border bg-white p-5 shadow-[0_10px_30px_rgba(38,40,42,0.05)]">
         <div className="mb-6 flex items-center gap-3">
           <span
             aria-hidden="true"

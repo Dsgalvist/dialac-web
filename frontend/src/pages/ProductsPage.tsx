@@ -161,8 +161,7 @@ function ProductsPage() {
                     </p>
 
                     <p className="mt-1 text-sm leading-5 text-dialac-charcoal">
-                      El domicilio está sujeto a disponibilidad y posible costo
-                      adicional.
+                      El domicilio está sujeto a disponibilidad y posible costo de envio.
                     </p>
 
                     <p className="mt-2 text-xs font-semibold leading-5 text-dialac-brown-dark">
@@ -220,8 +219,7 @@ function ProductsPage() {
                     </p>
 
                     <p className="mt-1 text-sm leading-5 text-dialac-charcoal">
-                      Actualmente realizamos entregas únicamente en Bogotá, Chía
-                      y Cajicá.
+                      Actualmente realizamos entregas en Bogotá & Sabana Norte.
                     </p>
 
                     <p className="mt-2 text-xs font-semibold leading-5 text-dialac-brown-dark">

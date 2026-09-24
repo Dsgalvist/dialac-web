@@ -139,8 +139,7 @@ function ServicesPage() {
                     </p>
 
                     <p className="mt-1 text-sm leading-5 text-dialac-charcoal">
-                      Prestamos nuestros servicios únicamente en Bogotá, Chía y
-                      Cajicá.
+                      Prestamos nuestros servicios en Bogotá & Sabana Norte
                     </p>
                   </div>
                 </div>

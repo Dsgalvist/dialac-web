@@ -208,7 +208,7 @@ function HomeHero() {
           </div>
 
           <p className="hidden font-display text-[10px] font-semibold uppercase tracking-[0.2em] text-white/75 sm:block">
-            Chía · Cajicá · Bogotá
+            Bogotá & Sabana Norte
           </p>
         </motion.div>
 

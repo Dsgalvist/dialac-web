@@ -236,12 +236,12 @@ function CartPage() {
 
                   <div className="relative">
                     <p className="font-display font-bold text-dialac-charcoal">
-                      Entregas en Bogotá, Chía y Cajicá
+                      Entregas en Bogotá & Sabana Norte
                     </p>
 
                     <p className="mt-1 text-sm leading-6 text-dialac-charcoal">
                       El domicilio está sujeto a cobertura, disponibilidad y
-                      posible costo adicional.
+                      posible costo de envio.
                     </p>
 
                     <p className="mt-1 text-xs font-semibold leading-5 text-dialac-brown-dark">

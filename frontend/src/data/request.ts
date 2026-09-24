@@ -12,7 +12,20 @@ export type RequestFormData = {
   notes: string;
 };
 
-export const requestCities = ["Bogotá", "Chía", "Cajicá"] as const;
+export const requestCities = [
+  "Bogotá",
+  "Cajicá",
+  "Chía",
+  "Cogua",
+  "Cota",
+  "Gachancipá",
+  "Nemocón",
+  "Sopó",
+  "Tabio",
+  "Tenjo",
+  "Tocancipá",
+  "Zipaquirá",
+] as const;
 
 export const REQUEST_DRAFT_STORAGE_KEY = "dialac-request-draft-v1";
 

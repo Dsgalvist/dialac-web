@@ -824,12 +824,12 @@ function RequestForm({
 
                           <div className="relative">
                             <p className="font-display font-bold text-dialac-charcoal">
-                              Entregas en Bogotá, Chía y Cajicá
+                              Entregas en Bogotá y Sabana Norte
                             </p>
 
                             <p className="mt-1 text-sm leading-6 text-dialac-charcoal">
                               El domicilio está sujeto a cobertura,
-                              disponibilidad y posible costo adicional.
+                              disponibilidad y posible costo de envio.
                             </p>
 
                             <p className="mt-1 text-xs font-semibold leading-5 text-dialac-brown-dark">
@@ -1005,7 +1005,7 @@ function RequestForm({
                   htmlFor="request-date"
                   className="text-sm font-semibold text-dialac-charcoal"
                 >
-                  Fecha requerida
+                  Fecha deseable de entrega
                   <span
                     aria-hidden="true"
                     className="ml-1 text-dialac-error"
@@ -1422,7 +1422,7 @@ function RequestForm({
 
                 <div className="flex items-start justify-between gap-4 border-b border-dialac-border px-4 py-3">
                   <dt className="text-sm text-dialac-charcoal">
-                    Fecha requerida
+                    Fecha Deseable
                   </dt>
                   <dd className="max-w-[65%] text-right text-sm font-semibold capitalize text-dialac-charcoal">
                     {formattedRequiredDate}

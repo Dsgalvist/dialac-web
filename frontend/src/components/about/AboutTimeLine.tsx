@@ -19,45 +19,54 @@ type TimelineEvent = {
 const timelineEvents: TimelineEvent[] = [
   {
     year: "2009",
-    title: "Nacimiento de DIALAC",
+    title: "El comienzo",
     description:
-      "DIALAC nace como una empresa familiar, con el propósito de ofrecer productos de calidad, buen sabor y una atención cercana y personalizada.",
-    image:
-      "/images/9 FOTOS/mascotas.png",
-    imageAlt:
-      "Servicio preparado por DIALAC para eventos y reuniones",
+      "DIALAC nace como una empresa familiar y comienza con la comercialización de productos lácteos, construyendo una relación cercana con sus primeros clientes.",
+    image: "/images/NUEVAS IMAGENES/1.EL-COMIENZO.png",
+    imageAlt: "El comienzo de DIALAC como empresa familiar",
     visualLabel: "El comienzo de nuestra historia",
   },
   {
-    year: "2019",
-    title: "Crecimiento y consolidación",
+    year: "2012",
+    title: "Creciendo junto a nuestros clientes",
     description:
-      "Después de una década de trabajo, DIALAC alcanza una importante etapa de crecimiento, fortaleciendo sus ventas, ampliando su variedad de productos y llegando a nuevos clientes.",
-    image:
-      "/images/servicios/EVENTOS Y REUNIONES 2/3.2.png",
-    imageAlt:
-      "Servicio preparado por DIALAC para eventos y reuniones",
-    visualLabel: "Una oferta cada vez más amplia",
+      "Con la experiencia de los primeros años, DIALAC amplía progresivamente su oferta y encuentra nuevas formas de acompañar las necesidades de sus clientes.",
+    image: "/images/NUEVAS IMAGENES/2.CRECIENDO-JUNTO-A-NUESTROS-CLIENTES.png",
+    visualLabel: "Crecimiento junto a nuestros clientes",
+  },
+  {
+    year: "2016",
+    title: "Más que productos",
+    description:
+      "La propuesta comienza a extenderse hacia diferentes ocasiones, incorporando nuevas alternativas y experiencias alrededor de los alimentos.",
+    image: "/images/NUEVAS IMAGENES/3.MAS-QUE-PRODUCTOS.png",
+    visualLabel: "Nuevas alternativas y experiencias",
+  },
+  {
+    year: "2019",
+    title: "Una década de experiencia",
+    description:
+      "DIALAC cumple diez años de trayectoria, consolidando el aprendizaje, la cercanía con sus clientes y una oferta construida durante una década.",
+    image: "/images/NUEVAS IMAGENES/4.UNA-DECADA-DE-EXPERIENCIA.png",
+    imageAlt: "Experiencia de DIALAC en productos y servicios",
+    visualLabel: "Diez años creciendo juntos",
   },
   {
     year: "2020",
-    title: "Pausa por la pandemia",
+    title: "Una pausa en el camino",
     description:
-      "Con la llegada de la pandemia, DIALAC se ve obligada a cerrar temporalmente sus puertas, poniendo en pausa sus operaciones después de años de crecimiento.",
-    image:
-      "/images/imagenes finales/2020.png",
-    imageAlt:
-      "Servicio preparado por DIALAC para eventos y reuniones",
+      "DIALAC hace una pausa en sus actividades, cerrando temporalmente una etapa de su historia y dejando el camino abierto para un futuro regreso.",
+    image: "/images/NUEVAS IMAGENES/5.UNA-PAUSA-EN-EL-CAMINO.png",
+    imageAlt: "Una pausa temporal en la historia de DIALAC",
     visualLabel: "Una pausa en el camino",
   },
   {
     year: "2026",
     title: "Un nuevo comienzo",
     description:
-      "DIALAC abre nuevamente sus puertas, iniciando una nueva etapa como empresa familiar con una imagen renovada, una oferta más amplia y nuevas experiencias, manteniendo la esencia que la ha caracterizado desde 2009: calidad, cercanía y buen sabor.",
-    image: "/images/imagenes finales/2026.png",
-    imageAlt:
-      "Refrigerio preparado por DIALAC en su nueva etapa",
+      "DIALAC regresa con una imagen renovada y una propuesta más amplia: productos, refrigerios, desayunos, pasabocas y soluciones personalizadas para diferentes ocasiones.",
+    image: "/images/NUEVAS IMAGENES/6.UN-NUEVO-COMIENZO.png",
+    imageAlt: "DIALAC regresa con una imagen renovada",
     visualLabel: "DIALAC vuelve renovada",
   },
 ];
@@ -165,7 +174,7 @@ function AboutTimeline() {
                 aria-label="Historia de DIALAC"
                 className="relative"
               >
-                <div className="absolute left-[12.5%] right-[12.5%] top-5 h-1 overflow-hidden rounded-full bg-[#ded4c8]">
+                <div className="absolute left-[8.333%] right-[8.333%] top-5 h-1 overflow-hidden rounded-full bg-[#ded4c8]">
                   <motion.div
                     className="h-full rounded-full bg-dialac-brown"
                     initial={false}
@@ -179,7 +188,7 @@ function AboutTimeline() {
                   />
                 </div>
 
-                <div className="relative grid grid-cols-4">
+                <div className="relative grid grid-cols-6">
                   {timelineEvents.map((event, index) => {
                     const isSelected = selectedEvent === index;
                     const isCompleted = index <= selectedEvent;

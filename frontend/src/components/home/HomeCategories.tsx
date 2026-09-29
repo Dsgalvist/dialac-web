@@ -18,7 +18,7 @@ const services: CatalogItem[] = [
     description:
       "Soluciones personalizadas para acompañar reuniones, celebraciones y momentos especiales.",
     path: "/servicios#eventos-reuniones",
-    video: "/videos/eventos-y-reuniones.mp4",
+    video: "/images/NUEVAS IMAGENES/VIDEO-NUEVO.gif",
     poster:
       "/images/servicios/EVENTOS Y REUNIONES 2/4.2.png",
     label: "Servicio destacado",

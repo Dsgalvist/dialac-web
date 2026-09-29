@@ -127,31 +127,6 @@ function HomeAbout() {
                 className="absolute -bottom-24 -right-20 h-56 w-56 rounded-full bg-dialac-brown/10 sm:h-60 sm:w-60"
               />
 
-              {/* Sello */}
-              <motion.div
-                aria-hidden="true"
-                className="absolute right-4 top-4 z-20 flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full border border-white/70 bg-dialac-brown text-center font-display text-[9px] font-bold uppercase leading-3 tracking-[0.12em] text-white shadow-lg sm:right-7 sm:top-6 sm:h-20 sm:w-20 sm:text-[10px] lg:h-[5.25rem] lg:w-[5.25rem]"
-                animate={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        rotate: [0, 5, -3, 0],
-                        y: [0, -5, 0],
-                      }
-                }
-                transition={{
-                  duration: 5.5,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-              >
-                <span>
-                  Familia
-                  <br />
-                  DIALAC
-                </span>
-              </motion.div>
-
               {/* Imagen */}
               <motion.div
                 className="relative z-10 w-full max-w-[620px]"
@@ -176,7 +151,7 @@ function HomeAbout() {
                 }
               >
                 <img
-                  src="/images/LOGO/mascotas.png"
+                  src="/images/NUEVAS IMAGENES/NO-PERROS.png"
                   alt="Las cinco mascotas oficiales de la familia DIALAC"
                   className="mx-auto max-h-[315px] w-full object-contain drop-shadow-[0_22px_20px_rgba(90,50,28,0.20)] sm:max-h-[380px] lg:max-h-[365px] xl:max-h-[390px]"
                   loading="lazy"
@@ -251,12 +226,12 @@ function HomeAbout() {
 
               <div className="relative">
                 <p className="text-xs font-bold uppercase tracking-[0.22em] text-dialac-brown-dark">
-                  Nuestra esencia
+                  Nuestra escencia
                 </p>
 
                 <p className="mt-4 max-w-xl text-base font-semibold leading-7 text-dialac-charcoal sm:text-lg sm:leading-8 lg:text-base lg:leading-7 xl:text-lg xl:leading-8">
                   En DIALAC creamos experiencias alrededor del buen sabor,
-                  manteniendo nuestra esencia familiar, el compromiso con la
+                  manteniendo nuestra escencia familiar, el compromiso con la
                   calidad y una atención cercana para cada uno de nuestros
                   clientes.
                 </p>

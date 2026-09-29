@@ -14,7 +14,7 @@ const heroSlides = [
   {
     id: "eventos",
     image:
-      "/images/servicios/FIESTAS TEMATICAS 2/1.2.png",
+      "/images/NUEVAS IMAGENES/NIÑOS-DE-RAZAS.png",
     alt: "Evento preparado por DIALAC",
     label: "Eventos y reuniones",
   },
@@ -28,7 +28,7 @@ const heroSlides = [
   {
     id: "artesanales",
     image:
-      "/images/servicios/ANCHETAS Y DESAYUNOS2/2.png",
+      "/images/NUEVAS IMAGENES/FRASCO-CON-LA-NUEVA-DIRECCION.png",
     alt: "Productos artesanales DIALAC",
     label: "Productos artesanales",
   },

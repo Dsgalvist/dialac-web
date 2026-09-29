@@ -158,7 +158,7 @@ function AboutTimeline() {
               </h2>
 
               <p className="mt-4 max-w-2xl text-base leading-7 text-dialac-charcoal sm:text-lg">
-                Cada etapa ha contribuido a construir la esencia y el
+                Cada etapa ha contribuido a construir la escencia y el
                 propósito que hoy representan a DIALAC.
               </p>
             </div>

@@ -11,7 +11,7 @@ const reasons = [
     number: "01",
     title: "Experiencia familiar",
     description:
-      "Desde 2009 trabajamos manteniendo nuestra esencia familiar, dedicación y atención cercana.",
+      "Desde 2009 trabajamos manteniendo nuestra escencia familiar, dedicación y atención cercana.",
   },
   {
     number: "02",

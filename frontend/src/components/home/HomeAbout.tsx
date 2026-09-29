@@ -280,7 +280,7 @@ function HomeAbout() {
                     }}
                   >
                     <p className="text-xl font-bold tracking-[-0.03em] text-dialac-brown-dark lg:text-lg xl:text-xl">
-                      Esencia familiar
+                      Escencia familiar
                     </p>
 
                     <p className="text-sm font-normal leading-6 text-dialac-charcoal lg:text-[13px] lg:leading-5 xl:text-sm xl:leading-6">

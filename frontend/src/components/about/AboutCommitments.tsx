@@ -27,7 +27,7 @@ const commitments = [
     number: "02",
     title: "Cercanía",
     description:
-      "Brindamos una atención amable, personalizada y con la esencia de una empresa familiar.",
+      "Brindamos una atención amable, personalizada y con la escencia de una empresa familiar.",
     icon: (
       <svg
         aria-hidden="true"
@@ -152,7 +152,7 @@ function AboutCommitments() {
               </div>
 
               <h2 className="mt-2 font-display text-2xl font-bold leading-tight text-dialac-charcoal sm:text-3xl">
-                La esencia que guía nuestro trabajo
+                La escencia que guía nuestro trabajo
               </h2>
             </div>
 
@@ -244,7 +244,7 @@ function AboutCommitments() {
                   ease: "easeInOut",
                 }}
               >
-                Esencia
+                Escencia
                 <br />
                 DIALAC
               </motion.div>

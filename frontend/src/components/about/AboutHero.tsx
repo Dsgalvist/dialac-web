@@ -473,7 +473,7 @@ function AboutHero() {
               <div className="grid items-end gap-4 lg:grid-cols-[1fr_auto]">
                 <div>
                   <p className="max-w-2xl text-sm leading-6 text-white/90 sm:text-base sm:leading-7">
-                    Conoce la esencia que nos inspira a crear experiencias para
+                    Conoce la escencia que nos inspira a crear experiencias para
                     cuidarte, alimentarte y disfrutar cada momento.
                   </p>
 
@@ -509,7 +509,7 @@ function AboutHero() {
 
                     <div>
                       <p className="font-display text-[9px] font-bold uppercase tracking-[0.15em] text-[#e8c4a9] sm:text-[10px]">
-                        Nuestra esencia
+                        Nuestra escencia
                       </p>
 
                       <p className="mt-0.5 text-xs leading-5 text-white sm:text-sm">

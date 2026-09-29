@@ -394,7 +394,7 @@ function AboutCommitments() {
               <span className="hidden h-px w-10 bg-dialac-brown/35 sm:block" />
 
               <p className="max-w-md text-sm leading-6 text-dialac-charcoal">
-                Acompañamos pequeños y grandes momentos con la esencia que nos
+                Acompañamos pequeños y grandes momentos con la escencia que nos
                 representa.
               </p>
             </div>

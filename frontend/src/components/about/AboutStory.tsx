@@ -140,7 +140,7 @@ function AboutStory() {
                 />
 
                 <p className="font-display text-xs font-bold uppercase tracking-[0.2em] text-dialac-brown-dark">
-                  Nuestra esencia
+                  Nuestra escencia
                 </p>
               </div>
 

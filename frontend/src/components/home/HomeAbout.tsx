@@ -151,7 +151,7 @@ function HomeAbout() {
                 }
               >
                 <img
-                  src="/images/NUEVAS IMAGENES/NO-PERROS.png"
+                  src="/images/FOTOS FINITAS DIALASC/2.png"
                   alt="Las cinco mascotas oficiales de la familia DIALAC"
                   className="mx-auto max-h-[315px] w-full object-contain drop-shadow-[0_22px_20px_rgba(90,50,28,0.20)] sm:max-h-[380px] lg:max-h-[365px] xl:max-h-[390px]"
                   loading="lazy"

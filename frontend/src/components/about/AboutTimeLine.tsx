@@ -65,7 +65,7 @@ const timelineEvents: TimelineEvent[] = [
     title: "Un nuevo comienzo",
     description:
       "DIALAC regresa con una imagen renovada y una propuesta más amplia: productos, refrigerios, desayunos, pasabocas y soluciones personalizadas para diferentes ocasiones.",
-    image: "/images/NUEVAS IMAGENES/6.UN-NUEVO-COMIENZO.png",
+    image: "/images/FOTOS FINITAS DIALASC/1.png",
     imageAlt: "DIALAC regresa con una imagen renovada",
     visualLabel: "DIALAC vuelve renovada",
   },

@@ -6,7 +6,20 @@ from zoneinfo import ZoneInfo
 from pydantic import BaseModel, EmailStr, Field, field_validator, model_validator
 
 
-ALLOWED_CITIES = {"Bogotá", "Chía", "Cajicá"}
+ALLOWED_CITIES = {
+    "Bogotá",
+    "Cajicá",
+    "Chía",
+    "Cogua",
+    "Cota",
+    "Gachancipá",
+    "Nemocón",
+    "Sopó",
+    "Tabio",
+    "Tenjo",
+    "Tocancipá",
+    "Zipaquirá",
+}
 BOGOTA_TIMEZONE = ZoneInfo("America/Bogota")
 
 
@@ -31,7 +44,7 @@ class CustomerData(BaseModel):
     phone: str = Field(min_length=7, max_length=25)
     email: EmailStr
     address: str | None = Field(default=None, max_length=180)
-    city: Literal["Bogotá", "Chía", "Cajicá"]
+    city: str = Field(min_length=2, max_length=60)
     required_date: date
     delivery_method: Literal["domicilio", "recogida"]
     notes: str | None = Field(default=None, max_length=1000)
@@ -70,6 +83,19 @@ class CustomerData(BaseModel):
 
         return normalized
 
+    @field_validator("city")
+    @classmethod
+    def validate_city(cls, value: str) -> str:
+        normalized = " ".join(value.strip().split())
+
+        if normalized not in ALLOWED_CITIES:
+            raise ValueError(
+                "La ciudad o municipio seleccionado no está "
+                "dentro de la cobertura disponible.",
+            )
+
+        return normalized
+
     @field_validator("required_date")
     @classmethod
     def validate_required_date(cls, value: date) -> date:
@@ -80,7 +106,8 @@ class CustomerData(BaseModel):
 
         if value < minimum_date:
             raise ValueError(
-                f"La fecha requerida debe ser igual o posterior a {minimum_date.isoformat()}.",
+                f"La fecha deseable de entrega debe ser igual o posterior a "
+                f"{minimum_date.isoformat()}.",
             )
 
         return value

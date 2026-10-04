@@ -389,11 +389,11 @@ def generate_request_pdf(
         customer.address or "No aplica",
     )
     pdf.information_row(
-        "Fecha requerida",
+        "Fecha deseable",
         format_date(customer.required_date),
     )
     pdf.information_row(
-        "Notas",
+        "Mensaje",
         customer.notes or "Sin observaciones",
     )
 

@@ -44,7 +44,7 @@ def send_request_email(
                 f"<p><strong>Correo:</strong> {safe_email}</p>"
                 f"<p><strong>Ciudad:</strong> {safe_city}</p>"
                 f"<p><strong>Dirección:</strong> {safe_address}</p>"
-                f"<p><strong>Fecha requerida:</strong> {customer.required_date.isoformat()}</p>"
+                f"<p><strong>Fecha deseable de entrega:</strong> {customer.required_date.isoformat()}</p>"
                 f"<p><strong>Total estimado:</strong> ${request.total_price:,.0f}</p>"
                 "<p>El PDF completo se encuentra adjunto.</p>"
             ),

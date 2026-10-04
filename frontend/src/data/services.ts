@@ -224,7 +224,7 @@ export const services: Service[] = [
       "Soluciones alimenticias para encuentros familiares, sociales, empresariales y reuniones especiales.",
     images: [
       `${serviceImagesBasePath}/EVENTOS Y REUNIONES 2/4.2.png`,
-      `${serviceImagesBasePath}/EVENTOS Y REUNIONES 2/2.2.png`,
+      `${serviceImagesBasePath}/EVENTOS Y REUNIONES 2/5.2.png`,
       `${serviceImagesBasePath}/EVENTOS Y REUNIONES 2/3.2.png`,
     ],
     examples: [
@@ -253,7 +253,7 @@ export const services: Service[] = [
     description:
       "Alternativas adaptadas al concepto, la decoración y las necesidades de cada celebración.",
     images: [
-      `${serviceImagesBasePath}/FIESTAS TEMATICAS 2/1.2.png`,
+      `${serviceImagesBasePath}/FIESTAS TEMATICAS 2/NIÑOS-DE-RAZAS.png`,
       `${serviceImagesBasePath}/FIESTAS TEMATICAS 2/2;2.png`,
       `${serviceImagesBasePath}/FIESTAS TEMATICAS 2/3;2.png`,
     ],

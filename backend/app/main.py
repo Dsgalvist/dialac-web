@@ -9,6 +9,8 @@ settings = get_settings()
 
 allowed_origins = [
     "http://localhost:5173",
+    "https://dialac.co",
+    "https://www.dialac.co",
 ]
 
 frontend_url = settings.frontend_url.strip().rstrip("/")

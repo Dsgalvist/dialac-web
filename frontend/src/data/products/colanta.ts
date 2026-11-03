@@ -53,7 +53,7 @@ export const colantaProducts: Product[] = [
     categoryName: "Yogures",
     brand: "colanta",
     brandName: "Colanta",
-    price: 16000,
+    price: 4400,
     image: `${imageBasePath}/YOGURT-BUFALA-170G.png`,
   },
   {
@@ -284,7 +284,7 @@ export const colantaProducts: Product[] = [
     categoryName: "Quesos",
     brand: "colanta",
     brandName: "Colanta",
-    price: 11100,
+    price: 12000,
     image: `${imageBasePath}/QUESO-CREMA-400GR.png`,
   },
 ];

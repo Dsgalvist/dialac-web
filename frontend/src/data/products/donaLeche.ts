@@ -31,8 +31,8 @@ export const donaLecheProducts: Product[] = [
   {
     id: "dona-leche-1040010041",
     code: "1040010041",
-    name: "Jompi con cereal 3 vasos",
-    description: "Jompi Doña Leche con cereal en presentación de 3 vasos.",
+    name: "Yompi con cereal 3 vasos",
+    description: "Yompi Doña Leche con cereal en presentación de 3 vasos.",
     category: "yogures",
     categoryName: "Yogures",
     brand: "dona-leche",
@@ -73,7 +73,7 @@ export const donaLecheProducts: Product[] = [
     categoryName: "Bebidas",
     brand: "dona-leche",
     brandName: "Doña Leche",
-    price: 10500,
+    price: 8500,
     image: `${imageBasePath}/LECHE-ACHOCOLATADA-UHT-200.png`,
   },
   {
@@ -421,7 +421,7 @@ export const donaLecheProducts: Product[] = [
     categoryName: "Yogures",
     brand: "dona-leche",
     brandName: "Doña Leche",
-    price: 14000,
+    price: 11000,
     image: `${imageBasePath}/YOGURT-NATURAL-1100.png`,
   },
   {
@@ -458,7 +458,7 @@ export const donaLecheProducts: Product[] = [
     categoryName: "Yogures",
     brand: "dona-leche",
     brandName: "Doña Leche",
-    price: 10000,
+    price: 12000,
     image: `${imageBasePath}/YOGURT-SURTIDO-BOLSA-UNDS.png`,
   },
   {

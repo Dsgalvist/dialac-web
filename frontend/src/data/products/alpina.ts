@@ -110,7 +110,7 @@ const alpinaSeeds: AlpinaSeed[] = [
     "8499",
     "Avena Finesse Vaso 250 g",
     "avenas",
-    4300,
+    4000,
     "AVENA-FINESSE-VASO-250G.png",
   ],
   [
@@ -124,7 +124,7 @@ const alpinaSeeds: AlpinaSeed[] = [
     "16306",
     "Avena Original Bolsa x12 unidades 200 g",
     "avenas",
-    30500,
+    28500,
     "AVENA-ORIGINAL-BOLSA-X12-200G.png",
   ],
   [
@@ -152,7 +152,7 @@ const alpinaSeeds: AlpinaSeed[] = [
     "4450",
     "Avena Original Vaso 250 g",
     "avenas",
-    4000,
+    3900,
     "AVENA-ORIGINAL-VASO-250G.png",
   ],
   [
@@ -308,7 +308,7 @@ const alpinaSeeds: AlpinaSeed[] = [
     "560582",
     "Arepas De Queso Con Semillas De Chia",
     "complementos",
-    17000,
+    16600,
     "AREPAS-DE-QUESO-CON-SEMILLAS-DE-CHIA.png",
   ],
   [
@@ -517,16 +517,16 @@ const alpinaSeeds: AlpinaSeed[] = [
   ],
   [
     "4140",
-    "Leche Entera Bolsa1.1 L",
+    "Leche Entera Bolsa 1.1 L",
     "leches",
     7200,
     "LECHE ENTERA-BOLSA1.1L.png",
   ],
   [
     "4141",
-    "Leche Entera Bolsa1.1 L x6 unidades",
+    "Leche Entera Bolsa 1.1 L x6 unidades",
     "leches",
-    42700,
+    39000,
     "LECHE-ENTERA-BOLSA1.1L-X6UNDS.png",
   ],
   [
@@ -827,7 +827,7 @@ const alpinaSeeds: AlpinaSeed[] = [
     "12174",
     "Queso Sabana 25 Tajadas 400 g",
     "quesos",
-    32400,
+    31900,
     "QUESO-SABANA-25-TAJADAS-400G.png",
   ],
   [
@@ -1824,7 +1824,7 @@ const alpinaSeeds: AlpinaSeed[] = [
     "4306",
     "Yox Multisabores x12 unidades",
     "yogures",
-    32400,
+    30000,
     "YOX-MULTISABORES-X12UNDS.png",
   ],
   [

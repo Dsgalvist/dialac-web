@@ -23,8 +23,16 @@ const API_BASE_URL = (
   "http://localhost:8000"
 ).replace(/\/$/, "");
 
+type CustomerEmailStatus =
+  | "sent"
+  | "failed"
+  | "development-disabled"
+  | "unknown";
+
 type GeneratedRequest = {
   customerName: string;
+  customerEmail: string;
+  customerEmailStatus: CustomerEmailStatus;
   pdfUrl: string;
   fileName: string;
 };
@@ -129,8 +137,13 @@ function RequestPage() {
               phone: formData.phone.trim(),
               email: formData.email.trim(),
               address:
-                formData.address.trim() || null,
-              city: formData.city.trim(),
+                formData.deliveryMethod === "domicilio"
+                  ? formData.address.trim() || null
+                  : null,
+              city:
+                formData.deliveryMethod === "domicilio"
+                  ? formData.city.trim() || null
+                  : null,
               required_date: formData.requiredDate,
               delivery_method:
                 formData.deliveryMethod,
@@ -191,6 +204,17 @@ function RequestPage() {
         response.headers.get("Content-Disposition"),
       );
 
+      const customerEmailStatusHeader = response.headers
+        .get("X-Dialac-Customer-Email-Status")
+        ?.toLowerCase();
+
+      const customerEmailStatus: CustomerEmailStatus =
+        customerEmailStatusHeader === "sent" ||
+        customerEmailStatusHeader === "failed" ||
+        customerEmailStatusHeader === "development-disabled"
+          ? customerEmailStatusHeader
+          : "unknown";
+
       generatedPdfUrl.current = pdfUrl;
 
       /*
@@ -199,6 +223,8 @@ function RequestPage() {
        */
       setGeneratedRequest({
         customerName: formData.fullName.trim(),
+        customerEmail: formData.email.trim().toLowerCase(),
+        customerEmailStatus,
         pdfUrl,
         fileName,
       });
@@ -272,6 +298,8 @@ function RequestPage() {
           <div className="relative mx-auto max-w-[1480px]">
             <RequestSuccess
               customerName={generatedRequest.customerName}
+              customerEmail={generatedRequest.customerEmail}
+              customerEmailStatus={generatedRequest.customerEmailStatus}
               pdfUrl={generatedRequest.pdfUrl}
               fileName={generatedRequest.fileName}
               onDownload={handleDownload}

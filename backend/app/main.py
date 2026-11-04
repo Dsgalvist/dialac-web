@@ -35,6 +35,7 @@ app.add_middleware(
         "Content-Disposition",
         "X-DIALAC-Request-Number",
         "X-DIALAC-Email-Status",
+        "X-DIALAC-Customer-Email-Status",
     ],
 )
 

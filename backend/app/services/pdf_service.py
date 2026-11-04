@@ -382,7 +382,7 @@ def generate_request_pdf(
     )
     pdf.information_row(
         "Ciudad",
-        customer.city,
+        customer.city or "No aplica",
     )
     pdf.information_row(
         "Dirección",

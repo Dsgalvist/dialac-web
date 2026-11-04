@@ -44,7 +44,7 @@ class CustomerData(BaseModel):
     phone: str = Field(min_length=7, max_length=25)
     email: EmailStr
     address: str | None = Field(default=None, max_length=180)
-    city: str = Field(min_length=2, max_length=60)
+    city: str | None = Field(default=None, min_length=2, max_length=60)
     required_date: date
     delivery_method: Literal["domicilio", "recogida"]
     notes: str | None = Field(default=None, max_length=1000)
@@ -59,7 +59,7 @@ class CustomerData(BaseModel):
 
         return normalized
 
-    @field_validator("company", "address", "notes", mode="before")
+    @field_validator("company", "address", "city", "notes", mode="before")
     @classmethod
     def normalize_optional_text(cls, value: object) -> object:
         if value is None or not isinstance(value, str):
@@ -85,7 +85,10 @@ class CustomerData(BaseModel):
 
     @field_validator("city")
     @classmethod
-    def validate_city(cls, value: str) -> str:
+    def validate_city(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+
         normalized = " ".join(value.strip().split())
 
         if normalized not in ALLOWED_CITIES:
@@ -114,8 +117,19 @@ class CustomerData(BaseModel):
 
     @model_validator(mode="after")
     def validate_delivery_address(self):
-        if self.delivery_method == "domicilio" and not self.address:
-            raise ValueError("La dirección es obligatoria para entrega a domicilio.")
+        if self.delivery_method == "domicilio":
+            if not self.city:
+                raise ValueError(
+                    "La ciudad o municipio es obligatorio para entrega a domicilio.",
+                )
+
+            if not self.address:
+                raise ValueError(
+                    "La dirección es obligatoria para entrega a domicilio.",
+                )
+        else:
+            self.city = None
+            self.address = None
 
         return self
 

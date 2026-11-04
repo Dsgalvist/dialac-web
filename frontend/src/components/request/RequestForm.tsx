@@ -34,6 +34,11 @@ type RequestFormProps = {
   isSubmitting?: boolean;
 };
 
+type RequestFormValues = RequestFormData & {
+  dataTreatmentAccepted: boolean;
+  termsAccepted: boolean;
+};
+
 const inputStyles =
   "mt-2 h-12 w-full rounded-xl border border-dialac-border bg-white px-4 text-dialac-charcoal outline-none transition placeholder:text-slate-500 focus:border-dialac-brown focus:ring-4 focus:ring-dialac-brown/10";
 
@@ -86,12 +91,22 @@ function RequestForm({
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<RequestFormData>({
-    defaultValues,
+  } = useForm<RequestFormValues>({
+    defaultValues: {
+      ...defaultValues,
+      dataTreatmentAccepted: false,
+      termsAccepted: false,
+    },
     mode: "onBlur",
   });
 
   const deliveryMethod = watch("deliveryMethod");
+
+  useEffect(() => {
+    if (deliveryMethod === "recogida") {
+      clearErrors(["city", "address"]);
+    }
+  }, [deliveryMethod, clearErrors]);
 
   useEffect(() => {
     const subscription = watch((values) => {
@@ -203,7 +218,7 @@ function RequestForm({
     clearErrors(field);
   };
 
-  const submitForm: SubmitHandler<RequestFormData> = (
+  const submitForm: SubmitHandler<RequestFormValues> = (
     formData,
   ) => {
     const normalizedFormData: RequestFormData = {
@@ -211,8 +226,14 @@ function RequestForm({
       company: formData.company.trim(),
       phone: formData.phone.trim(),
       email: formData.email.trim().toLowerCase(),
-      address: formData.address.trim(),
-      city: formData.city.trim(),
+      address:
+        formData.deliveryMethod === "domicilio"
+          ? formData.address.trim()
+          : "",
+      city:
+        formData.deliveryMethod === "domicilio"
+          ? formData.city.trim()
+          : "",
       requiredDate: formData.requiredDate,
       deliveryMethod: formData.deliveryMethod,
       notes: formData.notes.trim(),
@@ -941,7 +962,13 @@ function RequestForm({
               className="mt-5 grid gap-5 sm:grid-cols-2"
             >
               {/* CIUDAD */}
-              <div>
+              <div
+                className={
+                  deliveryMethod === "recogida"
+                    ? "hidden"
+                    : undefined
+                }
+              >
                 <label
                   htmlFor="request-city"
                   className="text-sm font-semibold text-dialac-charcoal"
@@ -965,11 +992,20 @@ function RequestForm({
                       : undefined
                   }
                   {...register("city", {
-                    required:
-                      "Selecciona la ciudad o municipio.",
-                    validate: (value) =>
-                      isRequestCity(value) ||
-                      "Selecciona una ciudad disponible.",
+                    validate: (value) => {
+                      if (deliveryMethod === "recogida") {
+                        return true;
+                      }
+
+                      if (!value) {
+                        return "Selecciona la ciudad o municipio.";
+                      }
+
+                      return (
+                        isRequestCity(value) ||
+                        "Selecciona una ciudad disponible."
+                      );
+                    },
                   })}
                   className={`${inputStyles} cursor-pointer appearance-none pr-12 ${
                     errors.city
@@ -1000,7 +1036,13 @@ function RequestForm({
               </div>
 
               {/* FECHA */}
-              <div>
+              <div
+                className={
+                  deliveryMethod === "recogida"
+                    ? "sm:col-span-2"
+                    : undefined
+                }
+              >
                 <label
                   htmlFor="request-date"
                   className="text-sm font-semibold text-dialac-charcoal"
@@ -1057,24 +1099,24 @@ function RequestForm({
             </div>
 
             {/* DIRECCIÓN */}
-            <div className="mt-5">
+            <div
+              className={
+                deliveryMethod === "recogida"
+                  ? "hidden"
+                  : "mt-5"
+              }
+            >
               <label
                 htmlFor="request-address"
                 className="text-sm font-semibold text-dialac-charcoal"
               >
                 Dirección
-                {deliveryMethod === "domicilio" ? (
-                  <span
-                    aria-hidden="true"
-                    className="ml-1 text-dialac-error"
-                  >
-                    *
-                  </span>
-                ) : (
-                  <span className="ml-2 text-xs font-normal">
-                    (opcional para recogida)
-                  </span>
-                )}
+                <span
+                  aria-hidden="true"
+                  className="ml-1 text-dialac-error"
+                >
+                  *
+                </span>
               </label>
 
               <input
@@ -1229,6 +1271,82 @@ function RequestForm({
                 Máximo 600 caracteres.
               </p>
             )}
+          </div>
+
+          {/* AUTORIZACIONES LEGALES */}
+          <div className="mt-8 space-y-4 rounded-2xl border border-dialac-border bg-[#faf8f4] p-4 sm:p-5">
+            <div>
+              <label className="flex cursor-pointer items-start gap-3">
+                <input
+                  type="checkbox"
+                  aria-invalid={Boolean(
+                    errors.dataTreatmentAccepted,
+                  )}
+                  aria-describedby={
+                    errors.dataTreatmentAccepted
+                      ? "data-treatment-error"
+                      : undefined
+                  }
+                  {...register("dataTreatmentAccepted", {
+                    required:
+                      "Debes autorizar el tratamiento de tus datos personales.",
+                  })}
+                  className="mt-1 h-5 w-5 shrink-0 cursor-pointer rounded border-dialac-border accent-dialac-brown focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dialac-brown/40 focus-visible:ring-offset-2"
+                />
+
+                <span className="text-sm leading-6 text-dialac-charcoal">
+                  Autorizo a DIALAC para recolectar y tratar
+                  mis datos personales con el propósito de
+                  gestionar mi solicitud, contactarme y enviar
+                  la confirmación correspondiente. He leído la
+                  Política de Tratamiento de Datos Personales.
+                </span>
+              </label>
+
+              {errors.dataTreatmentAccepted && (
+                <p
+                  id="data-treatment-error"
+                  role="alert"
+                  className="mt-2 pl-8 text-xs font-semibold text-dialac-error"
+                >
+                  {errors.dataTreatmentAccepted.message}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label className="flex cursor-pointer items-start gap-3">
+                <input
+                  type="checkbox"
+                  aria-invalid={Boolean(errors.termsAccepted)}
+                  aria-describedby={
+                    errors.termsAccepted
+                      ? "terms-accepted-error"
+                      : undefined
+                  }
+                  {...register("termsAccepted", {
+                    required:
+                      "Debes aceptar los términos y condiciones.",
+                  })}
+                  className="mt-1 h-5 w-5 shrink-0 cursor-pointer rounded border-dialac-border accent-dialac-brown focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dialac-brown/40 focus-visible:ring-offset-2"
+                />
+
+                <span className="text-sm leading-6 text-dialac-charcoal">
+                  Declaro que he leído y acepto los Términos y
+                  Condiciones aplicables a esta solicitud.
+                </span>
+              </label>
+
+              {errors.termsAccepted && (
+                <p
+                  id="terms-accepted-error"
+                  role="alert"
+                  className="mt-2 pl-8 text-xs font-semibold text-dialac-error"
+                >
+                  {errors.termsAccepted.message}
+                </p>
+              )}
+            </div>
           </div>
 
           {/* ENVÍO */}
@@ -1446,7 +1564,10 @@ function RequestForm({
                     Ciudad
                   </dt>
                   <dd className="max-w-[65%] text-right text-sm font-semibold text-dialac-charcoal">
-                    {pendingFormData.city}
+                    {pendingFormData.deliveryMethod ===
+                    "domicilio"
+                      ? pendingFormData.city
+                      : "No aplica para recogida"}
                   </dd>
                 </div>
 

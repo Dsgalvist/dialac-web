@@ -17,7 +17,7 @@ def create_request_pdf(payload: CreateRequestInput) -> Response:
         validated_request = validate_and_calculate_request(payload)
         pdf_bytes = generate_request_pdf(validated_request)
         file_name = f"solicitud-dialac-{validated_request.request_number}.pdf"
-        email_sent = send_request_email(
+        email_result = send_request_email(
             validated_request,
             pdf_bytes,
             file_name,
@@ -43,6 +43,19 @@ def create_request_pdf(payload: CreateRequestInput) -> Response:
         headers={
             "Content-Disposition": f"inline; filename*=UTF-8''{encoded_file_name}",
             "X-Dialac-Request-Number": validated_request.request_number,
-            "X-Dialac-Email-Status": "sent" if email_sent else "development-disabled",
+            "X-Dialac-Email-Status": (
+                "sent"
+                if email_result.dialac_sent
+                else "development-disabled"
+            ),
+            "X-Dialac-Customer-Email-Status": (
+                "sent"
+                if email_result.customer_sent
+                else (
+                    "failed"
+                    if email_result.dialac_sent
+                    else "development-disabled"
+                )
+            ),
         },
     )

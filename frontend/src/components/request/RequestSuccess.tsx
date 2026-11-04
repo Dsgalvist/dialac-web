@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 
 type RequestSuccessProps = {
   customerName: string;
+  customerEmail: string;
+  customerEmailStatus:
+    | "sent"
+    | "failed"
+    | "development-disabled"
+    | "unknown";
   pdfUrl: string;
   fileName: string;
   onDownload: () => void;
@@ -11,6 +17,8 @@ type RequestSuccessProps = {
 
 function RequestSuccess({
   customerName,
+  customerEmail,
+  customerEmailStatus,
   pdfUrl,
   fileName,
   onDownload,
@@ -326,10 +334,66 @@ function RequestSuccess({
                 DIALAC.
               </p>
 
+              {customerEmailStatus === "sent" && (
+                <div
+                  role="status"
+                  className="mt-4 rounded-2xl border border-[#cfd8bd] bg-[#f3f6ec] p-4"
+                >
+                  <div className="flex items-start gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-dialac-green-dark"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-5 w-5"
+                      >
+                        <rect x="3" y="5" width="18" height="14" rx="2" />
+                        <path d="m3 7 9 6 9-6" />
+                      </svg>
+                    </span>
+
+                    <div className="min-w-0">
+                      <p className="font-display text-sm font-bold text-dialac-charcoal">
+                        Confirmación enviada por correo
+                      </p>
+
+                      <p className="mt-1 break-words text-xs leading-5 text-dialac-charcoal">
+                        Enviamos una confirmación y una copia del PDF a{" "}
+                        <strong>{customerEmail}</strong>. Si no la encuentras,
+                        revisa la carpeta de correo no deseado.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {customerEmailStatus === "failed" && (
+                <div
+                  role="alert"
+                  className="mt-4 rounded-2xl border border-[#efcaca] bg-[#fff1f1] p-4"
+                >
+                  <p className="font-display text-sm font-bold text-dialac-error">
+                    No pudimos enviar la copia por correo
+                  </p>
+
+                  <p className="mt-1 text-xs leading-5 text-dialac-charcoal">
+                    Tu solicitud sí fue recibida por DIALAC, pero no fue posible
+                    entregar la confirmación a {customerEmail}. Puedes descargar
+                    el PDF desde esta página.
+                  </p>
+                </div>
+              )}
+
               <p className="mt-3 text-sm leading-6 text-dialac-charcoal">
                 Revisaremos los productos, la disponibilidad y la fecha
-                requerida. Nos comunicaremos contigo dentro de nuestros
-                horarios de atención para confirmar el pedido.
+                deseable de entrega. Nos comunicaremos contigo dentro de
+                nuestros horarios de atención para confirmar el pedido.
               </p>
 
               {/* ACLARACIÓN */}

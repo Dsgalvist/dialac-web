@@ -139,7 +139,21 @@ function ServicesPage() {
                     </p>
 
                     <p className="mt-1 text-sm leading-5 text-dialac-charcoal">
-                      Prestamos nuestros servicios en Bogotá & Sabana Norte
+                      Prestamos nuestros servicios en Bogotá, Cajicá, Chía,
+                      Cogua, Cota, Gachancipá, Nemocón, Sopó, Tabio, Tenjo,
+                      Tocancipá y Zipaquirá.
+                    </p>
+
+                    <p className="mt-2 text-sm leading-5 text-dialac-charcoal">
+                      ¿Buscas anchetas en Tocancipá o desayunos sorpresa en
+                      Cogua?{" "}
+                      <a
+                        href="/servicios/anchetas-y-desayunos-sorpresa"
+                        className="rounded-sm font-semibold text-dialac-brown-dark underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2"
+                      >
+                        Ver opciones de anchetas y desayunos sorpresa
+                      </a>
+                      .
                     </p>
                   </div>
                 </div>

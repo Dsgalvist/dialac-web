@@ -17,6 +17,12 @@ const anchetasTitle = "Anchetas y desayunos sorpresa en Bogotá y Chía | DIALAC
 const anchetasDescription =
   "Anchetas personalizadas y desayunos sorpresa a domicilio en Bogotá, Chía y Sabana Norte. Explora las opciones de DIALAC y consulta por WhatsApp.";
 
+function getServicePath(service: Service) {
+  return service.id === anchetasId
+    ? anchetasPath
+    : `${catalogPath}/${encodeURIComponent(service.id)}`;
+}
+
 function readServiceUrl() {
   return {
     pathname: window.location.pathname.replace(/\/$/, ""),
@@ -28,14 +34,12 @@ function ServicesCatalog({ activeCategory }: ServicesCatalogProps) {
   const location = useLocation();
   const [serviceUrl, setServiceUrl] = useState(readServiceUrl);
   const { pathname, hash } = serviceUrl;
-  const isAnchetasRoute = pathname === anchetasPath;
-  const isUnknownRoute = pathname !== catalogPath && !isAnchetasRoute;
-  const selectedId = isAnchetasRoute
-    ? anchetasId
-    : pathname === catalogPath
-      ? hash.slice(1).trim()
-      : "";
-  const selectedService = services.find(({ id }) => id === selectedId) ?? null;
+  const routeService =
+    services.find((service) => getServicePath(service) === pathname) ?? null;
+  const isUnknownRoute = pathname !== catalogPath && !routeService;
+  const selectedService = pathname === catalogPath
+    ? services.find(({ id }) => id === hash.slice(1).trim()) ?? null
+    : routeService;
 
   useEffect(() => {
     const syncServiceUrl = () => setServiceUrl(readServiceUrl());
@@ -49,20 +53,31 @@ function ServicesCatalog({ activeCategory }: ServicesCatalogProps) {
   }, [location]);
 
   useEffect(() => {
-    if (!isAnchetasRoute) return;
+    if (!routeService) return;
+    const isAnchetas = routeService.id === anchetasId;
+    const title = isAnchetas
+      ? anchetasTitle
+      : `${routeService.title} en Bogotá y Sabana Norte | DIALAC`;
+    const description = isAnchetas ? anchetasDescription : routeService.description;
     const previousTitle = document.title;
-    const meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    const existingMeta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    const meta = existingMeta ?? document.createElement("meta");
     const previousDescription = meta?.content;
-    document.title = anchetasTitle;
-    if (meta) meta.content = anchetasDescription;
+    if (!existingMeta) {
+      meta.name = "description";
+      document.head.append(meta);
+    }
+    document.title = title;
+    meta.content = description;
 
     return () => {
-      if (document.title === anchetasTitle) document.title = previousTitle;
-      if (meta?.content === anchetasDescription && previousDescription !== undefined) {
-        meta.content = previousDescription;
+      if (document.title === title) document.title = previousTitle;
+      if (meta.content === description) {
+        if (existingMeta) meta.content = previousDescription;
+        else meta.remove();
       }
     };
-  }, [isAnchetasRoute]);
+  }, [routeService]);
 
   const filteredServices = useMemo(
     () =>
@@ -88,11 +103,7 @@ function ServicesCatalog({ activeCategory }: ServicesCatalogProps) {
   }, []);
 
   const openService = useCallback((service: Service) => {
-    if (service.id === anchetasId) {
-      replaceServiceUrl(anchetasPath);
-      return;
-    }
-    replaceServiceUrl(catalogPath, `#${service.id}`);
+    replaceServiceUrl(getServicePath(service));
   }, [replaceServiceUrl]);
 
   const closeService = useCallback(() => {
@@ -144,6 +155,7 @@ function ServicesCatalog({ activeCategory }: ServicesCatalogProps) {
                   key={service.id}
                   service={service}
                   index={index}
+                  href={getServicePath(service)}
                   onView={openService}
                   onConsult={handleServiceConsultation}
                 />

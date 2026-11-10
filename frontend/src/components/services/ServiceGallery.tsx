@@ -391,14 +391,6 @@ function ServiceGallery({
             {service.description}
           </p>
 
-          {service.id === "anchetas-desayunos" && (
-            <p className="mt-3 text-sm leading-6 text-dialac-charcoal">
-              Entregamos anchetas y desayunos sorpresa en Bogotá, Cajicá, Chía,
-              Cogua, Cota, Gachancipá, Nemocón, Sopó, Tabio, Tenjo, Tocancipá
-              y Zipaquirá.
-            </p>
-          )}
-
           {/* OPCIONES DEL SERVICIO */}
           {service.examples.length > 0 && (
             <div className="mt-6 sm:mt-7">

@@ -4,6 +4,7 @@ import HomeCta from "../components/home/HomeCta";
 import HomeHero from "../components/home/HomeHero";
 import HomeProcess from "../components/home/HomeProcess";
 import HomeWhyUs from "../components/home/HomeWhyUs";
+import ReviewsSection from "../components/reviews/ReviewsSection";
 
 function HomePage() {
   return (
@@ -13,6 +14,7 @@ function HomePage() {
       <HomeCategories />
       <HomeProcess />
       <HomeWhyUs />
+      <ReviewsSection />
       <HomeCta />
     </>
   );

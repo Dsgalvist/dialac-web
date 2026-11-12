@@ -4,6 +4,7 @@ import ContactForm from "../components/contact/ContactForm";
 import ContactHero from "../components/contact/ContactHero";
 import ContactInfo from "../components/contact/ContactInfo";
 import LocationMap from "../components/contact/LocationMap";
+import ReviewsSection from "../components/reviews/ReviewsSection";
 
 function ContactPage() {
   return (
@@ -72,6 +73,8 @@ function ContactPage() {
         </div>
       </section>
 
+      <ReviewsSection />
+      
       {/* UBICACIÓN */}
       <LocationMap />
     </main>

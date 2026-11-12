@@ -47,6 +47,13 @@ const categoryStyles: Record<
   },
 };
 
+function getMobilePreview(description: string) {
+  const sentences = description.trim().split(/(?<=[.!?])\s+/);
+  const firstTwoSentences = sentences.slice(0, 2).join(" ");
+  const words = firstTwoSentences.split(/\s+/);
+  return words.slice(0, 14).join(" ");
+}
+
 function ServiceGallery({
   service,
   onClose,
@@ -58,6 +65,7 @@ function ServiceGallery({
   const reduceMotion = useReducedMotion();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [imageError, setImageError] = useState(false);
+  const [expandedOptions, setExpandedOptions] = useState<Record<number, boolean>>({});
 
   const images = service?.images ?? [];
   const activeImage = images[activeImageIndex];
@@ -68,6 +76,7 @@ function ServiceGallery({
   useEffect(() => {
     setActiveImageIndex(0);
     setImageError(false);
+    setExpandedOptions({});
   }, [service]);
 
   useEffect(() => {
@@ -372,8 +381,9 @@ function ServiceGallery({
       <div className="flex min-h-0 flex-1 flex-col bg-[#f4f0e9]">
         {/* CONTENIDO CON SCROLL */}
         <div className={isPage ? "flex-1 p-5 sm:p-7 lg:p-8" : "min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 pb-6 sm:p-7 sm:pb-7 lg:p-8 lg:pb-8"}>
+          <div className="flex items-center gap-2 lg:block">
           <span
-            className={`inline-flex rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-[0.12em] ${
+            className={`order-2 inline-flex shrink-0 rounded-full px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] lg:px-3 lg:py-1.5 lg:text-xs ${
               categoryStyles[service.category].badge
             }`}
           >
@@ -382,12 +392,13 @@ function ServiceGallery({
 
           <Title
             id={`service-gallery-title-${service.id}`}
-            className="mt-5 pr-12 font-display text-2xl font-bold leading-tight text-dialac-charcoal sm:text-3xl"
+            className="order-1 min-w-0 break-words font-display text-2xl font-bold leading-tight text-dialac-charcoal sm:text-3xl lg:mt-5 lg:pr-12"
           >
             {service.title}
           </Title>
+          </div>
 
-          <p className="mt-4 text-sm leading-6 text-dialac-charcoal sm:mt-5 sm:text-base sm:leading-7">
+          <p className="hidden lg:mt-5 lg:block lg:text-base lg:leading-7 text-dialac-charcoal">
             {service.description}
           </p>
 
@@ -422,60 +433,97 @@ function ServiceGallery({
                   const isRelatedImageActive =
                     hasRelatedImage &&
                     activeImageIndex === index;
+                  const preview = getMobilePreview(example.description);
+                  const canExpand = preview !== example.description.trim();
+                  const isExpanded = Boolean(expandedOptions[index]);
+                  const descriptionId = `service-option-${service.id}-${index}-description`;
 
                   return (
-                    <button
+                    <div
                       key={`${service.id}-${example.name}`}
-                      type="button"
-                      onClick={() => {
-                        if (!hasRelatedImage) return;
-
-                        setImageError(false);
-                        setActiveImageIndex(index);
-                      }}
-                      aria-label={
-                        hasRelatedImage
-                          ? `Ver imagen de ${example.name}`
-                          : undefined
-                      }
-                      aria-pressed={
-                        hasRelatedImage
-                          ? isRelatedImageActive
-                          : undefined
-                      }
-                      className={`w-full rounded-2xl border p-4 text-left outline-none transition focus-visible:ring-4 focus-visible:ring-dialac-brown/20 ${
+                      className={`relative rounded-2xl border lg:rounded-none lg:border-0 lg:bg-transparent lg:shadow-none ${
                         isRelatedImageActive
                           ? "border-dialac-brown bg-white shadow-sm"
-                          : "border-dialac-border bg-white/70 hover:border-dialac-brown/60 hover:bg-white"
-                      } ${
-                        hasRelatedImage
-                          ? "cursor-pointer"
-                          : "cursor-default"
+                          : "border-dialac-border bg-white/70"
                       }`}
                     >
-                      <div className="flex items-start gap-3">
-                        <span
-                          aria-hidden="true"
-                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-display text-xs font-bold ${
-                            isRelatedImageActive
-                              ? "bg-dialac-brown text-white"
-                              : "bg-[#eadfd3] text-dialac-brown-dark"
-                          }`}
-                        >
-                          {index + 1}
-                        </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (!hasRelatedImage) return;
 
-                        <div className="min-w-0">
-                          <p className="font-display text-sm font-bold leading-5 text-dialac-charcoal">
-                            {example.name}
-                          </p>
+                          setImageError(false);
+                          setActiveImageIndex(index);
+                        }}
+                        aria-label={
+                          hasRelatedImage
+                            ? `Ver imagen de ${example.name}`
+                            : undefined
+                        }
+                        aria-pressed={
+                          hasRelatedImage
+                            ? isRelatedImageActive
+                            : undefined
+                        }
+                        className={`w-full rounded-2xl p-4 pb-0 text-left outline-none transition focus-visible:ring-4 focus-visible:ring-dialac-brown/20 lg:border lg:pb-4 ${
+                          isRelatedImageActive
+                            ? "lg:border-dialac-brown lg:bg-white lg:shadow-sm"
+                            : "lg:border-dialac-border lg:bg-white/70 lg:hover:border-dialac-brown/60 lg:hover:bg-white"
+                        } ${
+                          hasRelatedImage
+                            ? "cursor-pointer after:absolute after:inset-0 after:content-[''] lg:after:hidden"
+                            : "cursor-default"
+                        }`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <span
+                            aria-hidden="true"
+                            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-display text-xs font-bold ${
+                              isRelatedImageActive
+                                ? "bg-dialac-brown text-white"
+                                : "bg-[#eadfd3] text-dialac-brown-dark"
+                            }`}
+                          >
+                            {index + 1}
+                          </span>
 
-                          <p className="mt-1 text-xs leading-5 text-dialac-charcoal">
-                            {example.description}
-                          </p>
+                          <div className="min-w-0">
+                            <p className="font-display text-sm font-bold leading-5 text-dialac-charcoal">
+                              {example.name}
+                            </p>
+
+                            <p className="mt-1 hidden text-xs leading-5 text-dialac-charcoal lg:block">
+                              {example.description}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </button>
+                      </button>
+                      <p className="mt-1 pb-4 pl-[3.75rem] pr-4 text-xs leading-5 text-dialac-charcoal lg:hidden">
+                        <span id={descriptionId}>
+                          {canExpand && !isExpanded ? `${preview}…` : example.description}
+                        </span>
+                        {canExpand && (
+                        <>
+                        {" "}
+                        <button
+                          type="button"
+                          aria-controls={descriptionId}
+                          aria-expanded={isExpanded}
+                          aria-label={`${isExpanded ? "Ver menos" : "Ver más"}: ${example.name}`}
+                          onClick={() =>
+                            setExpandedOptions((current) => ({
+                              ...current,
+                              [index]: !current[index],
+                            }))
+                          }
+                          className="relative z-10 inline-block rounded-sm py-1 text-xs font-semibold text-dialac-brown-dark underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2"
+                        >
+                          {isExpanded ? "Ver menos" : "Ver más"}
+                        </button>
+                        </>
+                        )}
+                      </p>
+                    </div>
                   );
                 })}
               </div>
@@ -484,38 +532,56 @@ function ServiceGallery({
         </div>
 
         {/* PIE SIEMPRE VISIBLE */}
-        <div className="shrink-0 border-t border-dialac-border bg-[#f4f0e9] p-4 sm:px-7 sm:py-5 lg:px-8">
-          <div className="rounded-2xl border border-dialac-border bg-white p-3.5">
-            <div className="flex items-start gap-3">
-              <span
-                aria-hidden="true"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f4e8de] text-dialac-brown-dark"
-              >
+        <div className="shrink-0 border-t border-dialac-border bg-[#f4f0e9] px-4 py-3 sm:px-7 lg:px-8">
+          <div key={service.id} className="space-y-2">
+            <details
+              name={`service-info-${service.id}`}
+              className="group rounded-xl border border-dialac-border bg-white text-sm text-dialac-charcoal"
+            >
+              <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-3 py-2.5 font-display font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dialac-brown sm:px-4 [&::-webkit-details-marker]:hidden">
+                Zonas de atención
                 <svg
+                  aria-hidden="true"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-5 w-5"
+                  className="h-4 w-4 shrink-0 group-open:rotate-180"
                 >
-                  <circle cx="12" cy="12" r="9" />
-                  <path d="M12 7v5l3 2" />
+                  <path d="m6 9 6 6 6-6" />
                 </svg>
-              </span>
-
-              <div>
-                <p className="font-display text-sm font-bold text-dialac-charcoal">
-                  Solicita con anticipación
-                </p>
-
-                <p className="mt-1 text-xs leading-5 text-dialac-charcoal">
-                  Los pedidos deben realizarse con mínimo 3 días
-                  de anticipación.
-                </p>
-              </div>
-            </div>
+              </summary>
+              <p className="max-h-[min(8rem,18dvh)] overflow-y-auto px-3 pb-3 leading-6 sm:px-4">
+                Atendemos solicitudes para este servicio en Bogotá, Cajicá, Chía,
+                Cogua, Cota, Gachancipá, Nemocón, Sopó, Tabio, Tenjo, Tocancipá y
+                Zipaquirá. Consulta disponibilidad para tu municipio.
+              </p>
+            </details>
+            <details
+              name={`service-info-${service.id}`}
+              className="group rounded-xl border border-dialac-border bg-white text-sm text-dialac-charcoal"
+            >
+              <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-3 py-2.5 font-display font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dialac-brown sm:px-4 [&::-webkit-details-marker]:hidden">
+                Solicita con anticipación
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-4 w-4 shrink-0 group-open:rotate-180"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </summary>
+              <p className="px-3 pb-3 leading-6 sm:px-4">
+                Los pedidos deben realizarse con mínimo 3 días de anticipación.
+              </p>
+            </details>
           </div>
 
           {activeExample && (

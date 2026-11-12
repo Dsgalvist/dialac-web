@@ -13,7 +13,8 @@ type ServicesCatalogProps = {
 const catalogPath = "/servicios";
 const anchetasPath = "/servicios/anchetas-y-desayunos-sorpresa";
 const anchetasId = "anchetas-desayunos";
-const anchetasTitle = "Anchetas y desayunos sorpresa en Bogotá y Chía | DIALAC";
+const anchetasTitle =
+  "Anchetas y desayunos sorpresa en Bogotá y Sabana Norte | DIALAC";
 const anchetasDescription =
   "Anchetas personalizadas y desayunos sorpresa a domicilio en Bogotá, Chía y Sabana Norte. Explora las opciones de DIALAC y consulta por WhatsApp.";
 

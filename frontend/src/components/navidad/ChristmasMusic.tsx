@@ -7,6 +7,25 @@ const announcementSelector =
   'dialog[data-christmas-announcement="open"][open]';
 const song = `${import.meta.env.BASE_URL}navidad/musica-navidad.mp3`;
 
+function normalizePath(pathname: string) {
+  return pathname.replace(/\/+$/, "").toLowerCase();
+}
+
+function startMusic(audio: HTMLAudioElement) {
+  audio.volume = 0.2;
+
+  void audio.play().catch((error: unknown) => {
+    if (
+      error instanceof DOMException &&
+      (error.name === "NotAllowedError" || error.name === "AbortError")
+    ) {
+      return;
+    }
+
+    console.warn("No se pudo reproducir la música navideña:", error);
+  });
+}
+
 export default function ChristmasMusic() {
   const { pathname } = useLocation();
   const campaignActive = useChristmasActive();
@@ -17,8 +36,7 @@ export default function ChristmasMusic() {
   const [silenced, setSilenced] = useState(false);
   const [playing, setPlaying] = useState(false);
 
-  const inCatalog =
-    pathname.replace(/\/+$/, "").toLowerCase() === christmasPath;
+  const inCatalog = normalizePath(pathname) === christmasPath;
   const active = campaignActive && (inCatalog || announcement !== null);
 
   useEffect(() => {
@@ -31,6 +49,7 @@ export default function ChristmasMusic() {
     syncAnnouncement();
 
     const observer = new MutationObserver(syncAnnouncement);
+
     observer.observe(document.body, {
       childList: true,
       subtree: true,
@@ -45,63 +64,80 @@ export default function ChristmasMusic() {
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0.2;
-
-    if (!active) {
-      audio.pause();
-      if (audio.currentTime !== 0) audio.currentTime = 0;
-      return;
-    }
-
-    if (silenced) {
+    if (!active || silenced) {
+      // Pausar sin cambiar la posición de la canción.
       audio.pause();
       return;
     }
 
-    if (audio.paused) {
-      console.info("[Navidad] Intentando reproducir al cargar");
-
-      void audio.play()
-        .then(() => {
-          console.info("[Navidad] Reproducción iniciada");
-        })
-        .catch((error: unknown) => {
-          console.error(
-            "[Navidad] Falló la reproducción al cargar:",
-            error,
-          );
-        });
-    }
+    if (audio.paused) startMusic(audio);
   }, [active, silenced]);
 
   useEffect(() => {
-    if (!active || silenced || playing) return;
+    if (!campaignActive || silenced) return;
 
-    function retryOnInteraction(event: Event) {
+    function retryOnInteraction(event: MouseEvent | TouchEvent) {
       const audio = audioRef.current;
       const target = event.target;
 
-      if (!event.isTrusted || !audio?.paused) return;
-      if (event instanceof KeyboardEvent && event.key === "Escape") return;
+      if (!event.isTrusted || !audio?.paused || !(target instanceof Element)) {
+        return;
+      }
 
       if (
-        target instanceof Element &&
         target.closest("[data-christmas-music-control], .dialac-noel-close")
       ) {
         return;
       }
 
-      void audio.play().catch(() => {});
+      const link = target.closest<HTMLAnchorElement>("a[href]");
+
+      if (link) {
+        if (
+          event.type !== "click" ||
+          (event instanceof MouseEvent &&
+            (event.button !== 0 ||
+              event.ctrlKey ||
+              event.metaKey ||
+              event.shiftKey ||
+              event.altKey)) ||
+          (link.target && link.target.toLowerCase() !== "_self") ||
+          link.hasAttribute("download")
+        ) {
+          return;
+        }
+
+        const destination = new URL(link.href);
+
+        if (
+          destination.origin !== window.location.origin ||
+          normalizePath(destination.pathname) !== christmasPath
+        ) {
+          return;
+        }
+
+        startMusic(audio);
+        return;
+      }
+
+      const openAnnouncement = document.querySelector(announcementSelector);
+
+      if (openAnnouncement ? openAnnouncement.contains(target) : inCatalog) {
+        startMusic(audio);
+      }
     }
 
     document.addEventListener("click", retryOnInteraction, true);
-    document.addEventListener("keydown", retryOnInteraction, true);
+    document.addEventListener("touchend", retryOnInteraction, {
+      capture: true,
+      passive: true,
+    });
 
     return () => {
       document.removeEventListener("click", retryOnInteraction, true);
-      document.removeEventListener("keydown", retryOnInteraction, true);
+      document.removeEventListener("touchend", retryOnInteraction, true);
     };
-  }, [active, silenced, playing]);
+  }, [campaignActive, inCatalog, silenced]);
 
   function toggleMusic() {
     const audio = audioRef.current;
@@ -114,7 +150,7 @@ export default function ChristmasMusic() {
     }
 
     setSilenced(false);
-    void audio.play().catch(() => {});
+    startMusic(audio);
   }
 
   const announcementActions =

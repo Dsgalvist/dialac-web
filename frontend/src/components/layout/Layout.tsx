@@ -5,13 +5,17 @@ import PageLoaderOption2 from "../animations/PageLoaderOption2";
 import GuidedTourProvider from "../tour/GuidedTourProvider";
 import ScrollToTop from "../common/scrolltotop";
 import WhatsAppFloating from "../common/whatsappfloating";
+import ChristmasCampaign, { christmasPath } from "../navidad/ChristmasCampaign";
 import RouteMetadata from "./RouteMetadata";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import ChristmasMusic from "../navidad/ChristmasMusic";
 
 function Layout() {
-  const location = useLocation();
+  const { pathname } = useLocation();
   const outlet = useOutlet();
+  const isChristmasPage =
+    pathname.replace(/\/+$/, "").toLowerCase() === christmasPath;
 
   return (
     <GuidedTourProvider>
@@ -26,24 +30,18 @@ function Layout() {
         </a>
 
         <Navbar />
+        <ChristmasMusic />
+        {!isChristmasPage && <ChristmasCampaign />}
 
-        <main
-          id="main-content"
-          className="flex-1"
-          tabIndex={-1}
-        >
+        <main id="main-content" className="flex-1" tabIndex={-1}>
           <AnimatePresence mode="wait" initial={false}>
-            <PageTransition key={location.pathname}>
-              {outlet}
-            </PageTransition>
+            <PageTransition key={pathname}>{outlet}</PageTransition>
           </AnimatePresence>
         </main>
 
-        <PageLoaderOption2 key={`loader-${location.pathname}`} />
-
+        <PageLoaderOption2 key={`loader-${pathname}`} />
         <ScrollToTop />
         <WhatsAppFloating />
-
         <Footer />
       </div>
     </GuidedTourProvider>

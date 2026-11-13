@@ -4,8 +4,9 @@ import {
   motion,
   useReducedMotion,
 } from "motion/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
+import { christmasPath, useChristmasActive } from "../navidad/ChristmasCampaign";
 
 const navigation = [
   { name: "Inicio", path: "/" },
@@ -16,6 +17,9 @@ const navigation = [
 ];
 
 function Navbar() {
+  const christmasActive = useChristmasActive();
+  const { pathname } = useLocation();
+  const isChristmasPage = pathname.replace(/\/+$/, "").toLowerCase() === christmasPath;
   const [isOpen, setIsOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
 
@@ -109,14 +113,55 @@ function Navbar() {
           </NavLink>
         </motion.div>
 
+        {christmasActive && (
+          <NavLink
+            to={christmasPath}
+            end
+            onClick={() => setIsOpen(false)}
+            className="group relative isolate inline-flex min-h-11 shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full border border-[#e7be69] bg-gradient-to-br from-[#287344] to-[#10402a] px-2.5 text-xs font-bold text-[#fff4d2] shadow-[0_4px_14px_#12482d40] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#155333] aria-[current=page]:ring-2 aria-[current=page]:ring-[#155333] sm:gap-2 sm:px-4 sm:text-sm"
+          >
+            <motion.span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 left-0 -z-10 w-1/3 -skew-x-12 bg-white/15"
+              initial={{ x: "-150%" }}
+              animate={reduceMotion ? { x: "-150%" } : { x: ["-150%", "420%"] }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 1.2, repeat: Infinity, repeatDelay: 2.2, ease: "easeInOut" }}
+            />
+            <motion.svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              className="size-4 shrink-0 sm:size-5"
+              style={{ transformOrigin: "50% 85%" }}
+              animate={reduceMotion ? { rotate: 0 } : { rotate: [-8, 8, -8] }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <path d="M12 2 6 9h3l-5 6h4l-5 5h18l-5-5h4l-5-6h3Z" fill="#9be2a6" />
+              <path d="M11 20h2v3h-2z" fill="#f7d382" />
+              <circle cx="12" cy="9" r="1" fill="#ffdf85" />
+              <circle cx="9" cy="15" r="1" fill="#ffdf85" />
+              <circle cx="15" cy="16" r="1" fill="#ffdf85" />
+            </motion.svg>
+            Navidad
+            <motion.span
+              aria-hidden="true"
+              className="hidden text-[#ffdf85] sm:inline"
+              animate={reduceMotion ? { opacity: 1 } : { opacity: [1, .45, 1], scale: [1, .84, 1] }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 1.8, repeat: Infinity }}
+            >
+              ✦
+            </motion.span>
+          </NavLink>
+        )}
+
         {/* NAVEGACIÓN DE ESCRITORIO */}
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-1 lg:flex">
           <div className="flex items-center rounded-2xl border border-dialac-border/60 bg-white/70 p-1 shadow-[0_4px_18px_rgba(42,35,30,0.04)]">
             {navigation.map((item) => (
               <NavLink
                 key={item.path}
                 to={item.path}
-                className="group relative overflow-hidden rounded-xl px-4 py-2.5 font-semibold text-dialac-charcoal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dialac-brown"
+                end={item.path === "/servicios" && isChristmasPage}
+                className="group relative overflow-hidden rounded-xl px-2.5 py-2.5 font-semibold xl:px-4 text-dialac-charcoal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dialac-brown"
               >
                 {({ isActive }) => (
                   <>
@@ -285,7 +330,7 @@ function Navbar() {
         </div>
 
         {/* CONTROLES MÓVILES */}
-        <div className="flex shrink-0 items-center gap-2 md:hidden">
+        <div className="flex shrink-0 items-center gap-2 lg:hidden">
           {/* CARRITO MÓVIL */}
           <motion.div
             whileTap={reduceMotion ? undefined : { scale: 0.95 }}
@@ -487,7 +532,7 @@ function Navbar() {
               duration: reduceMotion ? 0 : 0.32,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="overflow-hidden border-t border-dialac-border/80 bg-[#fffdf9] md:hidden"
+            className="overflow-hidden border-t border-dialac-border/80 bg-[#fffdf9] lg:hidden"
           >
             <motion.div
               initial={reduceMotion ? false : "hidden"}
@@ -532,6 +577,7 @@ function Navbar() {
                 >
                   <NavLink
                     to={item.path}
+                end={item.path === "/servicios" && isChristmasPage}
                     className={mobileLinkStyles}
                     onClick={() => setIsOpen(false)}
                   >

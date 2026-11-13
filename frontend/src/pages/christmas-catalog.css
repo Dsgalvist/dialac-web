@@ -1,0 +1,244 @@
+.dialac-xmas-page {
+  --xmas-nav-height: 72px;
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(150deg, #102820, #101b18 44%, #301e20 100%);
+  color: #fff6e7;
+}
+.dialac-xmas-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #eabb6c 1px, transparent 3px),
+    radial-gradient(circle, #ffe4a4 1px, transparent 2px);
+  background-size: 113px 137px, 173px 97px;
+  background-position: 0 0, 41px 25px;
+  opacity: .28;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .dialac-xmas-page::before { animation: dialac-xmas-twinkle 6s ease-in-out infinite alternate; }
+}
+@keyframes dialac-xmas-twinkle { to { opacity: .54; } }
+.dialac-xmas-wrap { width: min(100% - 2rem, 72rem); margin-inline: auto; }
+.dialac-xmas-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  align-items: center;
+  background: radial-gradient(ellipse at 77% 0%, #bc7a323c, transparent 60%);
+}
+.dialac-xmas-intro { padding-block: 1.5rem 1.75rem; }
+.dialac-xmas-back { display: inline-block; color: #ffdfa4; padding-block: .35rem; font-size: .875rem; }
+.dialac-xmas-kicker { color: #f4cd8b; font-size: .78rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.dialac-xmas-intro .dialac-xmas-kicker { margin-top: .65rem; }
+.dialac-xmas-intro h1, .dialac-xmas-content h2, .dialac-xmas-group h3 {
+  font-family: var(--font-display, inherit);
+  font-weight: 800;
+  line-height: 1.1;
+}
+.dialac-xmas-intro h1 { font-size: clamp(1.9rem, 4.5vw, 3.75rem); margin: .4rem 0 .6rem; text-wrap: balance; }
+.dialac-xmas-intro > p:last-of-type { max-width: 65ch; }
+.dialac-xmas-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  justify-content: center;
+  min-height: 44px;
+  padding: .6rem 1rem;
+  border-radius: .8rem;
+  width: 100%;
+  border: 1px solid #d4bda4;
+  background: #fffdf9;
+  color: #2f2012;
+  text-align: center;
+  font-weight: 750;
+}
+.dialac-xmas-cta:hover { background: #ffebc6; border-color: #b08151; }
+.dialac-xmas-cta svg { width: 1em; height: 1em; flex: none; }
+.dialac-xmas-content { padding-block: 1rem 4rem; scroll-margin-top: 6rem; }
+.dialac-xmas-content h2 { font-size: clamp(1.45rem, 3vw, 2.35rem); margin: 0 0 .85rem; }
+.dialac-xmas-filters { display: flex; gap: .65rem; flex-wrap: wrap; }
+.dialac-xmas-mobile-filters { display: none; }
+.dialac-xmas-results { min-width: 0; }
+@media (min-width: 900px) {
+  .dialac-xmas-layout { display: grid; grid-template-columns: 15rem minmax(0, 1fr); align-items: start; gap: 2rem; }
+  .dialac-xmas-filters { position: sticky; top: 6rem; flex-direction: column; padding: .85rem; border: 1px solid #a3875b; border-radius: 1rem; background: #16271f; }
+  .dialac-xmas-filters button { text-align: left; }
+  .dialac-xmas-count { margin-top: 0; }
+}
+.dialac-xmas-filters button {
+  cursor: pointer;
+  color: #fff6e7;
+  border: 1px solid #a3875b;
+  background: #22342c;
+  min-height: 44px;
+  border-radius: 999px;
+  padding: .55rem 1rem;
+}
+.dialac-xmas-filters button[aria-pressed="true"] { background: #f7d598; color: #2f2012; font-weight: 800; }
+.dialac-xmas-count { margin: 0 0 .6rem; color: #f4cd8b; }
+.dialac-xmas-group { margin-top: 2rem; }
+.dialac-xmas-count + .dialac-xmas-group { margin-top: .65rem; }
+.dialac-xmas-group h3 { color: #ffdfa4; font-size: 1.55rem; margin-bottom: .85rem; }
+.dialac-xmas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+.dialac-xmas-grid li { display: flex; flex-direction: column; overflow: hidden; border: 1px solid #a3875b; border-radius: 1.15rem; background: #22342c; }
+.dialac-xmas-grid img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: #182620; }
+.dialac-xmas-grid li > div { display: flex; flex-direction: column; align-items: start; flex: 1; gap: .75rem; padding: 1rem; }
+.dialac-xmas-grid h4 { font-weight: 800; }
+.dialac-xmas-grid a { margin-top: auto; }
+.dialac-xmas-decor {
+  display: flex;
+  justify-content: space-between;
+  width: min(100% - 2rem, 72rem);
+  margin: .5rem auto 0;
+  pointer-events: none;
+}
+.dialac-xmas-decor svg { width: clamp(3rem, 8vw, 7.5rem); }
+.dialac-xmas-decor .dialac-xmas-reindeer { width: clamp(4rem, 13vw, 9rem); order: 1; }
+.dialac-xmas-tree { order: 2; }
+.dialac-xmas-group-heading { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+.dialac-xmas-reindeer-inline { display: none; }
+.dialac-xmas-wave { transform-origin: 73px 82px; }
+.dialac-xmas-hero .dialac-xmas-intro { padding-top: 0; }
+.dialac-xmas-info {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: .75rem;
+  margin-bottom: 1rem;
+}
+.dialac-xmas-info article {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  padding: .85rem;
+  border: 1px solid #a3875b;
+  border-radius: 1rem;
+  background: #1b3026;
+}
+.dialac-xmas-info article svg {
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+  padding: .35rem;
+  border-radius: .6rem;
+  color: #352719;
+  background: #f4cd8b;
+}
+.dialac-xmas-info h2 { color: #ffdfa4; font-weight: 800; margin-bottom: .25rem; }
+.dialac-xmas-info p { font-size: .875rem; line-height: 1.45; }
+@media (min-width: 900px) {
+  .dialac-xmas-hero .dialac-xmas-intro {
+    width: min(100% - 2rem, 72rem);
+    padding: 1.35rem clamp(6rem, 12vw, 9rem) 1.35rem;
+    text-align: center;
+  }
+  .dialac-xmas-intro > p:last-of-type { margin-inline: auto; }
+}
+@media (min-width: 1360px) and (min-height: 440px) {
+  .dialac-xmas-decor-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    --xmas-gutter: calc((100% - 72rem) / 2);
+  }
+  .dialac-xmas-decor {
+    position: sticky;
+    top: var(--xmas-nav-height);
+    width: 100%;
+    height: calc(100dvh - var(--xmas-nav-height));
+    margin: 0;
+  }
+  .dialac-xmas-decor svg {
+    position: absolute;
+    width: min(7.5rem, calc(var(--xmas-gutter) - 1.5rem));
+  }
+  .dialac-xmas-santa { top: .65rem; left: .75rem; }
+  .dialac-xmas-tree { top: .65rem; right: .75rem; }
+  .dialac-xmas-decor .dialac-xmas-reindeer {
+    bottom: 1rem;
+    left: .75rem;
+    width: min(9rem, calc(var(--xmas-gutter) - 1.5rem));
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .dialac-xmas-wave { animation: dialac-xmas-wave 2.2s ease-in-out infinite; }
+  .dialac-xmas-lights { animation: dialac-xmas-twinkle 1.8s ease-in-out infinite alternate; }
+  .dialac-xmas-reindeer-hop { animation: dialac-xmas-hop 1.6s ease-in-out infinite; }
+  svg > g:nth-of-type(2) > .dialac-xmas-reindeer-hop { animation-delay: -.25s; }
+}
+@keyframes dialac-xmas-hop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes dialac-xmas-wave {
+  0%, 100% { transform: rotate(-12deg); }
+  30%, 70% { transform: rotate(16deg); }
+  50% { transform: rotate(-4deg); }
+}
+.dialac-xmas-page :focus-visible { outline: 2px solid #fff0b7; outline-offset: 3px; }
+@media (width < 900px) {
+  .dialac-xmas-decor { align-items: center; margin-top: .25rem; }
+  .dialac-xmas-reindeer-inline { display: block; width: 3.5rem; flex: none; }
+  .dialac-xmas-filters { display: none; }
+  .dialac-xmas-mobile-filters {
+    position: sticky;
+    top: var(--xmas-nav-height);
+    z-index: 10;
+    display: block;
+    color: #302820;
+    background: #fffdf9;
+    border-bottom: 1px solid #d4bda4;
+  }
+  .dialac-xmas-results { scroll-margin-top: calc(var(--xmas-nav-height) + 3.75rem); }
+  .dialac-xmas-filter-toggle {
+    display: grid;
+    grid-template-columns: 1.125rem minmax(0, 1fr) 1.125rem;
+    align-items: center;
+    gap: .65rem;
+    width: 100%;
+    min-height: 44px;
+    padding: .65rem 1rem;
+    text-align: left;
+    cursor: pointer;
+  }
+  .dialac-xmas-filter-toggle svg { width: 100%; }
+  .dialac-xmas-filter-toggle svg:first-child { color: #824a32; }
+  .dialac-xmas-filter-toggle[aria-expanded="true"] svg:last-child { transform: rotate(180deg); }
+  .dialac-xmas-mobile-options:not([hidden]) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 0 1rem .75rem;
+    gap: .5rem;
+    max-height: min(50dvh, 18rem);
+    overflow-y: auto;
+  }
+  .dialac-xmas-mobile-options button {
+    min-height: 44px;
+    padding: .4rem .55rem;
+    border: 1px solid #d4bda4;
+    border-radius: .65rem;
+    text-align: left;
+    cursor: pointer;
+  }
+  .dialac-xmas-mobile-options button[aria-pressed="true"] { background: #f7d598; font-weight: 750; }
+  .dialac-xmas-mobile-filters :focus-visible { outline: 2px solid #824a32; outline-offset: -2px; }
+  .dialac-xmas-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 540px) {
+  .dialac-xmas-info { grid-template-columns: 1fr; gap: .5rem; }
+  .dialac-xmas-intro { padding-block: .8rem 1rem; }
+  .dialac-xmas-intro > p:last-of-type { font-size: .875rem; }
+  .dialac-xmas-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem; }
+  .dialac-xmas-grid li > div { padding: .65rem; gap: .55rem; }
+  .dialac-xmas-grid a { width: 100%; text-align: center; font-size: .75rem; padding: .35rem; }
+}

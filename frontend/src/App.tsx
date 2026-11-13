@@ -7,6 +7,8 @@ import ServicesPage from "./pages/ServicesPage";
 import ProductsPage from "./pages/ProductsPage";
 import CartPage from "./pages/CartPage";
 import RequestPage from "./pages/RequestPage";
+import { christmasPath } from "./components/navidad/ChristmasCampaign";
+import ChristmasCatalogPage from "./pages/ChristmasCatalogPage";
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/nosotros" element={<AboutPage />} />
           <Route path="/productos" element={<ProductsPage />} />
+          <Route path={christmasPath} element={<ChristmasCatalogPage />} />
           <Route
             path="/servicios/:serviceSlug?"
             element={<ServicesPage />}

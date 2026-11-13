@@ -5,6 +5,7 @@ import { services, type Service, type ServiceCategory } from "../../data/service
 import { contactWhatsApp } from "../../services/whatsapp";
 import ServiceCard from "./ServiceCard";
 import ServiceGallery from "./ServiceGallery";
+import { christmasPath, useChristmasActive } from "../navidad/ChristmasCampaign";
 
 type ServicesCatalogProps = {
   activeCategory: ServiceCategory;
@@ -32,6 +33,7 @@ function readServiceUrl() {
 }
 
 function ServicesCatalog({ activeCategory }: ServicesCatalogProps) {
+  const christmasActive = useChristmasActive();
   const location = useLocation();
   const [serviceUrl, setServiceUrl] = useState(readServiceUrl);
   const { pathname, hash } = serviceUrl;
@@ -133,6 +135,11 @@ function ServicesCatalog({ activeCategory }: ServicesCatalogProps) {
   return (
     <>
       <section id="catalogo-servicios" className="min-w-0 scroll-mt-28">
+        {christmasActive && pathname === catalogPath && (
+          <Link to={christmasPath} className="mb-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#16372c] px-4 py-2 text-sm font-semibold text-[#fff6e7] hover:bg-[#315b45]">
+            <span aria-hidden="true">✦</span> Navidad con DIALAC <span aria-hidden="true">→</span>
+          </Link>
+        )}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="min-w-0">
             <p className="font-display text-xs font-semibold uppercase tracking-[0.18em] text-dialac-green-dark sm:text-sm">

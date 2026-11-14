@@ -92,6 +92,23 @@ const columnVariants: Variants = {
   },
 };
 
+function FooterLegalLinks({ className }: { className: string }) {
+  const linkClass =
+    "inline-flex min-h-11 items-center rounded-lg border border-white/20 bg-white/[0.04] px-3 py-2 text-sm font-semibold text-[#eee4da] transition hover:border-dialac-brown hover:bg-dialac-brown hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white";
+  const base = import.meta.env.BASE_URL;
+
+  return (
+    <nav aria-label="Información legal" className={className}>
+      <a href={`${base}terminos-y-condiciones/index.html`} className={linkClass}>
+        Términos y Condiciones
+      </a>
+      <a href={`${base}politica-de-tratamiento-de-datos/index.html`} className={linkClass}>
+        Política de Tratamiento de Datos
+      </a>
+    </nav>
+  );
+}
+
 function Footer() {
   const { startTour } = useGuidedTour();
   const currentYear = new Date().getFullYear();
@@ -305,6 +322,7 @@ Gracias.`;
               ))}
             </div>
           </div>
+          <FooterLegalLinks className="mt-4 flex flex-wrap gap-2 lg:hidden" />
         </motion.div>
 
         {/* NAVEGACIÓN */}
@@ -492,6 +510,7 @@ Gracias.`;
               </a>
             </motion.div>
           </address>
+          <FooterLegalLinks className="mt-4 hidden flex-wrap gap-2 lg:flex" />
         </motion.div>
 
         {/* HORARIOS Y SOLICITUD */}

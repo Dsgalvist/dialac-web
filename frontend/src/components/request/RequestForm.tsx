@@ -1,9 +1,11 @@
 import {
   useEffect,
+  useRef,
   useState,
   type ClipboardEvent,
   type FormEvent,
 } from "react";
+import { createPortal } from "react-dom";
 import {
   AnimatePresence,
   motion,
@@ -69,6 +71,9 @@ const addressPattern =
 const notesCharacterPattern =
   /^[^<>]+$/;
 
+const dataPolicyUrl = `${import.meta.env.BASE_URL}politica-de-tratamiento-de-datos/index.html`;
+const termsUrl = `${import.meta.env.BASE_URL}terminos-y-condiciones/index.html`;
+
 function RequestForm({
   defaultValues,
   onSubmit,
@@ -83,12 +88,25 @@ function RequestForm({
   const [isConfirming, setIsConfirming] =
     useState(false);
 
+  const policyDialogRef = useRef<HTMLDialogElement>(null);
+  const policyTriggerRef = useRef<HTMLButtonElement>(null);
+  const termsDialogRef = useRef<HTMLDialogElement>(null);
+  const termsTriggerRef = useRef<HTMLButtonElement>(null);
+  const [termsReady, setTermsReady] = useState(false);
+  const [legalNotice, setLegalNotice] = useState<{
+    accepted: boolean;
+    message: string;
+  } | null>(null);
+  const [policyReadiness, setPolicyReadiness] =
+    useState<"loading" | "ready" | "unavailable">("loading");
+
   const {
     register,
     control,
     handleSubmit,
     watch,
     setError,
+    setValue,
     clearErrors,
     formState: { errors },
   } = useForm<RequestFormValues>({
@@ -101,6 +119,44 @@ function RequestForm({
   });
 
   const deliveryMethod = watch("deliveryMethod");
+
+  const finishTermsReview = (accepted: boolean) => {
+    if (accepted && !termsReady) return;
+    setValue("termsAccepted", accepted, {
+      shouldDirty: true,
+      shouldValidate: accepted,
+    });
+    termsDialogRef.current?.close();
+    setLegalNotice({
+      accepted,
+      message: accepted
+        ? "Usted ha aceptado los Términos y Condiciones."
+        : "Usted ha rechazado los Términos y Condiciones.",
+    });
+    termsTriggerRef.current?.focus({ preventScroll: true });
+  };
+
+  const finishPolicyReview = (accepted: boolean) => {
+    if (accepted && policyReadiness !== "ready") return;
+    setValue("dataTreatmentAccepted", accepted, {
+      shouldDirty: true,
+      shouldValidate: accepted,
+    });
+    policyDialogRef.current?.close();
+    setLegalNotice({
+      accepted,
+      message: accepted
+        ? "Usted ha aceptado el tratamiento de sus datos personales."
+        : "Usted ha rechazado el tratamiento de sus datos personales.",
+    });
+    policyTriggerRef.current?.focus({ preventScroll: true });
+  };
+
+  useEffect(() => {
+    if (!legalNotice) return;
+    const timer = window.setTimeout(() => setLegalNotice(null), 5000);
+    return () => window.clearTimeout(timer);
+  }, [legalNotice]);
 
   useEffect(() => {
     if (deliveryMethod === "recogida") {
@@ -1303,6 +1359,17 @@ function RequestForm({
                 </span>
               </label>
 
+              <button
+                ref={policyTriggerRef}
+                type="button"
+                aria-haspopup="dialog"
+                onClick={() => policyDialogRef.current?.showModal()}
+                className="mt-2 ml-8 inline-block rounded-sm text-sm font-semibold text-dialac-brown-dark underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"
+              >
+                Leer la política de datos
+              </button>
+
+
               {errors.dataTreatmentAccepted && (
                 <p
                   id="data-treatment-error"
@@ -1336,6 +1403,16 @@ function RequestForm({
                   Condiciones aplicables a esta solicitud.
                 </span>
               </label>
+
+              <button
+                ref={termsTriggerRef}
+                type="button"
+                aria-haspopup="dialog"
+                onClick={() => termsDialogRef.current?.showModal()}
+                className="mt-2 ml-8 inline-block rounded-sm text-sm font-semibold text-dialac-brown-dark underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"
+              >
+                Leer los Términos y Condiciones
+              </button>
 
               {errors.termsAccepted && (
                 <p
@@ -1664,6 +1741,129 @@ function RequestForm({
           </motion.div>
         )}
       </AnimatePresence>
+      {typeof document !== "undefined" &&
+        createPortal(
+          <div
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            className="pointer-events-none fixed inset-x-2 top-[max(0.75rem,env(safe-area-inset-top))] z-[9999] flex justify-center"
+          >
+            {legalNotice && (
+              <div className="flex w-fit max-w-md items-start gap-3 rounded-xl border border-dialac-border bg-white px-4 py-3 text-sm font-semibold text-dialac-charcoal shadow-xl">
+                <span
+                  aria-hidden="true"
+                  className={`grid h-7 w-7 shrink-0 place-items-center rounded-full text-base ${legalNotice.accepted ? "bg-[#e5f3e9] text-[#21613c]" : "bg-[#fae9e7] text-[#9d2d27]"}`}
+                >
+                  {legalNotice.accepted ? "✓" : "×"}
+                </span>
+                <span className="self-center">{legalNotice.message}</span>
+              </div>
+            )}
+          </div>,
+          document.body,
+        )}
+      <dialog
+        ref={policyDialogRef}
+        aria-labelledby="request-policy-title"
+        onCancel={(event) => event.preventDefault()}
+        className="fixed inset-0 m-auto w-[calc(100%_-_1rem)] max-w-3xl overflow-hidden rounded-2xl border border-dialac-border bg-white p-0 text-dialac-charcoal shadow-2xl backdrop:bg-black/55 backdrop:backdrop-blur-sm sm:w-[calc(100%_-_2rem)]"
+      >
+        <div className="grid h-[calc(100dvh_-_1.5rem)] grid-rows-[auto_minmax(0,1fr)_auto] sm:h-[min(76dvh,48rem)]">
+        <header className="border-b border-dialac-border bg-[#faf8f4] px-4 py-3 sm:px-6">
+          <h2 id="request-policy-title" className="font-display text-lg font-semibold">
+            Política de Tratamiento de Datos Personales
+          </h2>
+        </header>
+        <iframe
+          src={dataPolicyUrl}
+          title="Texto de la Política de Tratamiento de Datos Personales de DIALAC"
+          onError={() => setPolicyReadiness("unavailable")}
+          onLoad={(event) => {
+            const policyDocument = event.currentTarget.contentDocument;
+            setPolicyReadiness(
+              policyDocument?.querySelector(
+                'link[rel="canonical"][href="https://dialac.co/politica-de-tratamiento-de-datos/"]',
+              ) && policyDocument.querySelector("main h1")
+                ? "ready"
+                : "unavailable",
+            );
+          }}
+          className="block h-full min-h-0 w-full border-0"
+        />
+        <footer className="flex flex-wrap justify-end gap-2 border-t border-dialac-border bg-[#faf8f4] px-4 py-3 sm:px-6">
+          {policyReadiness === "unavailable" && (
+            <p role="alert" className="w-full text-sm">
+              No pudimos cargar la política. Cancela para volver al formulario.
+            </p>
+          )}
+          <button
+            type="button"
+            onClick={() => finishPolicyReview(false)}
+            className="min-h-11 rounded-xl border border-dialac-border bg-white px-4 font-semibold focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            disabled={policyReadiness !== "ready"}
+            onClick={() => finishPolicyReview(true)}
+            className="min-h-11 rounded-xl bg-dialac-brown px-4 font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
+          >
+            Aceptar
+          </button>
+        </footer>
+        </div>
+      </dialog>
+      <dialog
+        ref={termsDialogRef}
+        aria-labelledby="request-terms-title"
+        onCancel={(event) => event.preventDefault()}
+        className="fixed inset-0 m-auto w-[calc(100%_-_1rem)] max-w-3xl overflow-hidden rounded-2xl border border-dialac-border bg-white p-0 text-dialac-charcoal shadow-2xl backdrop:bg-black/55 backdrop:backdrop-blur-sm sm:w-[calc(100%_-_2rem)]"
+      >
+        <div className="grid h-[calc(100dvh_-_1.5rem)] grid-rows-[auto_minmax(0,1fr)_auto] sm:h-[min(76dvh,48rem)]">
+        <header className="border-b border-dialac-border bg-[#faf8f4] px-4 py-3 sm:px-6">
+          <h2 id="request-terms-title" className="font-display text-lg font-semibold">
+            Términos y Condiciones
+          </h2>
+        </header>
+        <iframe
+          src={termsUrl}
+          title="Texto de los Términos y Condiciones de DIALAC"
+          onError={() => setTermsReady(false)}
+          onLoad={(event) => {
+            const document = event.currentTarget.contentDocument;
+            setTermsReady(Boolean(document?.querySelector(
+              'link[rel="canonical"][href="https://dialac.co/terminos-y-condiciones/"]',
+            ) && document.querySelector("main h1")));
+          }}
+          sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+          className="block h-full min-h-0 w-full border-0"
+        />
+        <footer className="flex flex-wrap justify-end gap-2 border-t border-dialac-border bg-[#faf8f4] px-4 py-3 sm:px-6">
+          {!termsReady && (
+            <p role="status" className="w-full text-sm">
+              Aceptar estará disponible cuando se carguen los términos.
+            </p>
+          )}
+          <button
+            type="button"
+            onClick={() => finishTermsReview(false)}
+            className="min-h-11 rounded-xl border border-dialac-border bg-white px-4 font-semibold focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            disabled={!termsReady}
+            onClick={() => finishTermsReview(true)}
+            className="min-h-11 rounded-xl bg-dialac-brown px-4 font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
+          >
+            Aceptar
+          </button>
+        </footer>
+        </div>
+      </dialog>
     </>
   );
 }

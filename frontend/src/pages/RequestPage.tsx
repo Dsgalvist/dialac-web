@@ -23,6 +23,66 @@ const API_BASE_URL = (
   "http://localhost:8000"
 ).replace(/\/$/, "");
 
+const REQUEST_ERROR =
+  "No pudimos procesar tu solicitud. Si el problema continúa, contacta a DIALAC.";
+const UNCONFIRMED_REQUEST =
+  "No pudimos confirmar que tu solicitud llegó. Revisa tu conexión o consulta con DIALAC antes de volver a enviarla.";
+
+const customerFieldErrors: Readonly<Partial<Record<string, string>>> = {
+  email: "No pudimos validar tu correo. Revisa que esté bien escrito.",
+  phone: "No pudimos validar tu número de teléfono. Revísalo e inténtalo de nuevo.",
+  full_name: "Revisa el nombre que ingresaste.",
+  company: "Revisa el nombre de la empresa.",
+  address: "Revisa la dirección de entrega.",
+  city: "Selecciona un municipio dentro de nuestra cobertura.",
+  required_date: "Selecciona una fecha disponible con al menos 3 días de anticipación.",
+  delivery_method: "Selecciona domicilio o recogida.",
+  notes: "Revisa las notas de tu solicitud.",
+};
+
+function getRequestError(status: number, body: unknown): string {
+  if (status === 429) {
+    return "Hay demasiados intentos. Espera unos minutos antes de volver a enviar.";
+  }
+
+  if (status === 502 || status === 503 || status === 504) {
+    return UNCONFIRMED_REQUEST;
+  }
+
+  if (status !== 400 && status !== 422) return REQUEST_ERROR;
+
+  const detail =
+    body && typeof body === "object" && "detail" in body ? body.detail : null;
+
+  if (Array.isArray(detail)) {
+    const messages = new Set<string>();
+
+    for (const issue of detail) {
+      if (!issue || !Array.isArray(issue.loc)) continue;
+      const [source, section, field] = issue.loc;
+      if (source !== "body") continue;
+
+      if (section === "customer" && typeof field === "string" &&
+          Object.prototype.hasOwnProperty.call(customerFieldErrors, field)) {
+        const message = customerFieldErrors[field];
+        if (message) messages.add(message);
+      } else if (section === "customer" && issue.loc.length === 2) {
+        if (issue.msg === "Value error, La dirección es obligatoria para entrega a domicilio.") {
+          messages.add("Ingresa la dirección de entrega.");
+        } else if (issue.msg === "Value error, La ciudad o municipio es obligatorio para entrega a domicilio.") {
+          messages.add("Selecciona el municipio de entrega.");
+        }
+      } else if (section === "items" || section === "total_items" || section === "total_price") {
+        messages.add("Revisa los productos y las cantidades de tu carrito.");
+      }
+    }
+
+    if (messages.size > 0) return [...messages].slice(0, 2).join(" ");
+  }
+
+  return "No pudimos validar la solicitud. Revisa los datos del formulario.";
+}
+
 type CustomerEmailStatus =
   | "sent"
   | "failed"
@@ -122,8 +182,10 @@ function RequestPage() {
     setSubmissionError("");
     setIsSubmitting(true);
 
+    let response: Response | undefined;
+
     try {
-      const response = await fetch(
+      response = await fetch(
         `${API_BASE_URL}/api/requests/pdf`,
         {
           method: "POST",
@@ -164,34 +226,18 @@ function RequestPage() {
       );
 
       if (!response.ok) {
-        let errorMessage =
-          "No pudimos enviar la solicitud. Intenta nuevamente.";
-
-        try {
-          const errorResponse: unknown =
-            await response.json();
-
-          if (
-            errorResponse &&
-            typeof errorResponse === "object" &&
-            "detail" in errorResponse &&
-            typeof errorResponse.detail === "string"
-          ) {
-            errorMessage = errorResponse.detail;
-          }
-        } catch {
-          // La respuesta del servidor no contenía JSON.
-        }
-
-        throw new Error(errorMessage);
+        const body: unknown = await response.json().catch(() => null);
+        setSubmissionError(getRequestError(response.status, body));
+        return;
       }
 
       const pdfBlob = await response.blob();
 
       if (pdfBlob.size === 0) {
-        throw new Error(
-          "El documento generado está vacío. Intenta nuevamente.",
+        setSubmissionError(
+          "El PDF llegó vacío. Consulta con DIALAC antes de volver a enviar la solicitud.",
         );
+        return;
       }
 
       if (generatedPdfUrl.current) {
@@ -240,15 +286,13 @@ function RequestPage() {
         top: 0,
         behavior: "smooth",
       });
-    } catch (error) {
+    } catch {
       /*
        * Si ocurre un error, conservamos el carrito y el borrador
        * para que el usuario pueda volver a intentarlo.
        */
       setSubmissionError(
-        error instanceof Error
-          ? error.message
-          : "No pudimos enviar la solicitud. Intenta nuevamente.",
+        !response || response.ok ? UNCONFIRMED_REQUEST : REQUEST_ERROR,
       );
     } finally {
       setIsSubmitting(false);

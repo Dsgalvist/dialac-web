@@ -7,9 +7,8 @@ const mapsUrl = import.meta.env.VITE_GOOGLE_MAPS_URL ||
   "https://maps.app.goo.gl/yVdxLVknbsyQfKbc7";
 const writeUrl = import.meta.env.VITE_GOOGLE_WRITE_REVIEW_URL ||
   "https://g.page/r/CSpeBWRvPuJ9EBM/review";
-// Datos de la captura del perfil de Google. Actualizar ambos juntos.
-const googleRating = 4.2;
-const googleRatingCount = 10;
+const googleRating = 4.4;
+const googleRatingCount = 16;
 
 function GoogleMark() {
   return (
@@ -36,8 +35,9 @@ function ReviewsSection({ prioritizeWriting = false }: { prioritizeWriting?: boo
   const [tabVisible, setTabVisible] = useState(() => !document.hidden);
   const [width, setWidth] = useState(() => window.innerWidth);
   const [index, setIndex] = useState(0);
-  const visibleCount = width < 640 ? 1 : width < 1024 ? 2 : 3;
-  const delay = visibleCount === 1 ? 3000 : 4000;
+  const mobile = width < 640;
+  const visibleCount = mobile ? 1 : width < 1024 ? 2 : 3;
+  const delay = width < 640 ? 3000 : 4000;
   const lastIndex = Math.max(0, reviews.length - visibleCount);
 
   useEffect(() => {
@@ -78,6 +78,35 @@ function ReviewsSection({ prioritizeWriting = false }: { prioritizeWriting?: boo
     });
   }, [index, lastIndex, visibleCount, reducedMotion]);
 
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || !mobile) return;
+
+    const cards = Array.from(track.children) as HTMLElement[];
+    const fitVisibleCard = () => {
+      const edge = track.getBoundingClientRect().left;
+      let closest: HTMLElement | undefined;
+      let distance = Infinity;
+      for (const card of cards) {
+        const offset = Math.abs(card.getBoundingClientRect().left - edge);
+        if (offset < distance) {
+          distance = offset;
+          closest = card;
+        }
+      }
+      if (closest) track.style.height = `${Math.ceil(closest.getBoundingClientRect().height)}px`;
+    };
+    const observer = new ResizeObserver(fitVisibleCard);
+    cards.forEach((card) => observer.observe(card));
+    fitVisibleCard();
+    track.addEventListener("scroll", fitVisibleCard, { passive: true });
+    return () => {
+      observer.disconnect();
+      track.removeEventListener("scroll", fitVisibleCard);
+      track.style.removeProperty("height");
+    };
+  }, [mobile]);
+
   const primaryUrl = prioritizeWriting ? writeUrl : mapsUrl;
   const secondaryUrl = prioritizeWriting ? mapsUrl : writeUrl;
   const primaryLabel = prioritizeWriting ? "Dejar una reseña" : "Ver todas en Google";
@@ -114,15 +143,23 @@ function ReviewsSection({ prioritizeWriting = false }: { prioritizeWriting?: boo
           <a href={mapsUrl} className="inline-flex w-fit items-center gap-3 rounded-2xl border border-[#f1bd8d] bg-[#fff4e7] px-4 py-3 text-dialac-charcoal transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
             <GoogleMark />
             <div>
-              <p className="text-xs font-semibold">Valoración en Google</p>
-              <p className="mt-1 flex flex-wrap items-center gap-x-2 text-sm">
-                <strong className="text-lg">{googleRating.toFixed(1)}<span className="sr-only"> de 5</span></strong>
-                <span aria-hidden="true" className="relative inline-block whitespace-nowrap tracking-wider text-[#d3ccc4]">
-                  ★★★★★
-                  <span className="absolute inset-y-0 left-0 overflow-hidden text-[#965300]" style={{ width: `${googleRating * 20}%` }}>★★★★★</span>
+              <p className="text-sm font-semibold">Opiniones en Google</p>
+              <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+                <strong>{googleRating.toFixed(1)}<span className="sr-only"> de 5 estrellas</span></strong>
+                <span aria-hidden="true" className="inline-flex gap-0.5">
+                  {Array.from({ length: 5 }, (_, index) => {
+                    const fill = Math.round(100 * Math.min(1, Math.max(0, googleRating - index)));
+                    return (
+                      <span key={index} className="relative inline-block leading-none text-[#c9bdb0]">
+                        ★
+                        <span className="absolute inset-y-0 left-0 overflow-hidden text-[#8a4d06]" style={{ width: `${fill}%` }}>★</span>
+                      </span>
+                    );
+                  })}
                 </span>
                 <span className="text-xs">({googleRatingCount} reseñas)</span>
-              </p>
+              </div>
+              <p className="mt-1 text-xs">{reviews.length} reseñas recientes en esta página</p>
             </div>
           </a>
         </div>
@@ -133,22 +170,22 @@ function ReviewsSection({ prioritizeWriting = false }: { prioritizeWriting?: boo
               onPointerEnter={(event) => { if (event.pointerType === "mouse") setInteracting(true); }}
               onPointerLeave={() => setInteracting(false)}
               onPointerDown={(event) => { if (event.pointerType === "touch") setPaused(true); }}
-              className="mt-6 grid snap-x snap-mandatory auto-cols-[100%] grid-flow-col gap-4 overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:auto-cols-[calc((100%_-_1rem)/2)] lg:auto-cols-[calc((100%_-_2rem)/3)]"
+              className="mt-6 grid snap-x snap-mandatory auto-cols-[100%] grid-flow-col items-start gap-2 overflow-x-auto overflow-y-hidden overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:auto-cols-[calc((100%_-_1rem)/2)] sm:items-stretch sm:gap-4 lg:auto-cols-[calc((100%_-_2rem)/3)]"
             >
               {reviews.map((review) => (
-                <li key={review.id} className="flex min-w-0 snap-start flex-col rounded-2xl border border-[#eac5a5] border-t-4 border-t-[#e4a36e] bg-[#fffaf3] p-5 text-dialac-charcoal">
-                  <div className="flex items-start justify-between gap-3">
+                <li key={review.id} className="flex min-w-0 snap-start flex-col rounded-2xl border border-[#eac5a5] border-t-4 border-t-[#e4a36e] bg-[#fffaf3] p-3 text-dialac-charcoal sm:p-5">
+                  <div className="flex items-start justify-between gap-1 sm:gap-3">
                     <p aria-label={`${review.rating} de 5 estrellas`} className="tracking-wider text-[#8a4d06]">
                       <span aria-hidden="true">{"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}</span>
                     </p>
-                    <span aria-hidden="true" className="font-serif text-3xl leading-none text-dialac-brown-dark">“</span>
+                    <span aria-hidden="true" className="hidden font-serif text-3xl leading-none text-dialac-brown-dark sm:inline">“</span>
                   </div>
                   {review.text ? (
                     <blockquote className="mb-4 mt-3 whitespace-pre-line break-words text-sm leading-6">{review.text}</blockquote>
                   ) : (
                     <p className="mb-4 mt-3 text-sm text-[#64554b]">Valoración sin comentario</p>
                   )}
-                  <div className="mt-auto flex items-center gap-3 border-t border-dialac-border pt-3">
+                  <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-dialac-border pt-3 sm:gap-3">
                     {review.avatar ? (
                       <img
                         src={`${import.meta.env.BASE_URL}review-avatars/${review.avatar}`}
@@ -170,6 +207,30 @@ function ReviewsSection({ prioritizeWriting = false }: { prioritizeWriting?: boo
                       </time>}
                     </div>
                   </div>
+                  {review.reply && (
+                    <div className="mt-4 min-w-0 border-l-2 border-[#eac5a5] pl-2 sm:ml-2 sm:pl-3">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <img
+                          src={`${import.meta.env.BASE_URL}review-avatars/dialac.png`}
+                          alt=""
+                          width={32}
+                          height={32}
+                          loading="lazy"
+                          className="size-8 shrink-0 rounded-full border border-[#eac5a5] bg-white object-cover"
+                        />
+                        <p className="text-xs font-bold text-dialac-brown-dark">
+                          DIALAC
+                          <span className="block text-[11px] font-medium text-[#64554b]">Respuesta del negocio</span>
+                        </p>
+                      </div>
+                      <p className="mt-2 break-words rounded-xl rounded-tl-none bg-[#f7eadc] p-2.5 text-xs leading-5 sm:p-3 sm:text-sm">{review.reply}</p>
+                      {review.replyIsExcerpt && (
+                        <a href={mapsUrl} className="mt-1 inline-block text-xs font-semibold text-dialac-brown-dark underline">
+                          Ver en Google
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>

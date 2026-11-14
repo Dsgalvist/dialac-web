@@ -5,37 +5,86 @@ export type GoogleReview = {
   text: string;
   publishedAt?: string;
   avatar?: string;
+  reply?: string;
+  replyIsExcerpt?: boolean;
 };
 
-// Agrega las nuevas reseñas arriba. Si tienes la fecha exacta, usa YYYY-MM-DD.
-// Conserva el orden de Google para las reseñas que solo tienen fechas relativas.
+// Orden de Google: de la más reciente a la más antigua.
+// Agrega las nuevas arriba, aunque solo tengas una fecha relativa.
 export const googleReviews: readonly GoogleReview[] = [
+  {
+    id: "christian",
+    author: "christian gonzalez",
+    rating: 5,
+    text: "Excelente servicio, los productos que manejan son de alta calidad... Super recomendados",
+    reply:
+      "Nuestro compromiso va de la mano con las necesidades de nuestros clientes 😊",
+    avatar: "christian.png",
+  },
+  {
+    id: "gestionar-proyectos",
+    author: "GESTIONAR PROYECTOS EU EU",
+    rating: 4,
+    text: "buenos precios, entregas a tiempo!!!",
+    reply:
+      "Ayudar a la economía y nuestro cumplimiento hacen parte de nuestros pilares!",
+    avatar: "gestionar-proyectos.png",
+  },
+  {
+    id: "antoine",
+    author: "Antoine Eudoro Acosta Castillo",
+    rating: 5,
+    text: "He realizado varios pedidos con ellos y son cumplidos. Los productos los entregan con buena fecha de vencimiento y manejan marcas conocidas. Los recomiendo al 100%",
+    reply:
+      "En la variedad, y entregas de productos reconocidos dan fe de nuestra calidad 💪",
+    avatar: "antoine.png",
+  },
+  {
+    id: "sebastian",
+    author: "Sebastian Rodriguez",
+    rating: 5,
+    text: "Excelentes productos y precios.",
+    avatar: "sebastian.png",
+  },
+  {
+    id: "andres-david",
+    author: "Andres David Ariza Moreno",
+    rating: 5,
+    text: "Espectaculares los productos y la atención, ahora tengo mi nevera llena solo de Dialac",
+    avatar: "andres-david.png",
+  },
+  {
+    id: "cv-medical",
+    author: "C&V MEDICAL GROUP",
+    rating: 5,
+    text: "Gracias por su buen servicio. Lo recomiendo 100%",
+    avatar: "cv-medical.png",
+  },
   {
     id: "olga",
     author: "olga lucia gutierrez mejia",
     rating: 5,
     text: "Excelentes precios 💗💗💗",
     avatar: "olga.png",
+    reply: "Vamos acorde a las necesidades de nuestros clientes.",
   },
   {
     id: "juan-david",
     author: "JUAN DAVID HERNANDEZ",
     rating: 5,
-    text: "El día de hoy con mis compañeros en la empresa les compramos unos yogures sabor guanábana y me hicieron recordar a mi infancias , súper recomendados ✌🏻 …",
+    text: "El día de hoy con mis compañeros en la empresa les compramos unos yogures sabor guanábana y me hicieron recordar a mi infancias , súper recomendados ✌🏻",
     avatar: "juan-david.png",
-  },
-  {
-    id: "diego",
-    author: "diego galvis",
-    rating: 5,
-    text: "excelente servicio lo recomiendo",
-    avatar: "diego.png",
+    reply:
+      "Los buenos recuerdos forman parte de nuestro amor por complacer los antojos de nuestros…",
+    replyIsExcerpt: true,
   },
   {
     id: "juan-camilo",
     author: "Juan Camilo Gutiérrez",
     rating: 5,
     text: "Excelente, productos frescos y a un muy buen precio",
+    reply:
+      "¡¡Complacer y ayudar a la economía hacen parte de nuestra responsabilidad con nuestros clientes!",
   },
   {
     id: "lucia",
@@ -43,54 +92,18 @@ export const googleReviews: readonly GoogleReview[] = [
     rating: 5,
     text: "",
     avatar: "lucia.png",
-  },
-  {
-    id: "johan",
-    author: "Johan Nicolás Rodríguez Castañeda",
-    rating: 5,
-    text: "",
-  },
-  { id: "sara", author: "Sara Acosta Gutierrez", rating: 5, text: "" },
-  {
-    id: "raul",
-    author: "Raul Fabian Rincon Castro",
-    rating: 5,
-    text: "",
-    avatar: "raul.png",
-  },
-  {
-    id: "mauricio",
-    author: "Mauricio Agudelo",
-    rating: 1,
-    text: "",
-    avatar: "mauricio.png",
-  },
-  {
-    id: "carolina",
-    author: "Carolina Poulain",
-    rating: 3,
-    text: "",
-    avatar: "carolina.png",
-  },
-  {
-    id: "luz-marina",
-    author: "luz Marina Villamil Arevalo",
-    rating: 3,
-    text: "",
-    avatar: "luz-marina.png",
+    reply:
+      "Calificaciones cómo está hacen que nuestro trabajo por complacer a los clientes valga la pena 😊",
   },
 ];
 
 export function getLatestGoogleReviews(
   reviews: readonly GoogleReview[],
 ): GoogleReview[] {
-  const sorted = [...reviews].sort((a, b) =>
-    (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""),
-  );
   const seen = new Set<string>();
   const latest: GoogleReview[] = [];
 
-  for (const review of sorted) {
+  for (const review of reviews) {
     if (seen.has(review.id)) continue;
     seen.add(review.id);
     latest.push(review);
